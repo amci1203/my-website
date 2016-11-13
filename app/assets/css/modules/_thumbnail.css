@@ -1,0 +1,18 @@
+.thumbnail {
+    display: block;
+    padding: 15px;
+    border: 1px solid rgb(215, 215, 215);
+    box-shadow: 2px 3px 1px #333;
+    &__photo {
+        @util center-block;
+        border: 2px solid #CCC;
+        box-shadow: 1px 1px 1px #333;
+        width: 100%;
+    }
+    &__heading {
+        text-align: center;
+    }
+    &__description {
+        
+    }
+}

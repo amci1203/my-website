@@ -1,0 +1,17 @@
+.titled-list {
+    &__title {
+        text-align: center;
+    }
+    &__list {
+        li {
+            font-weight: 300;
+            line-height: 1.95;
+            @mixin atSmall {
+                font-size: 1.125rem;
+            }
+        }
+        li > a {
+            font-weight: 700;
+        }
+    }
+}

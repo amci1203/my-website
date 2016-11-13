@@ -1,0 +1,9 @@
+.content-list {
+    &--narrowed {
+        margin-right: 100px;
+    }
+    & > li {
+        margin: 10px 0;
+        line-height: 1.35;
+    }
+}

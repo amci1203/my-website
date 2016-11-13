@@ -1,0 +1,11 @@
+.landing {
+    @mixin atLarge {
+        background: url('assets/img/beach-large.jpg');
+    }
+    @mixin atMedium {
+        background: url('assets/img/beach.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    border-bottom: 6px solid #CCC;
+}

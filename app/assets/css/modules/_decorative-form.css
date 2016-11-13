@@ -1,0 +1,27 @@
+.decorative-form {
+    margin: 0 auto;
+    @mixin atMedium {
+        margin: 0;
+    }
+    font-size: 1.2rem;
+    .form-group {
+        display: block;
+        margin: 10px 0;
+        padding: 10px 0;
+        * {
+            display: inline-block;
+        }
+        label {
+            font-weight: 200;
+            width: 150px;
+        }
+        input {
+            background-color: #111;
+            border: 0;
+            border-bottom: 1px solid #FFF;
+            padding-left: 0;
+            font-weight: 600;
+            color: #FFF;
+        }
+    }
+}
