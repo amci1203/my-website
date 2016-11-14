@@ -1,0 +1,62 @@
+.accordion {
+    overflow: hidden;
+
+    .accordion-panel {
+        position: relative;
+        transition: all 0.3s ease-out;
+
+        &__heading {
+            position: relative;
+            z-index: 15;
+            height: 1.5rem;
+            border-bottom: 1px solid #111;
+            transition: all .6s;
+            cursor: pointer;
+        }
+
+        &__caret {
+            @media only print { display: none }
+            display: block;
+            background: url('assets/img/icons/caret.svg');
+            background-repeat: no-repeat;
+            background-size: cover;
+
+            width: 20px;
+            height: 20px;
+            position: absolute;
+            z-index: 10;
+            top: 0;
+            right: 25px;
+
+            text-align: center;
+            font-weight: 700;
+            transform: rotate(-180deg);
+            transition: all 0.3s ease-in;
+
+            &--open {
+                transform: rotate(0);
+            }
+
+        }
+
+        &__content {
+            padding: 0 20px 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all .6s;
+
+            &--open {
+                max-height: 500px;
+                padding: 0 20px 20px 20px;
+            }
+
+            @media only print {
+                position: relative;
+                height: auto;
+                z-index: 10;
+                opacity: 1;
+            }
+        }
+    }
+
+}

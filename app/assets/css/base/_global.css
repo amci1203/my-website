@@ -18,7 +18,7 @@ a {
 .hr {
     margin: 2.15rem;
     @util center-block;
-    background: url('assets/img/hr-white.png');
+    background: url('assets/img/icons/hr-white.png');
     background-repeat: no-repeat;
     background-position: center center;
     background-size: contain;

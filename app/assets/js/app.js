@@ -7,3 +7,4 @@ import FullScreenSection from './modules/FullScreenSection';
 
 const landing = new FullScreenSection('.landing');
 const header = new StickyHeader('.portrait-block p');
+const links = new ScrollSpy();

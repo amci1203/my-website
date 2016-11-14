@@ -9,6 +9,7 @@
     @import 'modules/_landing';
     @import 'modules/_primary-nav';
     @import 'modules/_footer';
+    @import 'modules/_resume';
 /* POTENTIAL REUSABLE */
     @import 'modules/_content-list';
     @import 'modules/_decorative-form';
@@ -27,5 +28,6 @@
     @import 'modules/_section-title';
     @import 'modules/_wrapper';
 /* JAVASCRIPT CLASSES */
+    @import 'modules/_accordion';
     @import 'modules/_modal';
     @import 'modules/_reveal-item';

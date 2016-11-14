@@ -7,8 +7,8 @@ export default class ScrollSpy {
         this.links = $('.primary-nav a');
         this.createSectionWaypoints();
         this.addSmoothScrolling();
-        this.lazyImages = $('.lazyload');
-        this.refreshWaypoints();
+//        this.lazyImages = $('.lazyload');
+//        this.refreshWaypoints();
     }
     addSmoothScrolling () {
         this.links.smoothScroll();

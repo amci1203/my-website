@@ -74,6 +74,7 @@
 
 	var landing = new _FullScreenSection2.default('.landing');
 	var header = new _StickyHeader2.default('.portrait-block p');
+	var links = new _ScrollSpy2.default();
 
 /***/ },
 /* 1 */
@@ -10941,8 +10942,8 @@
 	        this.links = (0, _jquery2.default)('.primary-nav a');
 	        this.createSectionWaypoints();
 	        this.addSmoothScrolling();
-	        this.lazyImages = (0, _jquery2.default)('.lazyload');
-	        this.refreshWaypoints();
+	        //        this.lazyImages = $('.lazyload');
+	        //        this.refreshWaypoints();
 	    }
 
 	    _createClass(ScrollSpy, [{

@@ -25,12 +25,12 @@ var gulp = require('gulp'),
 gulp.task('cleanSprites', function () {
     return del([
         './app/temp/sprite',
-        './app/assets/images/sprites'
+        './app/assets/img/sprites'
     ])
 })
 ///////////////////////////////////////////////////////////////
 gulp.task('createSpriteSheet', ['cleanSprites'], function () {
-     return gulp.src('./app/assets/images/icons/**/*.svg')
+     return gulp.src('./app/assets/img/icons/**/*.{svg,png}')
         .pipe(sheet(config))
         .pipe(gulp.dest('./app/temp/sprite/'));
 })

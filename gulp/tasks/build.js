@@ -21,11 +21,12 @@ gulp.task('copyGeneralFiles', ['cleanDist'], function () {
     return gulp.src([
         './app/**/*',
         '!./app/index.html',
+        '!./app/resume.html',
         '!./app/assets/{js,css,images}/**',
         '!./app/temp',
         '!./app/temp/**',
-        ])
-        .pipe(gulp.dest('./docs'))
+    ])
+    .pipe(gulp.dest('./docs'))
 })
 
 gulp.task('optimizeIMGs', ['cleanDist'], function () {
@@ -43,23 +44,15 @@ gulp.task('useminTrigger', ['cleanDist'], function () {
 })
 
 gulp.task('optimizeStaticFiles', ['css', 'scripts'], function () {
-    return gulp.src(['./app/index.html'])
+    return gulp.src(['./app/index.html', './app/resume.html'])
         .pipe(usemin({
             css: [
-                function () {
-                    return rev();
-                },
-                 function () {
-                    return cssNano();
-                }
+                () => { return rev() },
+                () => { return cssNano() }
              ],
             js: [
-                function () {
-                    return rev()
-                },
-                function () {
-                    return uglify();
-                }
+                () => { return rev() },
+                () => { return uglify() }
             ]
         }))
         .pipe(gulp.dest('./docs'))
