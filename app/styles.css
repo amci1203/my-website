@@ -366,6 +366,11 @@ html [type="button"], /* 1 */
     width: 100%;
     height: 40px;
 }
+    @media only print {
+  .no-print {
+    display: none;
+  }
+}
     /* ASSURED SINGLE USE */
     .header {
     position: absolute;
@@ -564,7 +569,6 @@ html [type="button"], /* 1 */
   .primary-nav li {
     float: left;
     display: block;
-    padding-right: 20px;
   }
 }
     .primary-nav li:last-child {
@@ -588,7 +592,8 @@ html [type="button"], /* 1 */
     @media (min-width: 768px) {
   .primary-nav a {
     font-size: 1rem;
-    padding: 7px 0;
+    margin: 0;
+    padding: 7px 15px;
     background-color: transparent;
   }
   .primary-nav a:hover {
@@ -597,6 +602,10 @@ html [type="button"], /* 1 */
   .primary-nav a.current-link {
     color: #222;
     background-color: #FFF;
+  }
+  .primary-nav a.current-link.black-section-link {
+    background-color: #111;
+    color: #FFF;
   }
 }
     .footer {
@@ -637,20 +646,41 @@ html [type="button"], /* 1 */
     .resume__heading {
   border-bottom: 1px solid #333;
 }
+    .resume__objective {}
     .resume aside {
   position: relative;
-  width: 20%;
+  width: 25%;
   height: 100%;
   padding-right: 25px;
   border-right: 1px solid #222;
+}
+    .resume aside img {
+  margin: 15px auto;
 }
     .resume aside address {
   position: relative;
   bottom: 0;
   text-align: right;
 }
-    .resume article {
-  width: 80%;
+    .resume aside address a {
+  text-decoration: none;
+  color: inherit;
+  text-decoration: underline;
+}
+    .resume aside address a:hover {
+  color: inherit;
+  text-decoration: none;
+}
+    .resume aside address a:visited {
+  color: inherit;
+  text-decoration: none;
+}
+    .resume aside address a:active {
+  color: inherit;
+  text-decoration: none;
+}
+    .resume > article {
+  width: 75%;
   height: 100%;
   padding-left: 25px;
 }
@@ -727,6 +757,10 @@ html [type="button"], /* 1 */
   overflow: hidden;
   border: 6px solid rgba(0, 0, 0, 0.75);
 }
+    .portrait-block__photo img {
+  height: 160px;
+  width: 160px;
+}
     .portrait-block__title {
   font-size: 1.5rem;
   font-weight: 500;
@@ -738,6 +772,11 @@ html [type="button"], /* 1 */
   text-align: center;
   margin-top: 0.25rem;
   margin-bottom: 1rem;
+}
+    .portrait-block .btn {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
     .social-icons {
     text-align: center;
@@ -766,14 +805,51 @@ html [type="button"], /* 1 */
 }
     /* REUSABLES */
     .btn {
-    background-color: #2f5572;
-    color: #FFF;
+    
+    background-color: #FFF;
+    color: #111;
+    
+    border: none;
     text-decoration: none;
     padding: 0.75rem 1.2rem;
+    margin: 10px 0;
     display: inline-block;
 }
-    .btn--orange {
-  background-color: #d59541;
+    .btn a {
+  text-decoration: none;
+  color: inherit;
+}
+    .btn a:hover {
+  color: inherit;
+  text-decoration: none;
+}
+    .btn a:visited {
+  color: inherit;
+  text-decoration: none;
+}
+    .btn a:active {
+  color: inherit;
+  text-decoration: none;
+}
+    .btn:hover {
+  background-color: #111;
+  color: #FFF;
+}
+    .btn--black {
+  background-color: #111;
+  color: #FFF;
+}
+    .btn--black:hover {
+  background-color: #FFF;
+  color: #111;
+}
+    .btn--blue {
+  background-color: rgb(23, 78, 140);
+  color: #FFF;
+}
+    .btn--blue:hover {
+  background-color: #6EA7E7;
+  color: #FFF;
 }
     .btn--large {
   padding: 1.1rem 1.9rem;
@@ -1541,11 +1617,17 @@ html [type="button"], /* 1 */
           transform: rotate(0);
 }
     .accordion .accordion-panel__content {
-  padding: 0 20px 0 20px;
+  padding: 0 20px 0 5px;
   max-height: 0;
   overflow: hidden;
   -webkit-transition: all .6s;
   transition: all .6s;
+  line-height: 1.35;
+}
+    @media only print {
+  .accordion .accordion-panel__content {
+    line-height: normal;
+  }
 }
     .accordion .accordion-panel__content--open {
   max-height: 500px;

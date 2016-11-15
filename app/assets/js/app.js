@@ -1,3 +1,5 @@
+import waypoints from '../../../node_modules/waypoints/lib/noframework.waypoints';
+
 import MobileMenu from './modules/MobileMenu';
 import ScrollReveal from './modules/RevealOnScroll';
 import StickyHeader from './modules/StickyHeader';
@@ -8,3 +10,4 @@ import FullScreenSection from './modules/FullScreenSection';
 const landing = new FullScreenSection('.landing');
 const header = new StickyHeader('.portrait-block p');
 const links = new ScrollSpy();
+const scrollspy = new ScrollSpy();

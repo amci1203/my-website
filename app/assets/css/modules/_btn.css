@@ -1,12 +1,39 @@
 .btn {
-    background-color: $mainBlue;
+    a {
+        @mixin noTextDecoration
+    }
+    
+    background-color: #FFF;
+    color: #111;
+    &:hover {
+        background-color: #111;
     color: #FFF;
+    }
+    
+    border: none;
     text-decoration: none;
     padding: 0.75rem 1.2rem;
+    margin: 10px 0;
     display: inline-block;
-    &--orange {
-        background-color: $mainOrange;
+    
+    &--black {
+        background-color: #111;
+        color: #FFF;
+        &:hover {
+            background-color: #FFF;
+            color: #111;
+        }
     }
+    
+    &--blue {
+        background-color: color(rgb(110, 167, 231) l(-35%));
+        color: #FFF;
+        &:hover {
+            background-color: #6EA7E7;
+            color: #FFF;
+        }
+    }
+    
     &--large {
         padding: 1.1rem 1.9rem;
         @mixin atSmall {

@@ -29,6 +29,11 @@
         border-radius: 80px;
         overflow: hidden;
         border: 6px solid rgba(0, 0, 0, 0.75);
+        
+        img {
+            height: 160px;
+            width: 160px;
+        }
     }
     &__title {
         font-size: 1.5rem;
@@ -41,5 +46,8 @@
         text-align: center;
         margin-top: 0.25rem;
         margin-bottom: 1rem;
+    }
+    .btn {
+        @util center-block;
     }
 }

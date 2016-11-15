@@ -7,8 +7,8 @@ export default class ScrollSpy {
         this.links = $('.primary-nav a');
         this.createSectionWaypoints();
         this.addSmoothScrolling();
-//        this.lazyImages = $('.lazyload');
-//        this.refreshWaypoints();
+        this.lazyImages = $('.lazyload');
+        this.refreshWaypoints();
     }
     addSmoothScrolling () {
         this.links.smoothScroll();
@@ -20,25 +20,27 @@ export default class ScrollSpy {
     }
     createSectionWaypoints () {
         let instance = this;
-        this.pageSections.each(() => {
+        this.pageSections.each(function () {
             let currentPageSection = this;
+            let currentLink = this.getAttribute('data-link')
             new Waypoint({
                 element: currentPageSection,
                 offset: '18%',
-                handler: (direction) => {
+                handler: function (direction) {
                     if (direction === 'down') {
                         if (instance.links.hasClass('current-link')) $('.primary-nav a').removeClass('current-link');
-                        $(currentPageSection.getAttribute('data-link')).addClass('current-link');
+                        $(currentLink).addClass('current-link');
                     }
                 }
             })
             new Waypoint({
                 element: currentPageSection,
                 offset: '-40%',
-                handler: (direction) => {
+                handler: function (direction) {
                     if (direction === 'up') {
                         if (instance.links.hasClass('current-link')) $('.primary-nav a').removeClass('current-link');
-                        $(currentPageSection.getAttribute('data-link')).addClass('current-link');
+                        $(currentLink).addClass('current-link');
+                        if (instance.pageSections[0] === currentPageSection) $('.primary-nav a').removeClass('current-link');
                     }
                 }
             })

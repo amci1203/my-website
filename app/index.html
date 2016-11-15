@@ -18,23 +18,26 @@
         <div class="wrapper">
             <nav class='primary-nav primary-nav--right'>
                 <ul>
-                    <li><a href="#about-me">About Me</a></li>
-                    <li><a href="#projects">Projects</a></li>
-                    <li><a href="#contacts">Contacts</a></li>
+                    <li><a id='about-me-link' class='black-section-link' href="#about-me">About Me</a></li>
+                    <li><a id='projects-link' href="#projects">Projects</a></li>
+                    <li><a id='contacts-link' href="#contacts">Contacts</a></li>
                 </ul>
             </nav>
         </div>
     </header>
-    <section class='landing page-section'>
+    <section class='landing'>
         <div class='portrait-block portrait-block--rounded generic-content-container'>
-            <div class='portrait-block__photo'><img src='' alt='Me, Allen McIntosh' /></div>
+            <div class='portrait-block__photo'><img src='assets/img/me.jpg' alt='Me, Allen McIntosh' /></div>
             <h2 class='portrait-block__title'>Allen McIntosh II</h2>
             <h3 class='portrait-block__subtitle'>Web Developer</h3>
-            <p>From simple websites to feature-rich web applications, I got you covered. I love a good challenge, and I have many modern tools and best practices to help me help you out (P.S: I'm an okay designer too :) )</p>
+            <p>From simple websites to feature-rich web applications, I got you covered.</p>
+            <button class='btn btn--blue'>Contact Me</button>
+            <button class='btn btn'><a href="resume.html">See My Resume</a></button>
         </div>
     </section>
-    <a name='about-me' />
-    <section class='about-me page-section page-section--dark' data-link='#about-me'>
+    
+    <a name='about-me'></a>
+    <section id='about-me' class='page-section page-section--dark' data-link='#about-me-link'>
         <div class="wrapper">
             <h1 class='section-title'>A little about myself</h1>
             <div class='row row--gutters'>
@@ -59,7 +62,7 @@
                    </form>
                 </div>
                 <div class='row__md-4'>
-                    <img src='' alt='Full body photo of me, Allen McIntosh' />
+                    <img class='lazyload' data-src='' alt='Full body photo of me, Allen McIntosh' />
                 </div>
             </div>
             <div class='hr'></div>
@@ -89,19 +92,25 @@
             <sub>* I got a love-hate thing going on with hardware. I do really enjoy it, yet it's so easy to screw up :( . At least screwing software up is free.</sub>
         </div>
     </section>
+    
     <a name='projects'></a>
-    <section class='my-projects page-section' data-link='#projects'>
+    <section id='projects' class='page-section' data-link='#projects-link'>
         <div class="wrapper row row-equal-height-md">
             <h2 class='section-title section-title--less-margin'>My <strong>Projects</strong></h2>
             <div class='wrapper wrapper--medium wrapper--b-margin generic-text-container'>
                 Let me use this time to say now that I've never had a 'job' in the software or web development field--all things I've done have been on my own time. What I lack in work experience, I've been trying my best to make up for by having tangible work and learning as much as I can. Below are some of my projects I'd like to showcase to anyone willing to look. Each thumbnail is linked to its respective github repo or website (if applicable)--hope you like it!
             </div>
             <article class='thumbnail row__md-6 row__lg-4'>
-                <a href='https://github.com/amci1203/my-website'><img class='thumbnail__photo' src='assets/img/project-thumbs/my-website.png' alt='Website Screenshot' /></a>
+                <a href='https://github.com/amci1203/my-website'><img class='lazyload thumbnail__photo' data-src='assets/img/project-thumbs/my-website.png' alt='Website Screenshot' /></a>
                 <h3 class='thumbnail__heading'>This Website</h3>
                 <p class='thumbnail__description'>I think it would make sense to showcase this project first.</p>
             </article>
         </div>
+    </section>
+    
+    <a name='contacts'></a>
+    <section id='contacts' class='page-section' data-link='#contacts-link'>
+        <h2 class='section-title'>Contacts</h2>
     </section>
 
     <!--  build:js assets/js/app.js -->

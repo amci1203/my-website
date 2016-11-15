@@ -17,21 +17,34 @@
     &__heading {
         border-bottom: 1px solid #333;
     }
+    
+    &__objective {}
 
     aside {
+        img {
+            margin: 15px auto;
+        }
+        
         position: relative;
-        width: 20%;
+        width: 25%;
         height: 100%;
         padding-right: 25px;
         border-right: 1px solid #222;
+        
         address {
             position: relative;
             bottom: 0;
             text-align: right;
+            
+            a { 
+                @mixin noTextDecoration;
+                text-decoration: underline;
+            }
         }
     }
-    article {
-        width: 80%;
+    
+     > article {
+        width: 75%;
         height: 100%;
         padding-left: 25px;
     }
