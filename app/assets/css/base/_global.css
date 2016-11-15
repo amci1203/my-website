@@ -26,6 +26,21 @@ a {
     height: 40px;
 }
 
+.no-text-decoration {
+    @mixin noTextDecoration;
+    a& {
+        text-decoration: underline;
+    }
+}
+
+.strong {
+    font-weight: 600;
+}
+
 .no-print {
     @media only print { display: none }
+}
+.print-only {
+    display: none;
+    @media only print { display: block }
 }

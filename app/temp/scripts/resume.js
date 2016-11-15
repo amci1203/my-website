@@ -56,9 +56,9 @@
 	var AP = _Accordion2.default;
 
 	var skills = new AP('#skills', true);
-	var education = new AP('#education', true);
+	var education = new AP('#education');
 	var workExperience = new AP('#work-experience');
-	var certifications = new AP('#certifications');
+	var certifications = new AP('#certifications', true);
 	var references = new AP('#references');
 
 /***/ },
@@ -9949,7 +9949,10 @@
 	    }, {
 	        key: 'setDefaultState',
 	        value: function setDefaultState(panel, bool) {
-	            if (bool) (0, _jquery2.default)(panel + ' .accordion-panel__content').addClass('accordion-panel__content--open');
+	            if (bool) {
+	                (0, _jquery2.default)(panel + ' .accordion-panel__content').addClass('accordion-panel__content--open');
+	                (0, _jquery2.default)(panel + ' .accordion-panel__caret').addClass('accordion-panel__caret--open');
+	            }
 	        }
 	    }, {
 	        key: 'toggleAccordion',

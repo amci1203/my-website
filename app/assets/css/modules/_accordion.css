@@ -44,11 +44,7 @@
             max-height: 0;
             overflow: hidden;
             transition: all .6s;
-            
             line-height: 1.35;
-            @media only print {
-                line-height: normal;
-            }
             
             &--open {
                 max-height: 500px;
@@ -57,9 +53,21 @@
 
             @media only print {
                 position: relative;
-                height: auto;
+                max-height: 1000px;
                 z-index: 10;
                 opacity: 1;
+                line-height: normal;
+            }
+
+            &__heading {
+                margin: 0;
+                font-weight: normal;
+                span { font-weight: 600 }
+            }
+
+            & > ul {
+                margin-top: 3px;
+                @media only print { margin-top: 0 }
             }
         }
     }

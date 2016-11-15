@@ -13,7 +13,10 @@ export default class AccordionPanel {
     }
 
     setDefaultState (panel, bool) {
-        if (bool) $(panel + ' .accordion-panel__content').addClass('accordion-panel__content--open');
+        if (bool) {
+            $(panel + ' .accordion-panel__content').addClass('accordion-panel__content--open');
+            $(panel + ' .accordion-panel__caret').addClass('accordion-panel__caret--open');
+        }
     }
 
     toggleAccordion (event) {

@@ -4,6 +4,7 @@
     }
     @mixin atMedium {
         background: url('assets/img/beach.jpg');
+        background-attachment: fixed;
         background-repeat: no-repeat;
         background-size: cover;
     }
