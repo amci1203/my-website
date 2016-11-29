@@ -1127,20 +1127,20 @@ html [type="button"], /* 1 */
     .row--gutters {
   margin-right: -65px;
 }
-    .row--gutters > div {
-  padding-right: 65px
+    .row--gutters > div, .row--gutters > article, .row--gutters > section {
+  margin-right: 65px
 }
     .row--gutters--large {
   margin-right: -97.5px;
 }
-    .row--gutters--large > div {
-  padding-right: 97.5px
+    .row--gutters--large > div, .row--gutters--large > article, .row--gutters--large > section {
+  margin-right: 97.5px
 }
     .row--gutters--small {
   margin-right: -45.5px;
 }
-    .row--gutters--small > div {
-  padding-right: 45.5px
+    .row--gutters--small > div, .row--gutters--small > article, .row--gutters--small > section {
+  margin-right: 45.5px
 }
     .row--t-padding {
   padding-top: 5rem;
@@ -1455,7 +1455,7 @@ html [type="button"], /* 1 */
     display: flex;
   }
 }
-    .flexbox .row--equal-height-md > div {
+    .flexbox .row--equal-height-md > div, .flexbox .row--equal-height-md > article, .flexbox .row--equal-height-md > section {
   float: none;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1468,7 +1468,7 @@ html [type="button"], /* 1 */
     display: flex;
   }
 }
-    .flexbox .row--equal-height-lg > div {
+    .flexbox .row--equal-height-lg > div, .flexbox .row--equal-height-lg > article, .flexbox .row--equal-height-lg > section {
   float: none;
   display: -webkit-box;
   display: -ms-flexbox;

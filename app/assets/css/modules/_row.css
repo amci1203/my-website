@@ -2,14 +2,14 @@
     @mixin clearfix;
     &--gutters {
         margin-right: calc($gutter-width * -1);
-        & > div { padding-right: $gutter-width }
+        & > div, & > article, & > section { margin-right: $gutter-width }
         &--large {
             margin-right: calc((1.5 * $gutter-width) * -1);
-            & > div { padding-right: calc(1.5 * $gutter-width) }
+            & > div, & > article, & > section { margin-right: calc(1.5 * $gutter-width) }
         }
         &--small {
             margin-right: calc((0.7 * $gutter-width) * -1);
-            & > div { padding-right: calc(0.7* $gutter-width) }
+            & > div, & > article, & > section { margin-right: calc(0.7* $gutter-width) }
         }
     }
     &--t-padding {
@@ -321,7 +321,7 @@
         @mixin atMedium {
             display: flex;
         }
-        & > div {
+        & > div, & > article, & > section {
             float: none;
             display: flex;
         }
@@ -330,7 +330,7 @@
         @mixin atLarge {
             display: flex;
         }
-        & > div {
+        & > div, & > article, & > section {
             float: none;
             display: flex;
         }
