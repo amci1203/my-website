@@ -30,7 +30,7 @@ gulp.task('cleanSprites', function () {
 })
 ///////////////////////////////////////////////////////////////
 gulp.task('createSpriteSheet', ['cleanSprites'], function () {
-     return gulp.src('./app/assets/img/icons/**/*.{svg,png}')
+     return gulp.src('./app/assets/img/icons/**/*.svg')
         .pipe(sheet(config))
         .pipe(gulp.dest('./app/temp/sprite/'));
 })
@@ -48,7 +48,7 @@ gulp.task('copySpriteCSS', ['createSpriteSheet'], function () {
 })
 gulp.task('copySpriteFile', ['createPNGCopy'], function () {
     return gulp.src('./app/temp/sprite/css/**/*.{svg,png}')
-        .pipe(gulp.dest('./app/assets/images/sprites'));
+        .pipe(gulp.dest('./app/assets/img/sprites'));
 })
 ///////////////////////////////////////////////////////////////
 gulp.task('endClean', ['copySpriteCSS', 'copySpriteFile'], function () {

@@ -32,9 +32,12 @@
         border-right: 1px solid #222;
         
         address {
-            position: relative;
-            bottom: 0;
+            @media only print {
+                position: absolute;
+                bottom: 0;
+            }
             text-align: right;
+            padding-right: 25px;
             
             a { 
                 @mixin noTextDecoration;

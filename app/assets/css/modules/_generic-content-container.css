@@ -1,4 +1,7 @@
 .generic-content-container {
+    &.text-center p {
+        text-align: center;
+    }
     p {
         font-weight: 300;
         line-height: 1.65;

@@ -76,8 +76,8 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var landing = new _FullScreenSection2.default('.landing');
-	var header = new _StickyHeader2.default('.portrait-block p');
+	var landing = new _FullScreenSection2.default('#landing');
+	var header = new _StickyHeader2.default('#landing__buttons');
 	var links = new _ScrollSpy2.default();
 	var scrollspy = new _ScrollSpy2.default();
 

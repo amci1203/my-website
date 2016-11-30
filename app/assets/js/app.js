@@ -7,7 +7,7 @@ import Modal from './modules/Modal';
 import ScrollSpy from './modules/ScrollSpy';
 import FullScreenSection from './modules/FullScreenSection';
 
-const landing = new FullScreenSection('.landing');
-const header = new StickyHeader('.portrait-block p');
+const landing = new FullScreenSection('#landing');
+const header = new StickyHeader('#landing__buttons');
 const links = new ScrollSpy();
 const scrollspy = new ScrollSpy();

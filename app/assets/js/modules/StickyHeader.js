@@ -1,7 +1,5 @@
 import $ from 'jquery';
-
-
-class StickyHeader {
+export default class StickyHeader {
     constructor (triggerSelector) {
         this.header = $('.header');
         this.triggerElement = $(triggerSelector);
@@ -17,5 +15,3 @@ class StickyHeader {
         })
     }
 }
-
-export default StickyHeader;

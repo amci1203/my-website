@@ -58,7 +58,7 @@
 	var skills = new AP('#skills', true);
 	var education = new AP('#education');
 	var workExperience = new AP('#work-experience');
-	var certifications = new AP('#certifications', true);
+	var certifications = new AP('#certifications');
 	var references = new AP('#references');
 
 /***/ },

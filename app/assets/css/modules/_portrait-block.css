@@ -1,13 +1,11 @@
 .portrait-block {
-    max-width: 25rem;
     margin-left: auto;
     margin-right: auto;
     position: relative;
     z-index: 100;
     top: 50%;
     transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.85);
-    color: #FFF;
+    color: #333;
     padding: 0 $wrapper-padding;
     margin-bottom: 7rem;
     padding-bottom: 25px;
@@ -21,15 +19,12 @@
     padding-bottom: 1px;
     &__photo {
         position: relative;
-        top: -80px;
         margin: 0 auto;
-        margin-bottom: -80px;
         width: 160px;
         height: 160px;
         border-radius: 80px;
         overflow: hidden;
-        border: 6px solid rgba(0, 0, 0, 0.75);
-        
+        border: 6px solid #FFF;
         img {
             height: 160px;
             width: 160px;

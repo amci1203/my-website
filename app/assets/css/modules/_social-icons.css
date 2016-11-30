@@ -1,8 +1,8 @@
 .social-icons {
-    text-align: center;
+    text-align: left;
     &__icon {
         position : relative;
-        background-color: $mainOrange;
+        background-color: color($bahamaYellow b(10%));
         display: inline-block;
         margin: 0 5px 5px 5px;
         width: 33%;

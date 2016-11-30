@@ -1,12 +1,61 @@
-.landing {
-    @mixin atLarge {
-        background: url('assets/img/beach-large.jpg');
+#landing {
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-bottom: 6px solid #CCC;
+    background: url('assets/img/landing_bg/xsmall.png');
+    @mixin atSmall {
+        background: url('assets/img/landing_bg/small.png');
     }
     @mixin atMedium {
-        background: url('assets/img/beach.jpg');
-        background-attachment: fixed;
-        background-repeat: no-repeat;
-        background-size: cover;
+        background: url('assets/img/landing_bg/medium.png');
     }
-    border-bottom: 6px solid #CCC;
+
+    .wrapper {
+        width: 100%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    img {
+        position: relative;
+        z-index: 100;
+        border-radius: 900px;
+        border: 7px solid #FFF;
+        height: 200px;
+        width: 200px;
+    }
+    &__content {
+        background-color: #FFF;
+        padding: 20px 15px;
+        box-shadow: 3px 5px 2px #333;
+        .title {
+            margin: 0;
+        }
+        .subtitle {
+            margin-top: 2px;
+        }
+        p {
+            font-weight: 300;
+            font-size: 1.15rem;
+        }
+        @mixin atMedium {
+            &::before {
+                position: relative;
+                z-index: 90;
+                top: 65px;
+                left: -75px;
+                content: "";
+                position: relative;
+                width: 60px;
+                height: 20px;
+                border-top: 15px solid transparent;
+                border-right: 70px solid #FFF;
+                border-bottom: 15px solid transparent;
+                border--top-left-radius: 15px;
+                border--top-right-radius: 15px;
+            }
+        }
+    }
 }
