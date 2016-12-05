@@ -6,8 +6,11 @@ import StickyHeader from './modules/StickyHeader';
 import Modal from './modules/Modal';
 import ScrollSpy from './modules/ScrollSpy';
 import FullScreenSection from './modules/FullScreenSection';
+import AccordionPanel from './modules/Accordion';
 
-const landing = new FullScreenSection('.landing');
-const header = new StickyHeader('.portrait-block p');
+const landing = new FullScreenSection('#landing');
+const menu = new MobileMenu();
+const header = new StickyHeader('.header');
 const links = new ScrollSpy();
-const scrollspy = new ScrollSpy();
+
+const aboutMe = new AccordionPanel('#about-me-accordion-panel', false, '#about-me-accordion__trigger')

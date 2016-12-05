@@ -13,21 +13,21 @@
             transition: all .6s;
             cursor: pointer;
         }
+        &__always-shown {
+            position: relative;
+            z-index: 15;
+        }
 
         &__caret {
             @media only print { display: none }
-            display: block;
-            background: url('assets/img/icons/caret.svg');
-            background-repeat: no-repeat;
-            background-size: cover;
-
-            width: 20px;
-            height: 20px;
             position: absolute;
             z-index: 10;
             top: 0;
             right: 25px;
-
+            background-image: url('../../assets/img/icons/caret.svg');
+            background-size: cover;
+            width: 20px;
+            height: 20px;
             text-align: center;
             font-weight: 700;
             transform: rotate(-180deg);
@@ -38,6 +38,11 @@
             }
 
         }
+        &__trigger {
+            &:hover {
+                cursor: pointer;
+            }
+        }
 
         &__content {
             padding: 0 20px 0 5px;
@@ -47,8 +52,9 @@
             line-height: 1.35;
             
             &--open {
-                max-height: 500px;
+                max-height: 1500px;
                 padding: 0 20px 20px 20px;
+                &.no-padding { padding: 0 0 20px 0 }
             }
 
             @media only print {

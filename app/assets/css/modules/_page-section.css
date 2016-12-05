@@ -4,6 +4,15 @@
         background-color: #111;
         color: #FFF;
     }
+    &--yellow {
+        background-color: $bahamaYellow;
+        color: #333;
+    }
+    &--blue {
+        font-size: 105%;
+        background-color: $bahamaBlue;
+        color: #FFF;
+    }
     &--testimonials {
         background-color: #E0E6EF;
         @mixin atLarge {

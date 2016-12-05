@@ -1,77 +1,109 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Allen McIntosh II</title>
-  <meta name="keywords" content="Allen McIntosh II, modern web developer, responsive designer">
-  <meta name="description" content="If you need a responsive website or webapp that leverages modern technologies, look no further--I love a challenge :)">
-  <!--  build:css assets/css/styles.css  -->
-  <link rel='stylesheet' href='styles.css' type='text/css' />
-  <!--  endbuild  -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Allen McIntosh II</title>
+    <meta name="keywords" content="Allen McIntosh II, modern web developer, responsive designer">
+    <meta name="description" content="If you need a responsive website or webapp that leverages modern technologies, look no further--I love a challenge :)">
+    <!--  build:css assets/css/styles.css  -->
+    <link rel='stylesheet' href='styles.css' type='text/css' />
+    <!--  endbuild  -->
+    <svg xmlns="http://www.w3.org/2000/svg">
+      <defs>
+           <pattern id="pattern-0" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse" viewBox="0 0 100 100"> <path d="M 0 0 L 50 0 L 50 100 L 0 100 Z" style="fill: black;"/> </pattern> 
+      </defs>
+        <symbol id="back-arrow" viewBox="0 0 240 240">
+          <title>back-arrow icon</title>
+          <g fill="#fff"><path d="M101.8 1.5C68 6.8 38.9 26 19.2 56c-37 56.1-17.9 133.4 41.3 167.7 45.9 26.6 102.2 19.8 141.1-17 55.3-52.3 49.9-138.1-11.5-183.6-24.8-18.3-57.5-26.3-88.3-21.6zm34.9 21c21.6 4.1 39.8 13.9 54.5 29.3 12.2 12.8 20.4 27.4 24.9 44.2 3.2 11.8 3.3 35.7.1 47.2-5.1 18.7-13.5 33.3-26.6 46.4-18.8 18.7-40.1 28.1-66.1 29.2-55.8 2.3-102.6-43-102.5-99.2.1-44.9 31-84.5 74.5-95.5 4.4-1.1 9.4-2.2 11-2.4 7.4-1 23-.6 30.2.8z"/><path d="M78.1 94.6l-24.3 25.5 7.8 8.2c4.4 4.5 15.3 16 24.3 25.5l16.5 17.2h34.8l-18.1-18.8-18-18.7 39.9-.3 40-.2v-26h-80.5l13-13.3c7.2-7.2 15.5-15.8 18.5-19l5.4-5.7H120l-17.5.1-24.4 25.5z"/></g>
+        </symbol>
+        <symbol id="caret" viewBox="0 0 292.362 292.362">
+          <title>caret icon</title>
+          <path d="M286.935 69.377c-3.614-3.617-7.898-5.424-12.848-5.424H18.274c-4.952 0-9.233 1.807-12.85 5.424C1.807 72.998 0 77.279 0 82.228c0 4.948 1.807 9.229 5.424 12.847l127.907 127.907c3.621 3.617 7.902 5.428 12.85 5.428s9.233-1.811 12.847-5.428L286.935 95.074c3.613-3.617 5.427-7.898 5.427-12.847 0-4.948-1.814-9.229-5.427-12.85z"/>
+        </symbol>
+        <symbol id="facebook" viewBox="0 0 21.23 42.01">
+          <title>facebook</title><path class="cls-1" d="M21.23.31V7H17.4a3.55 3.55 0 0 0-2.85.91 4.26 4.26 0 0 0-.74 2.72v4.77H21l-1 7.47h-6.19V42H6.27V22.85H0v-7.47h6.27V9.85q0-4.69 2.55-7.28A9 9 0 0 1 15.63 0a39.57 39.57 0 0 1 5.6.31z"/>
+        </symbol>
+    
+        <symbol id="hr" viewBox="0 210 500 50">
+          <title>hr icon</title>
+           <path d="M -18.743 169.456 Z" style="stroke: black; fill: none;"/> <path d="M 0 240 L 200 230 L 200 250 L 0 240 Z M 500 240 L 300 250 L 300 230 L 500 240 Z M 276.001 234.726 C 276.002 248.533 264.81 259.726 251.003 259.726 C 237.196 259.727 226.002 248.534 226.001 234.727 C 226 220.92 237.193 209.727 251 209.726 C 264.807 209.726 276 220.919 276.001 234.726 Z M 216.496 237.5 C 216.496 241.642 213.139 245 208.996 245 C 204.854 245 201.496 241.642 201.496 237.5 C 201.496 233.358 204.854 230 208.996 230 C 213.139 230 216.496 233.358 216.496 237.5 Z M 298.508 237.5 C 298.508 241.642 295.15 245 291.008 245 C 286.866 245 283.508 241.642 283.508 237.5 C 283.508 233.358 286.866 230 291.008 230 C 295.15 230 298.508 233.358 298.508 237.5 Z" style="fill: rgb(255, 255, 255);"/> <ellipse transform="matrix(NaN, NaN, NaN, NaN, NaN, NaN)" style="fill: rgb(216, 216, 216);"/> 
+        </symbol>
+        <symbol id="mail" viewBox="0 -0.075 48.083 36.156">
+            <title>mail</title> <path class="cls-1" d="M 0 0 L 0 6 L 24 18 L 48 6 L 48 0 L 0 0 Z M 0 12 L 0 36 L 48 36 L 48 12 L 24 24 L 0 12 Z" style="fill-rule: evenodd; fill: rgb(255, 255, 255);"/> 
+        </symbol>
+        <symbol id="phone" viewBox="0 0 103.5 103.5">
+          <title>phone icon</title>
+           <path d="M64.832,55.837c-3.581,3.583-3.581,7.166-7.163,7.166c-3.579,0-7.161-3.583-10.743-7.166
+        c-3.578-3.58-7.16-7.161-7.16-10.743c0-3.579,3.582-3.579,7.16-7.161c3.582-3.582-7.16-14.317-10.74-14.317
+        c-3.577,0-10.74,10.736-10.74,10.736c0,7.164,7.357,21.68,14.32,28.651c6.966,6.961,21.485,14.32,28.646,14.32
+        c0,0,10.741-7.163,10.741-10.742C79.153,63.003,68.412,52.258,64.832,55.837z" style="fill: rgb(255, 255, 255);"/> <circle stroke-width="2.7778" stroke-miterlimit="10" cx="51.833" cy="51.859" r="50" style="fill: none;"/> 
+        </symbol>
+        <symbol id="twitter" viewBox="0 0 51.78 42.06">
+          <title>twitter</title><path class="cls-1" d="M51.78,5a22.23,22.23,0,0,1-5.32,5.52v1.38a30.15,30.15,0,0,1-1.25,8.53,30.81,30.81,0,0,1-3.76,8.13,32.1,32.1,0,0,1-6.06,6.92,27,27,0,0,1-8.48,4.8,31,31,0,0,1-10.62,1.8A29.47,29.47,0,0,1,0,37.29a22.71,22.71,0,0,0,2.56.13,20.78,20.78,0,0,0,13.17-4.53,10.63,10.63,0,0,1-9.92-7.36,13.45,13.45,0,0,0,2,.16,11,11,0,0,0,2.79-.36,10.44,10.44,0,0,1-6.09-3.67A10.25,10.25,0,0,1,2.1,14.91V14.78a10.52,10.52,0,0,0,4.8,1.34,10.6,10.6,0,0,1-3.45-3.78A10.34,10.34,0,0,1,2.17,7.27,10.4,10.4,0,0,1,3.62,1.94a30.08,30.08,0,0,0,9.71,7.83A29.57,29.57,0,0,0,25.53,13a11.79,11.79,0,0,1-.26-2.43,10.23,10.23,0,0,1,3-7.48,10.64,10.64,0,0,1,15,0l0.21,0.22A20.81,20.81,0,0,0,50.33.8a10.3,10.3,0,0,1-4.67,5.85A21.14,21.14,0,0,0,51.78,5Z"/>
+        </symbol>
+    </svg>
 </head>
 <body>
     <!--  build:js assets/js/vendor.js -->
     <script src='temp/scripts/vendor.js'></script>
     <!--  endbuild -->
-
     <header class='header'>
         <div class="wrapper">
-            <nav class='primary-nav primary-nav--right'>
-                <ul>
-                    <li><a id='about-me-link' class='black-section-link' href="#about-me">About Me</a></li>
-                    <li><a id='projects-link' href="#projects">Projects</a></li>
-                    <li><a id='contacts-link' href="#contacts">Contacts</a></li>
-                </ul>
-            </nav>
+            <div class="header__menu-icon">
+                  <div class="header__menu-icon__middle"></div>
+            </div>
+            <div class="header__menu-content">
+                <nav class='primary-nav primary-nav--right'>
+                    <ul>
+                        <li><a id='about-me-link' class='black-section-link' href="#about-me">About Me</a></li>
+                        <li><a id='projects-link' class='blue-section-link' href="#projects">Projects</a></li>
+                        <li><a id='contacts-link' class='yellow-section-link' href="#contacts">Contacts</a></li>
+                    </ul>
+                </nav
+            </div>
         </div>
     </header>
-    <section class='landing'>
-        <div class='portrait-block portrait-block--rounded generic-content-container'>
-            <div class='portrait-block__photo'><img src='assets/img/me.jpg' alt='Me, Allen McIntosh' /></div>
-            <h2 class='portrait-block__title'>Allen McIntosh II</h2>
-            <h3 class='portrait-block__subtitle'>Web Developer</h3>
-            <p>From simple websites to feature-rich web applications, I got you covered.</p>
-            <button class='btn btn--blue'>Contact Me</button>
-            <button class='btn btn--black'><a href="resume.html">See My Resume</a></button>
+    
+    <section id='landing'>
+        <div class="wrapper">
+            <div class='section group'>
+                <div class="col span_1_of_4 img-container">
+                    <img src='assets/img/me.jpg' alt='Me, Allen McIntosh' />
+                </div>
+                <div id='landing__content' class="col span_3_of_4">
+                    <h2 class='title'>Allen McIntosh II</h2>
+                    <h3 class='subtitle'>Web Developer</h3>
+                </div>
+            </div>
+            <div id='landing__buttons' class="section group">
+                <div class="col span_1_of_2">
+                    <a href='#contacts'  class='anchor-link btn btn--white--bordered btn--full-width'>Contact Me</a>
+                </div>
+                <div class="col span_1_of_2">
+                    <a href="resume.html" class='btn btn--black--bordered btn--full-width'>See My Resume</a>
+                </div>
+            </div>
         </div>
     </section>
     
     <a name='about-me'></a>
     <section id='about-me' class='page-section page-section--dark' data-link='#about-me-link'>
-        <div class="wrapper">
+        <div class="wrapper wrapper--medium accordion">
             <h1 class='section-title'>A little about myself</h1>
-            <div class='row row--gutters'>
-                <div class='row__md-8'>
-                   <form class='decorative-form'>
-                       <div class="form-group">
-                           <label for='name'>Name : </label>
-                           <input name='name' type='text' value='Allen McIntosh' disabled/>
-                       </div>
-                       <div class="form-group">
-                           <label for='age'>Age : </label>
-                           <input name='age' type='number' value='20' disabled/>
-                       </div>
-                       <div class="form-group">
-                           <label for='nationality'>Nationality : </label>
-                           <input name='nationality' type='text' value='Bahamian' disabled/>
-                       </div>
-                       <div class="form-group no-print">
-                           <label for='blood'>Political Party : </label>
-                           <input name='blood' type='password' value='secret(none, actually)' disabled/>
-                       </div>
-                   </form>
+            <div id='about-me-accordion-panel' class="accordion-panel">
+                <div class='generic-content-container accordion-panel__always-shown'>
+                    <p>Ever since I was old enough to actually have a tangible idea of what I wanted to be, I dreamed a game programmer--I still do, but I've come to realize that I do really like programming in general. I will be the first to admit that it sometimes is a real pain, but that's usually when I simply am not at my best or straight up frustrated (which happens less as I learn and do more), and more importantly, the 'AHA!' moments when everything works as it should is well worth it. Not to mention that it makes life easier for somebody who could use one less stress in their life. It gets hard, but as long as I feel as though my effort will <em>actually help somebody</em>, I'm ready for the long haul.</p>
+                </div>    
+                <div class='generic-content-container accordion-panel__content no-padding'>
+                    <p>As I'm fairly certain many people do, My first experience with anything development related was with HTML &amp; CSS on Codeacademy, and Java in college (to be honest, one of the only classes I am truly glad I got to take while I was in school, thank you Mr. Wing Tong). I also played with some Javascript and PHP while I was in school on my own time, and two years in, I truly lost my resolve as to why I was in school moving at a snail's pace in its Computer Science Program  when I am fully capable of learning what I want, when I want, how I want. So against my and everyone else's better judgement, I ended up leaving school and returning home to The Bahamas.</p>
+                    <p>Nowadays, I spend most of my time on my laptop, either on Brackets (my current favorite editor), Udemy, or wherever there's a good nugget on the internet. So far, I can write enough PHP and SQL to get by, but I'm not a huge fan, and I've tried a bit of Python too, but again, it doesn't strike my interest too much. And I've looked at Ruby on Rails and actually liked it, but quickly realized that I was better off sticking to the Javascript environment due to the former being nowhere near as ubiquitous and malleable as the latter--and oh how I love the Javascript scene. I truly believe that I couldn't choose a better time to get into it, with the ES6 specification, Node.js, and the array of frameworks it has to offer; it's alot to learn, yes, but learning is pretty fun when it's something you like. As of now, I equally love the back and front end (which I guess is a good thing :) ), and have been focusing mainly on web development/design; soon, I'll be taking a much needed leap onto Android and iOS development, and being an IT Technician (if you can't tell, I love computers), I'd love to hop on the IoT train as soon as the chance arrives.</p>
                 </div>
-                <div class='row__md-4'>
-                    <img class='lazyload' data-src='' alt='Full body photo of me, Allen McIntosh' />
-                </div>
+                <div id='about-me-accordion__trigger' class='accordion-panel__trigger'><p>(Read More)</p></div>
             </div>
-            <div class='hr'></div>
-        </div>
-        <div class="wrapper wrapper--medium">
             <div class="titled-list pull-left-md">
-               <h3 class='titled-list__title'>Hobbies</h3>
+               <h3 class='titled-list__title'>Likes</h3>
                <ul class='titled-list__list'>
-                   <li>Coding (obvious, much?)</li>
+                   <li>Coding</li>
                    <li>Learning new things</li>
                    <li>Tinkering with almost anything with a PCB</li>
                    <li>Video Games</li>
@@ -79,7 +111,7 @@
                </ul>
             </div>
             <div class='titled list pull-right-md'>
-               <h3 class='titled-list__title'>Honest Dislikes</h3>
+               <h3 class='titled-list__title'>Dislikes</h3>
                <ul class='titled-list__list'>
                    <li>Braindead, mundane tasks</li>
                    <li>Learning <em>obsolete</em> things</li>
@@ -94,24 +126,87 @@
     </section>
     
     <a name='projects'></a>
-    <section id='projects' class='page-section' data-link='#projects-link'>
-        <div class="wrapper row row-equal-height-md">
-            <h2 class='section-title section-title--less-margin'>My <strong>Projects</strong></h2>
-            <div class='wrapper wrapper--medium wrapper--b-margin generic-text-container'>
-                Let me use this time to say now that I've never had a 'job' in the software or web development field--all things I've done have been on my own time. What I lack in work experience, I've been trying my best to make up for by having tangible work and learning as much as I can. Below are some of my projects I'd like to showcase to anyone willing to look. Each thumbnail is linked to its respective github repo or website (if applicable)--hope you like it!
+    <section id='projects' class='page-section page-section--blue' data-link='#projects-link'>
+        <div class="wrapper">
+            <h2 class='section-title'>My <strong>Projects</strong></h2>
+            <div class='wrapper wrapper--medium wrapper--b-margin generic-content-container'>
+                <p>
+                    Let me use this time to say now that I've never had a 'job' in the software or web development field--all things I've done have been on my own time. What I lack in work experience, I've been trying my best to make up for by at least having some tangible work and learning as much as I can. Below are some of my projects I'd like to showcase to anyone willing to look. Each thumbnail is linked to its respective github repo or website (if applicable)--hope you like it!
+                </p>
             </div>
-            <article class='thumbnail row__md-6 row__lg-4'>
-                <a href='https://github.com/amci1203/my-website'><img class='lazyload thumbnail__photo' data-src='assets/img/project-thumbs/my-website.png' alt='Website Screenshot' /></a>
-                <h3 class='thumbnail__heading'>This Website</h3>
-                <p class='thumbnail__description'>I think it would make sense to showcase this project first.</p>
-            </article>
+            <div class='section group row--equal-height-md'>
+                <div class="col span_1_of_2">
+                    <article class='thumbnail'>
+                        <a href='https://github.com/amci1203/my-website'><img class='lazyload thumbnail__photo' data-src='assets/img/project-thumbs/my-website.png' alt='Website Screenshot' /></a>
+                        <h3 class='thumbnail__heading'>This Website</h3>
+                        <p class='thumbnail__description'>I think it would make sense to showcase this project first. Simple, I know, but you can't deny that it works--just how I like my stuff.</p>
+                    </article>
+                </div>
+                <div class="col span_1_of_2">
+                    <article class='thumbnail'>
+                        <a href='https://github.com/amci1203/apex-inventory'><img class='lazyload thumbnail__photo' data-src='assets/img/project-thumbs/housekeeping-inventory.png' alt='Inventory App Screenshot' /></a>
+                        <h3 class='thumbnail__heading'>Housekeeping Inventory</h3>
+                        <p class='thumbnail__description'>Small Express app I made primarily for the housekeeping department at work. Though that it isn't to say that it isn't useful for any simple inventory recording. Currently at version 1.0; will be upgrading this one when I can.</p>
+                    </article>
+                </div>
+            </div>
+                <div class="section group">
+
+                </div>
         </div>
     </section>
     
     <a name='contacts'></a>
-    <section id='contacts' class='page-section' data-link='#contacts-link'>
+    <section id='contacts' class='page-section page-section--yellow' data-link='#contacts-link'>
         <h2 class='section-title'>Contacts</h2>
+        <div class="wrapper">
+            <article class='section group'>
+                <div class='col span_2_of_3 generic-content-container'>
+                    <q>Before the telephone and world wide web, the question 'Where are you?' was a pretty rare sentence</q>
+                    <cite>- Anonymous</cite>
+                    <p class='padded-top'>This is the part where most people in my age bracket would list their, frankly, quite lengthy list of social media accounts that they can be reached at. Unfortunately, I'm not the social media type. The best way to reach me, as anybody who knows me can tell you, is by phone; that's not to say that I don't have any social media, so enough rambling from me.</p>
+                    <p>Email: <br /><a href='mailto:me@allen-mcintoshii.com'>me@allen-mcintoshii.com</a></p>
+                    <p>Phone: <br /><a href='tel:12424413229'>+1 (242) 441-3229</a></p>
+                    <div class="social-icons">
+                        <div class='social-icons__icon'>
+                            <a href="">
+                                <svg role="img" class="facebook icon">
+                                    <use xlink:href="#facebook"></use>
+                                </svg>
+                            </a>
+                        </div>
+                        <div class='social-icons__icon'>
+                                <a href="">
+                                   <svg role="img" class="twitter icon">
+                                    <use xlink:href="#twitter"></use>
+                                </svg>
+                            </a>
+                        </div>
+                        <div class='social-icons__icon'>
+                            <a href="tel:12424413229">
+                                <svg role="img" class="phone icon">
+                                    <use xlink:href="#phone"></use>
+                                </svg>
+                            </a>
+                        </div>
+                        <div class='social-icons__icon'>
+                            <a href="mailto:me@allen-mcintoshii.me">
+                                <svg role="img" class="mail icon">
+                                    <use xlink:href="#mail"></use>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
     </section>
+    
+    <footer class='footer page-section page-section--blue'>
+        <div class='wrapper wrapper--medium'>
+            
+        </div>
+    </footer>
 
     <!--  build:js assets/js/app.js -->
     <script src='temp/scripts/app.js'></script>

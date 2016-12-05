@@ -1,12 +1,74 @@
-.landing {
-    @mixin atLarge {
-        background: url('assets/img/beach-large.jpg');
+#landing {
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-bottom: 6px solid #CCC;
+    background: url('assets/img/landing_bg/xsmall.png');
+    @mixin atSmall {
+        background: url('assets/img/landing_bg/small.png');
     }
     @mixin atMedium {
-        background: url('assets/img/beach.jpg');
-        background-attachment: fixed;
-        background-repeat: no-repeat;
-        background-size: cover;
+        background: url('assets/img/landing_bg/medium.png');
     }
-    border-bottom: 6px solid #CCC;
+
+    .wrapper {
+        width: 100%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .img-container {
+    }
+    img {
+        display: block;
+        @mixin centerBlock;
+        margin-bottom: 15px;
+        border-radius: 900px;
+        width: 120px;
+        height: 120px;
+        border: 3px solid #FFF;
+        @mixin atMedium {
+            position: relative;
+            z-index: 100;
+            border: 7px solid #FFF;
+            height: 200px;
+            width: 200px;
+        }
+    }
+    &__content {
+        background-color: #FFF;
+        box-shadow: 3px 5px 2px #333;
+        text-align: center;
+        padding: 10px;
+        .title {
+            margin: 0;
+        }
+        .subtitle {
+            margin-top: 2px;
+        }
+        p {
+            font-weight: 300;
+            font-size: 1.15rem;
+        }
+        @mixin atMedium {
+            padding: 20px 15px;
+            text-align: left;
+            &::before {
+                position: relative;
+                z-index: 90;
+                top: 65px;
+                left: -75px;
+                content: "";
+                position: relative;
+                width: 60px;
+                height: 20px;
+                border-top: 15px solid transparent;
+                border-right: 70px solid #FFF;
+                border-bottom: 15px solid transparent;
+                border--top-left-radius: 15px;
+                border--top-right-radius: 15px;
+            }
+        }
+    }
 }

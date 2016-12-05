@@ -13,7 +13,7 @@ gulp.task('build', [
     'copyGeneralFiles'
 ]);
 
-gulp.task('cleanDist', ['icons'], function () {
+gulp.task('cleanDist', function () {
     return del(['./docs']);
 })
 
@@ -30,7 +30,7 @@ gulp.task('copyGeneralFiles', ['cleanDist'], function () {
 })
 
 gulp.task('optimizeIMGs', ['cleanDist'], function () {
-    return gulp.src(['./app/assets/images/**/*', '!./app/assets/images/**/*-i.*', '!./app/assets/images/icons', '!./app/assets/images/icons/**/*'])
+    return gulp.src(['./app/assets/img/**/*', '!./app/assets/img/icons', '!./app/assets/img/icons/**/*'])
     .pipe(minimizeIMG({
         pregressive: true,
         interlaced: true,

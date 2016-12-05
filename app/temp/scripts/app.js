@@ -74,12 +74,18 @@
 
 	var _FullScreenSection2 = _interopRequireDefault(_FullScreenSection);
 
+	var _Accordion = __webpack_require__(10);
+
+	var _Accordion2 = _interopRequireDefault(_Accordion);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var landing = new _FullScreenSection2.default('.landing');
-	var header = new _StickyHeader2.default('.portrait-block p');
+	var landing = new _FullScreenSection2.default('#landing');
+	var menu = new _MobileMenu2.default();
+	var header = new _StickyHeader2.default('.header');
 	var links = new _ScrollSpy2.default();
-	var scrollspy = new _ScrollSpy2.default();
+
+	var aboutMe = new _Accordion2.default('#about-me-accordion-panel', false, '#about-me-accordion__trigger');
 
 /***/ },
 /* 1 */
@@ -871,6 +877,7 @@
 	        this.icon = (0, _jquery2.default)('.header__menu-icon');
 	        this.content = (0, _jquery2.default)('.header__menu-content');
 	        this.background = (0, _jquery2.default)('.header');
+	        this.navLinks = (0, _jquery2.default)('.primary-nav a');
 	        this.events();
 	    }
 
@@ -878,6 +885,7 @@
 	        key: 'events',
 	        value: function events() {
 	            this.icon.click(this.toggleMenu.bind(this));
+	            this.navLinks.click(this.closeMenu.bind(this));
 	        }
 	    }, {
 	        key: 'toggleMenu',
@@ -885,6 +893,13 @@
 	            this.icon.toggleClass('header__menu-icon--close-x');
 	            this.content.toggleClass('header__menu-content--open');
 	            this.background.toggleClass('header--menu-open');
+	        }
+	    }, {
+	        key: 'closeMenu',
+	        value: function closeMenu() {
+	            this.icon.removeClass('header__menu-icon--close-x');
+	            this.content.removeClass('header__menu-content--open');
+	            this.background.removeClass('header--menu-open');
 	        }
 	    }]);
 
@@ -10830,9 +10845,26 @@
 	        this.header = (0, _jquery2.default)('.header');
 	        this.triggerElement = (0, _jquery2.default)(triggerSelector);
 	        this.setHeaderWaypoint();
+	        this.previousSrollPosition = 0;
 	    }
 
 	    _createClass(StickyHeader, [{
+	        key: 'events',
+	        value: function events() {
+	            (0, _jquery2.default)(window).scroll(this.handleScroll.bind(this));
+	        }
+	    }, {
+	        key: 'handleScroll',
+	        value: function handleScroll(event) {
+	            var direction = event.originalEvent.deltaY > 0 ? 'down' : 'up';
+	            if (direction === 'up') {
+	                this.header.addClass('visible');
+	            } else {
+	                this.header.removeClass('visible');
+	            }
+	            this.previousSrollPosition = (0, _jquery2.default)(window).scrollTop;
+	        }
+	    }, {
 	        key: 'setHeaderWaypoint',
 	        value: function setHeaderWaypoint() {
 	            var head = this;
@@ -10940,38 +10972,57 @@
 	        _classCallCheck(this, ScrollSpy);
 
 	        this.pageSections = (0, _jquery2.default)('.page-section');
-	        this.links = (0, _jquery2.default)('.primary-nav a');
+	        this.navLinks = (0, _jquery2.default)('.primary-nav a');
+	        this.links = (0, _jquery2.default)('.anchor-link');
 	        this.createSectionWaypoints();
 	        this.addSmoothScrolling();
 	        this.lazyImages = (0, _jquery2.default)('.lazyload');
 	        this.refreshWaypoints();
+	        this.events();
 	    }
 
 	    _createClass(ScrollSpy, [{
+	        key: 'events',
+	        value: function events() {
+	            (0, _jquery2.default)(document).on('accordion', this.refreshWaypoints.bind(this));
+	            this.lazyImages.load(function () {
+	                return Waypoint.refreshAll();
+	            });
+	        }
+	    }, {
 	        key: 'addSmoothScrolling',
 	        value: function addSmoothScrolling() {
 	            this.links.smoothScroll();
+	            this.navLinks.smoothScroll();
 	        }
 	    }, {
 	        key: 'refreshWaypoints',
 	        value: function refreshWaypoints() {
-	            this.lazyImages.load(function () {
-	                Waypoint.refreshAll();
-	            });
+	            Waypoint.refreshAll();
 	        }
 	    }, {
 	        key: 'createSectionWaypoints',
 	        value: function createSectionWaypoints() {
-	            var instance = this;
+	            var instance = this,
+	                navLinks = this.navLinks;
+	            // Hacky (if you ask me) fix to remove active class from first header link when page scrolls back to top
+	            new Waypoint({
+	                element: this.pageSections[0],
+	                offset: '-150px',
+	                handler: function handler(direction) {
+	                    if (direction === 'up') navLinks.removeClass('current-link');
+	                }
+	            });
 	            this.pageSections.each(function () {
-	                var currentPageSection = this;
-	                var currentLink = this.getAttribute('data-link');
+	                var currentPageSection = this,
+	                    currentLink = this.getAttribute('data-link');
+
 	                new Waypoint({
 	                    element: currentPageSection,
 	                    offset: '18%',
 	                    handler: function handler(direction) {
 	                        if (direction === 'down') {
-	                            if (instance.links.hasClass('current-link')) (0, _jquery2.default)('.primary-nav a').removeClass('current-link');
+	                            navLinks.removeClass('current-link');
 	                            (0, _jquery2.default)(currentLink).addClass('current-link');
 	                        }
 	                    }
@@ -10981,9 +11032,8 @@
 	                    offset: '-40%',
 	                    handler: function handler(direction) {
 	                        if (direction === 'up') {
-	                            if (instance.links.hasClass('current-link')) (0, _jquery2.default)('.primary-nav a').removeClass('current-link');
+	                            navLinks.removeClass('current-link');
 	                            (0, _jquery2.default)(currentLink).addClass('current-link');
-	                            if (instance.pageSections[0] === currentPageSection) (0, _jquery2.default)('.primary-nav a').removeClass('current-link');
 	                        }
 	                    }
 	                });
@@ -11366,6 +11416,69 @@
 	}();
 
 	exports.default = FullScreenSection;
+
+/***/ },
+/* 10 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _jquery = __webpack_require__(3);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var AccordionPanel = function () {
+	    function AccordionPanel(accordionName, initiallyOpen, trigger) {
+	        _classCallCheck(this, AccordionPanel);
+
+	        this.element = (0, _jquery2.default)(accordionName);
+	        this.caret = (0, _jquery2.default)(accordionName + ' .accordion-panel__caret');
+	        this.body = (0, _jquery2.default)(accordionName + ' .accordion-panel__content');
+	        this.trigger = trigger ? (0, _jquery2.default)(trigger) : (0, _jquery2.default)(accordionName + ' .accordion-panel__heading');
+	        this.setDefaultState(initiallyOpen);
+	        this.events();
+	    }
+
+	    _createClass(AccordionPanel, [{
+	        key: 'events',
+	        value: function events() {
+	            this.trigger.click(this.toggleAccordionPanel.bind(this));
+	        }
+	    }, {
+	        key: 'setDefaultState',
+	        value: function setDefaultState(isInitiallyOpen) {
+	            if (isInitiallyOpen) this.toggleAccordionPanel();
+	        }
+	    }, {
+	        key: 'toggleAccordionPanel',
+	        value: function toggleAccordionPanel() {
+	            if (this.caret.length !== 0) this.caret.toggleClass('accordion-panel__caret--open');
+	            this.trigger.toggleClass('open');
+	            this.body.toggleClass('accordion-panel__content--open');
+	            var scrollTo = this.body.hasClass('accordion-panel__content--open') ? this.body.offset().top - 50 : this.element.offset().top - 250;
+	            setTimeout(function () {
+	                (0, _jquery2.default)(document).trigger('accordion');
+	            }, 500);
+	            (0, _jquery2.default)('html, body').animate({
+	                scrollTop: scrollTo
+	            }, 300);
+	        }
+	    }]);
+
+	    return AccordionPanel;
+	}();
+
+	exports.default = AccordionPanel;
 
 /***/ }
 /******/ ]);

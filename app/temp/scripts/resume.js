@@ -58,7 +58,7 @@
 	var skills = new AP('#skills', true);
 	var education = new AP('#education');
 	var workExperience = new AP('#work-experience');
-	var certifications = new AP('#certifications', true);
+	var certifications = new AP('#certifications');
 	var references = new AP('#references');
 
 /***/ },
@@ -9932,33 +9932,40 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 	var AccordionPanel = function () {
-	    function AccordionPanel(accordionName, initialPanel) {
+	    function AccordionPanel(accordionName, initiallyOpen, trigger) {
 	        _classCallCheck(this, AccordionPanel);
 
 	        this.element = (0, _jquery2.default)(accordionName);
-	        this.triggers = (0, _jquery2.default)(accordionName + ' .accordion-panel__heading');
-	        this.setDefaultState(accordionName, initialPanel);
+	        this.caret = (0, _jquery2.default)(accordionName + ' .accordion-panel__caret');
+	        this.body = (0, _jquery2.default)(accordionName + ' .accordion-panel__content');
+	        this.trigger = trigger ? (0, _jquery2.default)(trigger) : (0, _jquery2.default)(accordionName + ' .accordion-panel__heading');
+	        this.setDefaultState(initiallyOpen);
 	        this.events();
 	    }
 
 	    _createClass(AccordionPanel, [{
 	        key: 'events',
 	        value: function events() {
-	            this.triggers.click(this.toggleAccordion.bind(event));
+	            this.trigger.click(this.toggleAccordionPanel.bind(this));
 	        }
 	    }, {
 	        key: 'setDefaultState',
-	        value: function setDefaultState(panel, bool) {
-	            if (bool) {
-	                (0, _jquery2.default)(panel + ' .accordion-panel__content').addClass('accordion-panel__content--open');
-	                (0, _jquery2.default)(panel + ' .accordion-panel__caret').addClass('accordion-panel__caret--open');
-	            }
+	        value: function setDefaultState(isInitiallyOpen) {
+	            if (isInitiallyOpen) this.toggleAccordionPanel();
 	        }
 	    }, {
-	        key: 'toggleAccordion',
-	        value: function toggleAccordion(event) {
-	            event.currentTarget.previousElementSibling.classList.toggle('accordion-panel__caret--open');
-	            event.currentTarget.nextElementSibling.classList.toggle('accordion-panel__content--open');
+	        key: 'toggleAccordionPanel',
+	        value: function toggleAccordionPanel() {
+	            if (this.caret.length !== 0) this.caret.toggleClass('accordion-panel__caret--open');
+	            this.trigger.toggleClass('open');
+	            this.body.toggleClass('accordion-panel__content--open');
+	            var scrollTo = this.body.hasClass('accordion-panel__content--open') ? this.body.offset().top - 50 : this.element.offset().top - 250;
+	            setTimeout(function () {
+	                (0, _jquery2.default)(document).trigger('accordion');
+	            }, 500);
+	            (0, _jquery2.default)('html, body').animate({
+	                scrollTop: scrollTo
+	            }, 300);
 	        }
 	    }]);
 

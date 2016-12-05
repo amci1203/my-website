@@ -3,20 +3,29 @@
         @mixin noTextDecoration
     }
     
-    background-color: #FFF;
-    color: #111;
-    &:hover {
-        background-color: #111;
-    color: #FFF;
-    }
-    
     border: none;
     text-decoration: none;
+    text-align: center;
     padding: 0.75rem 1.2rem;
     margin: 10px 0;
     display: inline-block;
     
+    background-color: #FFF;
+    color: #111;
+    &:hover {
+        background-color: #111;
+        color: #FFF;
+    }
     &--black {
+        &--bordered {
+            border: 1px solid #FFF;
+            background-color: #111;
+            color: #FFF;
+            &:hover {
+                background-color: #333;
+                color: #FFF;
+            }
+        }
         background-color: #111;
         color: #FFF;
         &:hover {
@@ -24,8 +33,33 @@
             color: #FFF;
         }
     }
-    
+    &--white {
+        &--bordered {
+            border: 1px solid #111;
+            background-color: #FFF;
+            color: #111;
+            &:hover {
+                background-color: #CCC;
+                color: #111;
+            }
+        }
+        background-color: #FFF;
+        color: #111;
+        &:hover {
+            background-color: #CCC;
+            color: #111;
+        }
+    }
     &--blue {
+        &--bordered {
+            border: 1px solid #6EA7E7;
+            background-color: color(rgb(110, 167, 231) l(-35%));
+            color: #FFF;
+            &:hover {
+                background-color: #6EA7E7;
+                color: #FFF;
+            }
+        }
         background-color: color(rgb(110, 167, 231) l(-35%));
         color: #FFF;
         &:hover {
@@ -39,5 +73,8 @@
         @mixin atSmall {
             font-size: 1.25rem;
         }
+    }
+    &--full-width {
+        width: 100%;
     }
 }

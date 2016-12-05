@@ -22,36 +22,38 @@ var gulp = require('gulp'),
         }}
     };
 
-gulp.task('cleanSprites', function () {
+gulp.task('cleanSprites', () => {
     return del([
         './app/temp/sprite',
-        './app/assets/img/sprites'
+        './app/assets/img/sprites',
+        './app/assets/css/modules/_icon.css'
     ])
 })
 ///////////////////////////////////////////////////////////////
-gulp.task('createSpriteSheet', ['cleanSprites'], function () {
-     return gulp.src('./app/assets/img/icons/**/*.{svg,png}')
+gulp.task('createSpriteSheet', ['cleanSprites'], () => {
+     return gulp.src(['./app/assets/img/icons/**/*.svg', '!./app/assets/img/icons/**/hr*.svg'])
+        //Can't figure out why my custom made SVG causes an error; logging not helping, so leaving it out for now.
         .pipe(sheet(config))
         .pipe(gulp.dest('./app/temp/sprite/'));
 })
 
-gulp.task('createPNGCopy', ['createSpriteSheet'], function () {
+gulp.task('createPNGCopy', ['createSpriteSheet'], () => {
     return gulp.src('./app/temp/sprite/css/*.svg')
         .pipe(toPNG())
         .pipe(gulp.dest('./app/temp/sprite/css'))
 })
 ///////////////////////////////////////////////////////////////
-gulp.task('copySpriteCSS', ['createSpriteSheet'], function () {
+gulp.task('copySpriteCSS', ['createSpriteSheet'], () => {
     return gulp.src('./app/temp/sprite/css/*.css')
         .pipe(rename('_icon.css'))
         .pipe(gulp.dest('./app/assets/css/modules'));
 })
-gulp.task('copySpriteFile', ['createPNGCopy'], function () {
+gulp.task('copySpriteFile', ['createPNGCopy'], () => {
     return gulp.src('./app/temp/sprite/css/**/*.{svg,png}')
-        .pipe(gulp.dest('./app/assets/images/sprites'));
+        .pipe(gulp.dest('./app/assets/img/sprites'));
 })
 ///////////////////////////////////////////////////////////////
-gulp.task('endClean', ['copySpriteCSS', 'copySpriteFile'], function () {
+gulp.task('endClean', ['copySpriteCSS', 'copySpriteFile'], () => {
     return del(['./app/temp/sprite']);
 })
 ///////////////////////////////////////////////////////////////

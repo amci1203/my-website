@@ -9,6 +9,9 @@
             margin: 5px 0;
             line-height: normal;
         }
+        a {
+            color: inherit;
+        }
     }
 
 }

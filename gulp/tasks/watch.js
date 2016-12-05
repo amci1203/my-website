@@ -22,7 +22,7 @@ gulp.task('distView', function () {
     });
 })
 
-gulp.task('watch', function () {
+gulp.task('watch', ['css', 'scripts'], function () {
     browserSync.init({
         notify: false,
         server: {
