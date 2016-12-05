@@ -1,26 +1,34 @@
 import $ from 'jquery';
 
 export default class AccordionPanel {
-    constructor (accordionName, initialPanel) {
+    constructor (accordionName, initiallyOpen, trigger) {
         this.element = $(accordionName);
-        this.triggers = $(accordionName + ' .accordion-panel__heading')
-        this.setDefaultState(accordionName, initialPanel);
+        this.caret = $(accordionName + ' .accordion-panel__caret');
+        this.body = $(accordionName + ' .accordion-panel__content');
+        this.trigger = trigger ? $(trigger) : $(accordionName + ' .accordion-panel__heading');
+        this.setDefaultState(initiallyOpen);
         this.events()
     }
 
     events () {
-        this.triggers.click(this.toggleAccordion.bind(event))
+        this.trigger.click(this.toggleAccordionPanel.bind(this))
     }
 
-    setDefaultState (panel, bool) {
-        if (bool) {
-            $(panel + ' .accordion-panel__content').addClass('accordion-panel__content--open');
-            $(panel + ' .accordion-panel__caret').addClass('accordion-panel__caret--open');
-        }
+    setDefaultState (isInitiallyOpen) {
+        if (isInitiallyOpen) this.toggleAccordionPanel();
     }
 
-    toggleAccordion (event) {
-        event.currentTarget.previousElementSibling.classList.toggle('accordion-panel__caret--open');
-        event.currentTarget.nextElementSibling.classList.toggle('accordion-panel__content--open');
+    toggleAccordionPanel () {
+        if (this.caret.length !== 0) this.caret.toggleClass('accordion-panel__caret--open');
+        this.trigger.toggleClass('open');
+        this.body.toggleClass('accordion-panel__content--open');
+        let scrollTo = this.body.hasClass('accordion-panel__content--open') ? 
+            this.body.offset().top - 50 : this.element.offset().top - 250
+        setTimeout(() => {
+            $(document).trigger('accordion');
+        }, 500);
+        $('html, body').animate({
+            scrollTop: scrollTo
+        }, 300);
     }
 }

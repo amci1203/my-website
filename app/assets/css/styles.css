@@ -18,10 +18,11 @@
     @import 'modules/_btn';
     @import 'modules/_feature-item';
     @import 'modules/_generic-content-container';
-    @import 'modules/_icon';
+    /*@import 'modules/_icon';*/
     @import 'modules/_page-section';
     @import 'modules/_pull';
     @import 'modules/_row';
+    @import 'modules/_symbols';
     @import 'modules/_thumbnail';
     @import 'modules/_titled-list';
     @import 'modules/_section-title';

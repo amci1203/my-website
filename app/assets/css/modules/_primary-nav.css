@@ -12,11 +12,10 @@
     }
     li {
         list-style: none;
-        display: inline-block;
+        display: block;
         padding-right: 7px;
         @mixin atMedium{
             float: left;
-            display: block;
         }
         &:last-child {
             padding-right: 0;
@@ -24,21 +23,23 @@
         }
     }
     a {
-        height: 35px;
         display: block;
-        font-weight: 800;
-        color: inherit;
-        text-decoration: none;
-        font-size: 0.8rem;
+        height: 25px;
+        margin-bottom: 10px;
         padding: 5px 8px;
-        background-color: rgba($mainBlue, 0.5);
+        font-weight: 800;
+        color: #FFF;
+        font-size: 1rem;
+        text-decoration: none;
         @mixin atMedium{
             font-size: 1rem;
             margin: 0;
             padding: 7px 15px;
+            height: 35px;
+            color: inherit;
             background-color: transparent;
             &:hover {
-                border-bottom: 3px solid #DDD;
+                border-bottom: 5px solid #555;
             }
             &.current-link {
                 color: #222;

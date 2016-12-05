@@ -1,9 +1,11 @@
 .thumbnail {
     display: block;
     padding: 15px;
+    margin-bottom: 25px;
     background-color: #FFF;
     border: 1px solid rgb(215, 215, 215);
     box-shadow: 2px 3px 1px #333;
+    color: #111;
     &__photo {
         @util center-block;
         border: 2px solid #CCC;
@@ -12,6 +14,7 @@
     }
     &__heading {
         text-align: center;
+        text-decoration: underline;
     }
     &__description {
         

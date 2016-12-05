@@ -4,6 +4,7 @@
     width: 100%;
     padding: 0;
     transition: background-color 0.3s ease-out;
+    background-color: #333;
     @mixin atMedium {
         background-color: rgba(#FFF, 0.95);
         color: #333;
@@ -14,7 +15,7 @@
         }
     }
     &--menu-open {
-        background-color: rgba($mainBlue, 0.5);
+        background-color: rgba($bahamaBlue; 0.5);
     }
 
     &__menu-icon {
@@ -73,24 +74,28 @@
         }
     }
     &__menu-content {
-        opacity: 0;
         transition: all 0.3s ease-out;
-        position: relative;
-        z-index: -100;
+        position: fixed;
+        z-index: 250;
+        top: 0;
+        right: 0;
+        width: 210px;
+        margin-right: -210px;
         overflow: hidden;
-        padding-top: 90px;
+        padding-top: 15px;
+        background-color: #333;
         text-align: center;
-        transform: scale(1.2);
+        &--open {
+            margin-right: 0;
+            height: 100%;
+        }
         @mixin atMedium {
+            position: relative;
+            background-color: inherit;
             opacity: 1;
             z-index: 300;
             display: block;
             padding: 0;
-            transform: scale(1);
-        }
-        &--open {
-            opacity: 1;
-            z-index: 250;
             transform: scale(1);
         }
     }
