@@ -96,7 +96,7 @@
             z-index: 300;
             display: block;
             padding: 0;
-            transform: scale(1);
+            width: 100%;
         }
     }
     &__btn-container {
