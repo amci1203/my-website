@@ -44,3 +44,6 @@ a {
     display: none;
     @media only print { display: block }
 }
+.invisible {
+    visibility: hidden;
+}

@@ -31,4 +31,4 @@ gulp.task('copySymbolSVG', ['createSymbols'], () => {
     .pipe(gulp.dest('./app/assets/img'))
 })
 
-gulp.task('svgSymbols', ['cleanSymbols', 'createSymbols', 'copySymbolCSS', 'copySymbolSVG'], () => {})
+gulp.task('svgSymbols', ['cleanSymbols', 'createSymbols', 'copySymbolCSS', 'copySymbolSVG'], () => { gulp.start('cleanSymbols') })

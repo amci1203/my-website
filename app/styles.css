@@ -401,6 +401,9 @@ html [type="button"], /* 1 */
     display: block;
   }
 }
+    .invisible {
+    visibility: hidden;
+}
     /* ASSURED SINGLE USE */
     .header {
     position: fixed;
@@ -795,9 +798,9 @@ html [type="button"], /* 1 */
     @media only print {
   .resume {
     font-size: 12px;
-    color: #000;
+    color: #111;
     width: 612px;
-    height: 792px;
+    height: 920px;
   }
 }
     .resume__title {
@@ -805,6 +808,7 @@ html [type="button"], /* 1 */
 }
     .resume__heading {
   border-bottom: 1px solid #333;
+  margin-bottom: 0;
 }
     .resume__objective {}
     .resume aside {
@@ -1759,6 +1763,7 @@ html [type="button"], /* 1 */
   position: relative;
   z-index: 15;
   height: 1.5rem;
+  margin-bottom: 2px;
   border-bottom: 1px solid #111;
   -webkit-transition: all .6s;
   transition: all .6s;
@@ -1773,10 +1778,11 @@ html [type="button"], /* 1 */
   z-index: 10;
   top: 0;
   right: 25px;
-  background-image: url('../../assets/img/icons/caret.svg');
-  background-size: cover;
-  width: 20px;
-  height: 20px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 10px 17.3px 10px;
+  border-color: transparent transparent #3d3d3d transparent;
   text-align: center;
   font-weight: 700;
   -webkit-transform: rotate(-180deg);

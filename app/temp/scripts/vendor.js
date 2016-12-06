@@ -183,7 +183,7 @@
 				running = false;
 			};
 
-			return function(fn){
+			var rafBatch = function(fn){
 				if(running){
 					fn.apply(this, arguments);
 				} else {
@@ -195,6 +195,10 @@
 					}
 				}
 			};
+
+			rafBatch._lsFlush = run;
+
+			return rafBatch;
 		})();
 
 		var rAFIt = function(fn, simple){
@@ -2307,7 +2311,7 @@
 
 	/*!
 	 * modernizr v3.3.1
-	 * Build http://modernizr.com/download?-flexbox-svg-setclasses-dontmin
+	 * Build http://modernizr.com/download?-flexbox-setclasses-dontmin
 	 *
 	 * Copyright (c)
 	 *  Faruk Ates
@@ -2525,30 +2529,6 @@
 	  }
 
 	  ;
-	  /*!
-	  {
-	    "name": "SVG",
-	    "property": "svg",
-	    "caniuse": "svg",
-	    "tags": ["svg"],
-	    "authors": ["Erik Dahlstrom"],
-	    "polyfills": [
-	      "svgweb",
-	      "raphael",
-	      "amplesdk",
-	      "canvg",
-	      "svg-boilerplate",
-	      "sie",
-	      "dojogfx",
-	      "fabricjs"
-	    ]
-	  }
-	  !*/
-	  /* DOC
-	  Detects support for SVG in `<embed>` or `<object>` elements.
-	  */
-
-	  Modernizr.addTest('svg', !!document.createElementNS && !!document.createElementNS('http://www.w3.org/2000/svg', 'svg').createSVGRect);
 
 	  /**
 	   * If the browsers follow the spec, then they would expose vendor-specific style as:

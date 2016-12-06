@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>My Resume</title>
-  <link rel='stylesheet' href='styles.css' type='text/css' 
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>My Resume</title>
+    <!--  build:css styles.css  -->
+    <link rel='stylesheet' href='styles.css' type='text/css' />
+    <!--  endbuild  -->
 </head>
 <body>
     <div class="wrapper wrapper--medium">
@@ -14,7 +16,7 @@
             </header>
 
             <aside>
-                <img src='assets/img/me.jpg' alt='passport photo' />
+                <img class='invisible' src='assets/img/me.jpg' class='' />
                 <address>
                     <h4>#75 Esher Court<br />
                         Mayfield East, Grand Bahama</h4>
@@ -116,8 +118,8 @@
         </main>
     </div>
     <a href='index.html'></a>
-    <!-- build js:assets/js/resume.js -->
+    <!--  build:js assets/js/app.js -->
     <script src='temp/scripts/resume.js'></script>
-    <!-- endbuild -->
+    <!--  endbuild -->
 </body>
 </html>
