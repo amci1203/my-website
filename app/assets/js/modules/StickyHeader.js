@@ -5,6 +5,7 @@ export default class StickyHeader {
         this.triggerElement = $(triggerSelector);
         this.setHeaderWaypoint();
         this.previousSrollPosition = 0;
+        this.events();
     }
     
     events()  {
@@ -12,10 +13,14 @@ export default class StickyHeader {
     }
     
     handleScroll(event) {
-        let direction = event.originalEvent.deltaY > 0 ? 'down' : 'up';
+        let prev = this.previousSrollPosition,
+            now = $(window).scrollTop(),
+            direction =  now > prev && now > 150 ? 'down' : 'up';
         if (direction === 'up') { this.header.addClass('visible') }
         else { this.header.removeClass('visible')  }
-        this.previousSrollPosition = $(window).scrollTop
+        this.previousSrollPosition = $(window).scrollTop()
+        console.log(direction);
+        console.log(this.previousScrollPosition);
     }  
     
     setHeaderWaypoint() {

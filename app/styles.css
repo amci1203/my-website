@@ -403,35 +403,41 @@ html [type="button"], /* 1 */
 }
     /* ASSURED SINGLE USE */
     .header {
-    position: absolute;
-    z-index: 200;
+    position: fixed;
+    margin-top: -40px;
+    height: 40px;
+    box-shadow: 1px 3px 1px #222;
+    z-index: 300;
     width: 100%;
     padding: 0;
-    -webkit-transition: background-color 0.3s ease-out;
-    transition: background-color 0.3s ease-out;
+    -webkit-transition: margin 0.3s ease-out;
+    transition: margin 0.3s ease-out;
     background-color: #333;
+}
+    .header.visible {
+  margin-top: 0;
 }
     @media (min-width: 768px) {
   .header {
-    background-color: rgba(255,255,255, 0.95);
-    color: #333;
-    position: fixed;
-  }
-  .header--dark {
     color: #FFF;
-    background-color: rgba(34,34,34, 0.85);
+    background-color: #222;
+    height: auto;
   }
-}
-    .header--menu-open {
-  background-color: rgba(rgb(0, 171, 201); 0.5);
 }
     .header__menu-icon {
+  -webkit-transition: margin 0.3s ease-out;
+  transition: margin 0.3s ease-out;
   position: absolute;
+  margin-top: -40px;
   z-index: 300;
   top: 10px;
   right: 10px;
   width: 20px;
   height: 20px;
+}
+    .visible .header__menu-icon {
+  position: fixed;
+  margin-top: 0;
 }
     @media (min-width: 768px) {
   .header__menu-icon {
@@ -477,6 +483,10 @@ html [type="button"], /* 1 */
   transition: transform 0.3s ease-out;
   transition: transform 0.3s ease-out, -webkit-transform 0.3s ease-out;
 }
+    .header__menu-icon--close-x {
+  position: fixed;
+  margin-top: 0 !important;
+}
     .header__menu-icon--close-x::before {
   -webkit-transform: rotate(45deg) scaleX(1.25);
           transform: rotate(45deg) scaleX(1.25);
@@ -504,20 +514,26 @@ html [type="button"], /* 1 */
   top: 0;
   right: 0;
   width: 210px;
+  height: 100%;
   margin-right: -210px;
+  border-left: 2px solid #222;
   overflow: hidden;
   padding-top: 15px;
   background-color: #333;
   text-align: center;
 }
+    @media (min-width: 768px) {
+  .header__menu-content {
+    border: none;
+  }
+}
     .header__menu-content--open {
   margin-right: 0;
-  height: 100%;
 }
     @media (min-width: 768px) {
   .header__menu-content {
     position: relative;
-    background-color: inherit;
+    background-color: #222;
     opacity: 1;
     z-index: 300;
     display: block;
@@ -559,6 +575,17 @@ html [type="button"], /* 1 */
     -webkit-transform: scale(0.55);
             transform: scale(0.55);
   }
+}
+    .page-lock { overflow-y: hidden !important }
+    .page-lock .page-shadow {
+    position: fixed;
+    display: block;
+    z-index: 200;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(85,85,85, 0.7);
 }
     #landing {
     background-attachment: fixed !important;
@@ -674,6 +701,7 @@ html [type="button"], /* 1 */
     position: inherit;
     -webkit-transform: none;
             transform: none;
+    width: auto;
     top: 0;
     padding: 0;
   }
@@ -700,7 +728,7 @@ html [type="button"], /* 1 */
     .primary-nav a {
   display: block;
   height: 45px;
-  width: 100%;
+  width: 210px;
   padding: 15px 0;
   padding-left: 20px;
   font-weight: 800;
@@ -710,7 +738,7 @@ html [type="button"], /* 1 */
   text-decoration: none;
 }
     .primary-nav a:hover {
-  background-color: #777;
+  background-color: #555;
 }
     @media (min-width: 768px) {
   .primary-nav a {
@@ -727,21 +755,17 @@ html [type="button"], /* 1 */
   .primary-nav a:hover {
     border-bottom: 5px solid #555;
   }
-  .primary-nav a.current-link {
-    color: #222;
-    background-color: #FFF;
+  .primary-nav a.current-link.white-section-link {
+    border-bottom: 3px solid #FFF;
   }
   .primary-nav a.current-link.black-section-link {
-    background-color: #111;
-    color: #FFF;
+    border-bottom: 3px solid #111;
   }
   .primary-nav a.current-link.blue-section-link {
-    background-color: rgb(0, 171, 201);
-    color: #FFF;
+    border-bottom: 3px solid rgb(0, 171, 201);
   }
   .primary-nav a.current-link.yellow-section-link {
-    background-color: rgb(250, 224, 66);
-    color: #333;
+    border-bottom: 3px solid rgb(250, 224, 66);
   }
 }
     .footer {

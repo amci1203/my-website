@@ -15,11 +15,13 @@ class MobileMenu {
         this.icon.toggleClass('header__menu-icon--close-x');
         this.content.toggleClass('header__menu-content--open');
         this.background.toggleClass('header--menu-open');
+        $('html').toggleClass('page-lock');
     }
     closeMenu () {
         this.icon.removeClass('header__menu-icon--close-x');
         this.content.removeClass('header__menu-content--open');
         this.background.removeClass('header--menu-open');
+        $('html').removeClass('page-lock');
     }
 }
 

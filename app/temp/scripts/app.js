@@ -893,6 +893,7 @@
 	            this.icon.toggleClass('header__menu-icon--close-x');
 	            this.content.toggleClass('header__menu-content--open');
 	            this.background.toggleClass('header--menu-open');
+	            (0, _jquery2.default)('html').toggleClass('page-lock');
 	        }
 	    }, {
 	        key: 'closeMenu',
@@ -900,6 +901,7 @@
 	            this.icon.removeClass('header__menu-icon--close-x');
 	            this.content.removeClass('header__menu-content--open');
 	            this.background.removeClass('header--menu-open');
+	            (0, _jquery2.default)('html').removeClass('page-lock');
 	        }
 	    }]);
 
@@ -913,7 +915,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
-	 * jQuery JavaScript Library v2.2.4
+	 * jQuery JavaScript Library v2.2.3
 	 * http://jquery.com/
 	 *
 	 * Includes Sizzle.js
@@ -923,7 +925,7 @@
 	 * Released under the MIT license
 	 * http://jquery.org/license
 	 *
-	 * Date: 2016-05-20T17:23Z
+	 * Date: 2016-04-05T19:26Z
 	 */
 
 	(function( global, factory ) {
@@ -979,7 +981,7 @@
 
 
 	var
-		version = "2.2.4",
+		version = "2.2.3",
 
 		// Define a local copy of jQuery
 		jQuery = function( selector, context ) {
@@ -5920,14 +5922,13 @@
 		isDefaultPrevented: returnFalse,
 		isPropagationStopped: returnFalse,
 		isImmediatePropagationStopped: returnFalse,
-		isSimulated: false,
 
 		preventDefault: function() {
 			var e = this.originalEvent;
 
 			this.isDefaultPrevented = returnTrue;
 
-			if ( e && !this.isSimulated ) {
+			if ( e ) {
 				e.preventDefault();
 			}
 		},
@@ -5936,7 +5937,7 @@
 
 			this.isPropagationStopped = returnTrue;
 
-			if ( e && !this.isSimulated ) {
+			if ( e ) {
 				e.stopPropagation();
 			}
 		},
@@ -5945,7 +5946,7 @@
 
 			this.isImmediatePropagationStopped = returnTrue;
 
-			if ( e && !this.isSimulated ) {
+			if ( e ) {
 				e.stopImmediatePropagation();
 			}
 
@@ -6875,6 +6876,19 @@
 			val = name === "width" ? elem.offsetWidth : elem.offsetHeight,
 			styles = getStyles( elem ),
 			isBorderBox = jQuery.css( elem, "boxSizing", false, styles ) === "border-box";
+
+		// Support: IE11 only
+		// In IE 11 fullscreen elements inside of an iframe have
+		// 100x too small dimensions (gh-1764).
+		if ( document.msFullscreenElement && window.top !== window ) {
+
+			// Support: IE11 only
+			// Running getBoundingClientRect on a disconnected node
+			// in IE throws an error.
+			if ( elem.getClientRects().length ) {
+				val = Math.round( elem.getBoundingClientRect()[ name ] * 100 );
+			}
+		}
 
 		// Some non-html elements return undefined for offsetWidth, so check for null/undefined
 		// svg - https://bugzilla.mozilla.org/show_bug.cgi?id=649285
@@ -8766,7 +8780,6 @@
 		},
 
 		// Piggyback on a donor event to simulate a different one
-		// Used only for `focus(in | out)` events
 		simulate: function( type, elem, event ) {
 			var e = jQuery.extend(
 				new jQuery.Event(),
@@ -8774,10 +8787,27 @@
 				{
 					type: type,
 					isSimulated: true
+
+					// Previously, `originalEvent: {}` was set here, so stopPropagation call
+					// would not be triggered on donor event, since in our own
+					// jQuery.event.stopPropagation function we had a check for existence of
+					// originalEvent.stopPropagation method, so, consequently it would be a noop.
+					//
+					// But now, this "simulate" function is used only for events
+					// for which stopPropagation() is noop, so there is no need for that anymore.
+					//
+					// For the 1.x branch though, guard for "click" and "submit"
+					// events is still used, but was moved to jQuery.event.stopPropagation function
+					// because `originalEvent` should point to the original event for the constancy
+					// with other events and for more focused logic
 				}
 			);
 
 			jQuery.event.trigger( e, null, elem );
+
+			if ( e.isDefaultPrevented() ) {
+				event.preventDefault();
+			}
 		}
 
 	} );
@@ -10818,6 +10848,7 @@
 	        this.triggerElement = (0, _jquery2.default)(triggerSelector);
 	        this.setHeaderWaypoint();
 	        this.previousSrollPosition = 0;
+	        this.events();
 	    }
 
 	    _createClass(StickyHeader, [{
@@ -10828,13 +10859,17 @@
 	    }, {
 	        key: 'handleScroll',
 	        value: function handleScroll(event) {
-	            var direction = event.originalEvent.deltaY > 0 ? 'down' : 'up';
+	            var prev = this.previousSrollPosition,
+	                now = (0, _jquery2.default)(window).scrollTop(),
+	                direction = now > prev && now > 150 ? 'down' : 'up';
 	            if (direction === 'up') {
 	                this.header.addClass('visible');
 	            } else {
 	                this.header.removeClass('visible');
 	            }
-	            this.previousSrollPosition = (0, _jquery2.default)(window).scrollTop;
+	            this.previousSrollPosition = (0, _jquery2.default)(window).scrollTop();
+	            console.log(direction);
+	            console.log(this.previousScrollPosition);
 	        }
 	    }, {
 	        key: 'setHeaderWaypoint',

@@ -1,26 +1,30 @@
 .header {
-    position: absolute;
-    z-index: 200;
+    position: fixed;
+    margin-top: -40px;
+    height: 40px;
+    box-shadow: 1px 3px 1px #222;
+    z-index: 300;
     width: 100%;
     padding: 0;
-    transition: background-color 0.3s ease-out;
+    transition: margin 0.3s ease-out;
     background-color: #333;
+    &.visible {
+        margin-top: 0;
+    }
     @mixin atMedium {
-        background-color: rgba(#FFF, 0.95);
-        color: #333;
-        position: fixed;
-        &--dark {
-            color: #FFF;
-            background-color: rgba(#222, 0.85);
-        }
+        color: #FFF;
+        background-color: #222;
+        height: auto;
     }
-    &--menu-open {
-        background-color: rgba($bahamaBlue; 0.5);
-    }
-
     &__menu-icon {
+        .visible & {
+            position: fixed;
+            margin-top: 0;
+        }
+        transition: margin 0.3s ease-out;
         @mixin atMedium { display: none }
         position: absolute;
+        margin-top: -40px;
         z-index: 300;
         top: 10px;
         right: 10px;
@@ -58,6 +62,8 @@
             transition: transform 0.3s ease-out;
         }
         &--close-x {
+            position: fixed;
+            margin-top: 0 !important;
             &::before {
                 transform: rotate(45deg) scaleX(1.25);
                 transform-origin: top left;
@@ -79,19 +85,24 @@
         z-index: 250;
         top: 0;
         right: 0;
-        width: 210px;
-        margin-right: -210px;
+        width: $mobileNavWidth;
+        height: 100%;
+        margin-right: calc($mobileNavWidth * -1);
+        border-left: 2px solid #222;
         overflow: hidden;
         padding-top: 15px;
         background-color: #333;
         text-align: center;
+        @mixin atMedium {
+            border: none;
+        }
         &--open {
             margin-right: 0;
-            height: 100%;
+           
         }
         @mixin atMedium {
             position: relative;
-            background-color: inherit;
+            background-color: #222;
             opacity: 1;
             z-index: 300;
             display: block;
@@ -121,4 +132,15 @@
             }
         }
     }
+}
+.page-lock { overflow-y: hidden !important }
+.page-lock .page-shadow {
+    position: fixed;
+    display: block;
+    z-index: 200;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(#555, 0.7);
 }
