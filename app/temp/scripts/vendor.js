@@ -40,30 +40,22 @@
 /******/ 	return __webpack_require__(0);
 /******/ })
 /************************************************************************/
-/******/ ([
-/* 0 */
+/******/ ({
+
+/***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	__webpack_require__(11);
+	__webpack_require__(15);
 
-	__webpack_require__(12);
+	__webpack_require__(16);
 
-	__webpack_require__(13);
+	__webpack_require__(17);
 
 /***/ },
-/* 1 */,
-/* 2 */,
-/* 3 */,
-/* 4 */,
-/* 5 */,
-/* 6 */,
-/* 7 */,
-/* 8 */,
-/* 9 */,
-/* 10 */,
-/* 11 */
+
+/***/ 15:
 /***/ function(module, exports) {
 
 	(function(window, factory) {
@@ -752,7 +744,8 @@
 
 
 /***/ },
-/* 12 */
+
+/***/ 16:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/*! picturefill - v3.0.2 - 2016-02-12
@@ -2302,7 +2295,8 @@
 
 
 /***/ },
-/* 13 */
+
+/***/ 17:
 /***/ function(module, exports) {
 
 	'use strict';
@@ -2311,7 +2305,7 @@
 
 	/*!
 	 * modernizr v3.3.1
-	 * Build http://modernizr.com/download?-flexbox-setclasses-dontmin
+	 * Build http://modernizr.com/download?-flexbox-svg-setclasses-dontmin
 	 *
 	 * Copyright (c)
 	 *  Faruk Ates
@@ -2529,6 +2523,30 @@
 	  }
 
 	  ;
+	  /*!
+	  {
+	    "name": "SVG",
+	    "property": "svg",
+	    "caniuse": "svg",
+	    "tags": ["svg"],
+	    "authors": ["Erik Dahlstrom"],
+	    "polyfills": [
+	      "svgweb",
+	      "raphael",
+	      "amplesdk",
+	      "canvg",
+	      "svg-boilerplate",
+	      "sie",
+	      "dojogfx",
+	      "fabricjs"
+	    ]
+	  }
+	  !*/
+	  /* DOC
+	  Detects support for SVG in `<embed>` or `<object>` elements.
+	  */
+
+	  Modernizr.addTest('svg', !!document.createElementNS && !!document.createElementNS('http://www.w3.org/2000/svg', 'svg').createSVGRect);
 
 	  /**
 	   * If the browsers follow the spec, then they would expose vendor-specific style as:
@@ -3079,4 +3097,5 @@
 	})(window, document);
 
 /***/ }
-/******/ ]);
+
+/******/ });

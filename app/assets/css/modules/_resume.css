@@ -1,17 +1,35 @@
 .resume {
-    & > *:not(header) {
-        float: left;
-    }
+    margin         : 50px auto;
+    padding-bottom : 150px;
     @media only print {
-        font-size: 12px;
-        color: #111;
-        width: 612px;
-        height: 920px;
+        margin    : 0 auto;
+        font-size : 12px;
+        color     : #111;
+        width     : 612px;
+        height    : 920px;
     }
-    margin: 0 auto;
+    .wrapper > *:not(header) {
+        @mixin atMedium { float: left }
+        @media only print { float: left !important }
+    }
 
     &__title {
         text-align: center;
+    }
+
+    &__portrait {
+        display: none;
+        @mixin smThanMedium {
+            @media not print {
+                display: none;
+            }
+        }
+        @mixin atMedium {
+            margin: 15px auto;
+        }
+        @media only print {
+            margin: 50px auto;
+        }
     }
 
     &__heading {
@@ -22,34 +40,55 @@
     &__objective {}
 
     aside {
-        img {
-            margin: 15px auto;
+        @mixin atMedium {
+            position      : relative;
+            width         : 25%;
+            height        : 100%;
+            padding-right : 25px;
+            border-right  : 1px solid #222;
         }
-        
-        position: relative;
-        width: 25%;
-        height: 100%;
-        padding-right: 25px;
-        border-right: 1px solid #222;
-        
+        @media only print {
+            position      : relative !important;
+            min-height    : 850px;
+            width         : 25% !important;
+            height        : 100% !important;
+            padding-right : 25px !important;
+            border-right  : 1px solid #222 !important;
+        }
         address {
-            @media only print {
-                position: absolute;
-                bottom: 0;
-            }
-            text-align: right;
-            padding-right: 25px;
-            
+            text-align: center;
             a { 
                 @mixin noTextDecoration;
                 text-decoration: underline;
             }
+            @mixin atMedium {
+                padding-right : 25px;
+                text-align    : right;
+            }
+            @media only print {
+                position: absolute;
+                bottom: 0;
+            }
+        }
+    }
+
+    .no-print {
+        @mixin smThanMedium {
+            display: none
         }
     }
     
-     > article {
-        width: 75%;
-        height: 100%;
-        padding-left: 25px;
+    article:not(.accordion-panel) {
+        width: 100%;
+        @mixin atMedium {
+            width        : 75%;
+            height       : 100%;
+            padding-left : 25px;
+        }
+        @media only print {
+            width        : 75% !important;
+            height       : 100% !important;
+            padding-left : 25px !important;
+        }
     }
 }

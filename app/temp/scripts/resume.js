@@ -47,27 +47,29 @@
 
 	'use strict';
 
-	var _Accordion = __webpack_require__(10);
+	var _jquery = __webpack_require__(1);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
+	var _Accordion = __webpack_require__(8);
 
 	var _Accordion2 = _interopRequireDefault(_Accordion);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var AP = _Accordion2.default;
+	function init() {
+	    (0, _Accordion2.default)('#accordion');
+	}
 
-	var skills = new AP('#skills', true);
-	var education = new AP('#education');
-	var workExperience = new AP('#work-experience');
-	var certifications = new AP('#certifications');
-	var references = new AP('#references');
+	(0, _jquery2.default)(document).ready(init);
 
 /***/ },
 
-/***/ 3:
+/***/ 1:
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
-	 * jQuery JavaScript Library v2.2.4
+	 * jQuery JavaScript Library v2.2.3
 	 * http://jquery.com/
 	 *
 	 * Includes Sizzle.js
@@ -77,7 +79,7 @@
 	 * Released under the MIT license
 	 * http://jquery.org/license
 	 *
-	 * Date: 2016-05-20T17:23Z
+	 * Date: 2016-04-05T19:26Z
 	 */
 
 	(function( global, factory ) {
@@ -133,7 +135,7 @@
 
 
 	var
-		version = "2.2.4",
+		version = "2.2.3",
 
 		// Define a local copy of jQuery
 		jQuery = function( selector, context ) {
@@ -5074,14 +5076,13 @@
 		isDefaultPrevented: returnFalse,
 		isPropagationStopped: returnFalse,
 		isImmediatePropagationStopped: returnFalse,
-		isSimulated: false,
 
 		preventDefault: function() {
 			var e = this.originalEvent;
 
 			this.isDefaultPrevented = returnTrue;
 
-			if ( e && !this.isSimulated ) {
+			if ( e ) {
 				e.preventDefault();
 			}
 		},
@@ -5090,7 +5091,7 @@
 
 			this.isPropagationStopped = returnTrue;
 
-			if ( e && !this.isSimulated ) {
+			if ( e ) {
 				e.stopPropagation();
 			}
 		},
@@ -5099,7 +5100,7 @@
 
 			this.isImmediatePropagationStopped = returnTrue;
 
-			if ( e && !this.isSimulated ) {
+			if ( e ) {
 				e.stopImmediatePropagation();
 			}
 
@@ -6029,6 +6030,19 @@
 			val = name === "width" ? elem.offsetWidth : elem.offsetHeight,
 			styles = getStyles( elem ),
 			isBorderBox = jQuery.css( elem, "boxSizing", false, styles ) === "border-box";
+
+		// Support: IE11 only
+		// In IE 11 fullscreen elements inside of an iframe have
+		// 100x too small dimensions (gh-1764).
+		if ( document.msFullscreenElement && window.top !== window ) {
+
+			// Support: IE11 only
+			// Running getBoundingClientRect on a disconnected node
+			// in IE throws an error.
+			if ( elem.getClientRects().length ) {
+				val = Math.round( elem.getBoundingClientRect()[ name ] * 100 );
+			}
+		}
 
 		// Some non-html elements return undefined for offsetWidth, so check for null/undefined
 		// svg - https://bugzilla.mozilla.org/show_bug.cgi?id=649285
@@ -7920,7 +7934,6 @@
 		},
 
 		// Piggyback on a donor event to simulate a different one
-		// Used only for `focus(in | out)` events
 		simulate: function( type, elem, event ) {
 			var e = jQuery.extend(
 				new jQuery.Event(),
@@ -7928,10 +7941,27 @@
 				{
 					type: type,
 					isSimulated: true
+
+					// Previously, `originalEvent: {}` was set here, so stopPropagation call
+					// would not be triggered on donor event, since in our own
+					// jQuery.event.stopPropagation function we had a check for existence of
+					// originalEvent.stopPropagation method, so, consequently it would be a noop.
+					//
+					// But now, this "simulate" function is used only for events
+					// for which stopPropagation() is noop, so there is no need for that anymore.
+					//
+					// For the 1.x branch though, guard for "click" and "submit"
+					// events is still used, but was moved to jQuery.event.stopPropagation function
+					// because `originalEvent` should point to the original event for the constancy
+					// with other events and for more focused logic
 				}
 			);
 
 			jQuery.event.trigger( e, null, elem );
+
+			if ( e.isDefaultPrevented() ) {
+				event.preventDefault();
+			}
 		}
 
 	} );
@@ -9884,7 +9914,7 @@
 
 /***/ },
 
-/***/ 10:
+/***/ 8:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9892,59 +9922,80 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
+	exports.default = Accordion;
 
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _jquery = __webpack_require__(3);
+	var _jquery = __webpack_require__(1);
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	function Accordion(_selector, _careted) {
+	    var selector = _selector.trim(),
+	        element = (0, _jquery2.default)(selector),
+	        panel = element.find('.accordion-panel'),
+	        triggers = element.find('.accordion-panel__trigger').length != 0 ? element.find('.accordion-panel__trigger') : element.find('.accordion-panel__heading'),
+	        caret = _careted == undefined ? (0, _jquery2.default)(selector + ' .accordion-panel__caret') : false;
 
-	var AccordionPanel = function () {
-	    function AccordionPanel(accordionName, initiallyOpen, trigger) {
-	        _classCallCheck(this, AccordionPanel);
-
-	        this.element = (0, _jquery2.default)(accordionName);
-	        this.caret = (0, _jquery2.default)(accordionName + ' .accordion-panel__caret');
-	        this.body = (0, _jquery2.default)(accordionName + ' .accordion-panel__content');
-	        this.trigger = trigger ? (0, _jquery2.default)(trigger) : (0, _jquery2.default)(accordionName + ' .accordion-panel__heading');
-	        this.setDefaultState(initiallyOpen);
-	        this.events();
+	    function setIndexes() {
+	        triggers.each(function (index, item) {
+	            item.setAttribute('data-index', index);
+	        });
 	    }
 
-	    _createClass(AccordionPanel, [{
-	        key: 'events',
-	        value: function events() {
-	            this.trigger.click(this.toggleAccordionPanel.bind(this));
-	        }
-	    }, {
-	        key: 'setDefaultState',
-	        value: function setDefaultState(isInitiallyOpen) {
-	            if (isInitiallyOpen) this.toggleAccordionPanel();
-	        }
-	    }, {
-	        key: 'toggleAccordionPanel',
-	        value: function toggleAccordionPanel() {
-	            if (this.caret.length !== 0) this.caret.toggleClass('accordion-panel__caret--open');
-	            this.trigger.toggleClass('open');
-	            this.body.toggleClass('accordion-panel__content--open');
-	            var scrollTo = this.body.hasClass('accordion-panel__content--open') ? this.body.offset().top - 50 : this.element.offset().top - 250;
-	            setTimeout(function () {
-	                (0, _jquery2.default)(document).trigger('accordion');
-	            }, 500);
-	            (0, _jquery2.default)('html, body').animate({
-	                scrollTop: scrollTo
-	            }, 300);
-	        }
-	    }]);
+	    function toggleAccordionPanel(event) {
+	        var trigger = event.target,
+	            thisPanel = panel.eq(+trigger.getAttribute('data-index')),
+	            thisCaret = thisPanel.find('.accordion-panel__caret')[0],
+	            content = thisPanel.find('.accordion-panel__content')[0];
 
-	    return AccordionPanel;
-	}();
+	        content.classList.toggle('accordion-panel__content--open');
+	        if (thisCaret) {
+	            thisCaret.classList.toggle('accordion-panel__caret--open');
+	        }
 
-	exports.default = AccordionPanel;
+	        //        const scrollTo = content.classList.contains('accordion-panel__content--open') ? content.offset().top - 50 : thisPanel.offset().top - 150;
+
+	        triggerWaypointRefresh();
+	        //        scrollPage(scrollTo);
+	    }
+
+	    function toggleCaretlessPanel(event) {
+	        var trigger = event.target,
+	            content = panel.eq(+trigger.getAttribute('data-index')).find((0, _jquery2.default)('.accordion-panel__content'))[0];
+
+	        trigger.classList.toggle('open');
+	        content.classList.toggle('accordion-panel__content--open');
+	        var
+	        //            scrollTo = content.classList.contains('accordion-panel__content--open') ? content.offset().top - 50 : element.offset().top - 250,
+	        html = trigger.classList.contains('open') ? '(Show Less)' : '(Show More)';
+
+	        trigger.innerHTML = html;
+	        triggerWaypointRefresh();
+	        //        scrollPage(scrollTo);
+	    }
+
+	    function triggerWaypointRefresh() {
+	        setTimeout(function (done) {
+	            return (0, _jquery2.default)(document).trigger('accordion');
+	        }, 500);
+	    }
+
+	    function scrollPage(scrollTo) {
+	        (0, _jquery2.default)('html, body').animate({
+	            scrollTop: scrollTo
+	        }, 300);
+	    }
+
+	    return function () {
+	        setIndexes();
+	        if (caret) {
+	            triggers.click(toggleAccordionPanel);
+	        } else {
+	            triggers.click(toggleCaretlessPanel);
+	        }
+	    }();
+	}
 
 /***/ }
 

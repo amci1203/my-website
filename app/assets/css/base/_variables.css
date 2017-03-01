@@ -1,9 +1,33 @@
-$mainBlue: #2f5572;
-$mainOrange: #d59541;
-$bahamaBlue: rgb(0, 171, 201);
-$bahamaYellow:rgb(250, 224, 66);
+$mainBlue         : rgb(62, 63, 63);
+$mainOrange       : rgb(213, 149, 65);
+$mainYellow       : rgb(250, 224, 66);
+$bahamaBlue       : rgb(0, 171, 201);
+$bahamaYellow     : rgb(250, 224, 66);
 
-$wrapper-padding: 18px;
-$gutter-width: 65px;
+$main-text-color: #111;
 
-$mobileNavWidth: 210px;
+$wrapper-padding : 18px;
+$gutter-width    : 65px;
+
+/* Z INDEXES */
+$share-buttonsZ  : 5000;
+$tooltipZ        : 1000;
+$primary-navZ    : 500;
+$contacts-navZ   : 100;
+
+/* NAVIGATION BARS & MOBILE MENU */
+
+$navs-color        : rgb(70, 70, 70);
+$navs-hover-color  : color($navs-color b(+25));
+$navs-active-color : color($navs-color b(+15));
+
+$navs-text        : #FFF;
+$navs-hover-text  : #FFF;
+$navs-active-text : $bahamaYellow;
+
+$primary-navH     : 60px;
+$footer-navH      : 30px;
+$mob-navH         : 45px;
+/* SOCIAL MEDIA BUTTONS */
+
+$social-button-size : calc($mob-navH + 7px);

@@ -1,8 +1,8 @@
-var gulp = require('gulp'),
+var gulp   = require('gulp'),
     rename = require('gulp-rename'),
-    sheet = require('gulp-svg-sprite'),
-    toPNG = require('gulp-svg2png'),
-    del = require('del'),
+    sheet  = require('gulp-svg-sprite'),
+//    toPNG  = require('gulp-svg2png'),
+    del    = require('del'),
     config = {
         shape: { spacing: {
           padding: 1
@@ -31,25 +31,25 @@ gulp.task('cleanSprites', () => {
 })
 ///////////////////////////////////////////////////////////////
 gulp.task('createSpriteSheet', ['cleanSprites'], () => {
-     return gulp.src(['./app/assets/img/icons/**/*.svg', '!./app/assets/img/icons/**/hr*.svg'])
+     return gulp.src('./app/assets/img/icons/**/*.svg')
         //Can't figure out why my custom made SVG causes an error; logging not helping, so leaving it out for now.
         .pipe(sheet(config))
         .pipe(gulp.dest('./app/temp/sprite/'));
 })
 
-gulp.task('createPNGCopy', ['createSpriteSheet'], () => {
-    return gulp.src('./app/temp/sprite/css/*.svg')
-        .pipe(toPNG())
-        .pipe(gulp.dest('./app/temp/sprite/css'))
-})
+//gulp.task('createPNGCopy', ['createSpriteSheet'], () => {
+//    return gulp.src('./app/temp/sprite/css/*.svg')
+//        .pipe(toPNG())
+//        .pipe(gulp.dest('./app/temp/sprite/css'))
+//})
 ///////////////////////////////////////////////////////////////
 gulp.task('copySpriteCSS', ['createSpriteSheet'], () => {
     return gulp.src('./app/temp/sprite/css/*.css')
         .pipe(rename('_icon.css'))
         .pipe(gulp.dest('./app/assets/css/modules'));
 })
-gulp.task('copySpriteFile', ['createPNGCopy'], () => {
-    return gulp.src('./app/temp/sprite/css/**/*.{svg,png}')
+gulp.task('copySpriteFile', ['createSpriteSheet'], () => {
+    return gulp.src('./app/temp/sprite/css/*.svg')
         .pipe(gulp.dest('./app/assets/img/sprites'));
 })
 ///////////////////////////////////////////////////////////////
@@ -57,4 +57,4 @@ gulp.task('endClean', ['copySpriteCSS', 'copySpriteFile'], () => {
     return del(['./app/temp/sprite']);
 })
 ///////////////////////////////////////////////////////////////
-gulp.task('icons', ['cleanSprites', 'createSpriteSheet', 'createPNGCopy', 'copySpriteCSS', 'copySpriteFile', 'endClean'])
+gulp.task('icons', ['cleanSprites', 'createSpriteSheet', 'copySpriteCSS', 'copySpriteFile', 'endClean'])

@@ -1,17 +1,13 @@
 import $ from 'jquery';
 
-export default class FullScreenSection {
-    constructor(selector) {
-        this.section = $(selector);
-        this.fixHeight();
-        this.events();
+export default function FullScreenSection (selector) {
+    const section = $(selector.trim());
+
+    function fixHeight () {
+        section.css('min-height', window.innerHeight);
     }
-    
-    events() {
-        $(window).resize(this.fixHeight.bind(this))
-    }
-    
-    fixHeight () {
-        this.section.css('height', window.innerHeight);
-    }
+    return (function () {
+        fixHeight();
+        $(window).resize(fixHeight);
+    })()
 }

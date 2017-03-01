@@ -47,3 +47,16 @@ a {
 .invisible {
     visibility: hidden;
 }
+
+.page-lock { overflow-y: hidden !important }
+
+.page-lock .page-shadow {
+    position: fixed;
+    display: block;
+    z-index: 200;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(#555, 0.7);
+}

@@ -1,35 +1,45 @@
 import $ from 'jquery';
-export default class StickyHeader {
-    constructor (triggerSelector) {
-        this.header = $('.header');
-        this.triggerElement = $(triggerSelector);
-        this.setHeaderWaypoint();
-        this.previousSrollPosition = 0;
-        this.events();
-    }
+import _ from '../vendor/lodash.min';
+
+//import waypoints from '../../../../node_modules/waypoints/lib/noframework.waypoints';
+
+export default function StickyHeader () {
+    const
+        nav                  = document.getElementById('primary-nav'),
+        trigger              = nav,
+        interval             = 200,
+        requiredConsecutives = 3,
+        smButtons            = $('#social-media-buttons');
+    let
+        prevScroll           = 0,
+        consecutives         = 2,
+        prevDirection        = 'down';
     
-    events()  {
-        $(window).scroll(this.handleScroll.bind(this))
-    }
-    
-    handleScroll(event) {
-        let prev = this.previousSrollPosition,
-            now = $(window).scrollTop(),
-            direction =  now > prev && now > 150 ? 'down' : 'up';
-        if (direction === 'up') { this.header.addClass('visible') }
-        else { this.header.removeClass('visible')  }
-        this.previousSrollPosition = $(window).scrollTop()
-        console.log(direction);
-        console.log(this.previousScrollPosition);
-    }  
-    
-    setHeaderWaypoint() {
-        let head = this;
-        new Waypoint({
-            element: head.triggerElement[0],
-            handler: function () {
-                head.header.toggleClass('header--dark');
+    function handleScroll (event) {
+        const scroll    = $(window).scrollTop(),
+              direction =  scroll > prevScroll ? 'down' : 'up';
+        if (direction == prevDirection) {
+            consecutives++;
+        } else consecutives = 0;
+        if (consecutives == requiredConsecutives || (direction == 'up' && scroll < 50)) {
+            if (direction === 'up') {
+                nav.classList.add('visible');
+            } else {
+                nav.classList.remove('visible');
+                smButtons.removeClass('visible');
             }
-        })
+        } else prevDirection = direction;
+
+        prevScroll = scroll;
     }
+    
+    function init () {
+        document.body.classList.add('sticky-top');
+        nav.classList.add('primary-nav--fixed', 'visible');
+    }
+
+    return (function () {
+        init();
+        $(window).scroll(_.throttle(handleScroll, interval))
+    })()
 }

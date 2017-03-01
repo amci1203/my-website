@@ -46,872 +46,68 @@
 
 	'use strict';
 
-	var _noframework = __webpack_require__(1);
-
-	var _noframework2 = _interopRequireDefault(_noframework);
-
-	var _MobileMenu = __webpack_require__(2);
-
-	var _MobileMenu2 = _interopRequireDefault(_MobileMenu);
-
-	var _RevealOnScroll = __webpack_require__(4);
-
-	var _RevealOnScroll2 = _interopRequireDefault(_RevealOnScroll);
-
-	var _StickyHeader = __webpack_require__(5);
-
-	var _StickyHeader2 = _interopRequireDefault(_StickyHeader);
-
-	var _Modal = __webpack_require__(6);
-
-	var _Modal2 = _interopRequireDefault(_Modal);
-
-	var _ScrollSpy = __webpack_require__(7);
-
-	var _ScrollSpy2 = _interopRequireDefault(_ScrollSpy);
-
-	var _FullScreenSection = __webpack_require__(9);
-
-	var _FullScreenSection2 = _interopRequireDefault(_FullScreenSection);
-
-	var _Accordion = __webpack_require__(10);
-
-	var _Accordion2 = _interopRequireDefault(_Accordion);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var landing = new _FullScreenSection2.default('#landing');
-	var menu = new _MobileMenu2.default();
-	var header = new _StickyHeader2.default('.header');
-	var links = new _ScrollSpy2.default();
-
-	var aboutMe = new _Accordion2.default('#about-me-accordion-panel', false, '#about-me-accordion__trigger');
-
-/***/ },
-/* 1 */
-/***/ function(module, exports) {
-
-	/*!
-	Waypoints - 4.0.1
-	Copyright © 2011-2016 Caleb Troughton
-	Licensed under the MIT license.
-	https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
-	*/
-	(function() {
-	  'use strict'
-
-	  var keyCounter = 0
-	  var allWaypoints = {}
-
-	  /* http://imakewebthings.com/waypoints/api/waypoint */
-	  function Waypoint(options) {
-	    if (!options) {
-	      throw new Error('No options passed to Waypoint constructor')
-	    }
-	    if (!options.element) {
-	      throw new Error('No element option passed to Waypoint constructor')
-	    }
-	    if (!options.handler) {
-	      throw new Error('No handler option passed to Waypoint constructor')
-	    }
-
-	    this.key = 'waypoint-' + keyCounter
-	    this.options = Waypoint.Adapter.extend({}, Waypoint.defaults, options)
-	    this.element = this.options.element
-	    this.adapter = new Waypoint.Adapter(this.element)
-	    this.callback = options.handler
-	    this.axis = this.options.horizontal ? 'horizontal' : 'vertical'
-	    this.enabled = this.options.enabled
-	    this.triggerPoint = null
-	    this.group = Waypoint.Group.findOrCreate({
-	      name: this.options.group,
-	      axis: this.axis
-	    })
-	    this.context = Waypoint.Context.findOrCreateByElement(this.options.context)
-
-	    if (Waypoint.offsetAliases[this.options.offset]) {
-	      this.options.offset = Waypoint.offsetAliases[this.options.offset]
-	    }
-	    this.group.add(this)
-	    this.context.add(this)
-	    allWaypoints[this.key] = this
-	    keyCounter += 1
-	  }
-
-	  /* Private */
-	  Waypoint.prototype.queueTrigger = function(direction) {
-	    this.group.queueTrigger(this, direction)
-	  }
-
-	  /* Private */
-	  Waypoint.prototype.trigger = function(args) {
-	    if (!this.enabled) {
-	      return
-	    }
-	    if (this.callback) {
-	      this.callback.apply(this, args)
-	    }
-	  }
-
-	  /* Public */
-	  /* http://imakewebthings.com/waypoints/api/destroy */
-	  Waypoint.prototype.destroy = function() {
-	    this.context.remove(this)
-	    this.group.remove(this)
-	    delete allWaypoints[this.key]
-	  }
-
-	  /* Public */
-	  /* http://imakewebthings.com/waypoints/api/disable */
-	  Waypoint.prototype.disable = function() {
-	    this.enabled = false
-	    return this
-	  }
-
-	  /* Public */
-	  /* http://imakewebthings.com/waypoints/api/enable */
-	  Waypoint.prototype.enable = function() {
-	    this.context.refresh()
-	    this.enabled = true
-	    return this
-	  }
-
-	  /* Public */
-	  /* http://imakewebthings.com/waypoints/api/next */
-	  Waypoint.prototype.next = function() {
-	    return this.group.next(this)
-	  }
-
-	  /* Public */
-	  /* http://imakewebthings.com/waypoints/api/previous */
-	  Waypoint.prototype.previous = function() {
-	    return this.group.previous(this)
-	  }
-
-	  /* Private */
-	  Waypoint.invokeAll = function(method) {
-	    var allWaypointsArray = []
-	    for (var waypointKey in allWaypoints) {
-	      allWaypointsArray.push(allWaypoints[waypointKey])
-	    }
-	    for (var i = 0, end = allWaypointsArray.length; i < end; i++) {
-	      allWaypointsArray[i][method]()
-	    }
-	  }
-
-	  /* Public */
-	  /* http://imakewebthings.com/waypoints/api/destroy-all */
-	  Waypoint.destroyAll = function() {
-	    Waypoint.invokeAll('destroy')
-	  }
-
-	  /* Public */
-	  /* http://imakewebthings.com/waypoints/api/disable-all */
-	  Waypoint.disableAll = function() {
-	    Waypoint.invokeAll('disable')
-	  }
-
-	  /* Public */
-	  /* http://imakewebthings.com/waypoints/api/enable-all */
-	  Waypoint.enableAll = function() {
-	    Waypoint.Context.refreshAll()
-	    for (var waypointKey in allWaypoints) {
-	      allWaypoints[waypointKey].enabled = true
-	    }
-	    return this
-	  }
-
-	  /* Public */
-	  /* http://imakewebthings.com/waypoints/api/refresh-all */
-	  Waypoint.refreshAll = function() {
-	    Waypoint.Context.refreshAll()
-	  }
-
-	  /* Public */
-	  /* http://imakewebthings.com/waypoints/api/viewport-height */
-	  Waypoint.viewportHeight = function() {
-	    return window.innerHeight || document.documentElement.clientHeight
-	  }
-
-	  /* Public */
-	  /* http://imakewebthings.com/waypoints/api/viewport-width */
-	  Waypoint.viewportWidth = function() {
-	    return document.documentElement.clientWidth
-	  }
-
-	  Waypoint.adapters = []
-
-	  Waypoint.defaults = {
-	    context: window,
-	    continuous: true,
-	    enabled: true,
-	    group: 'default',
-	    horizontal: false,
-	    offset: 0
-	  }
-
-	  Waypoint.offsetAliases = {
-	    'bottom-in-view': function() {
-	      return this.context.innerHeight() - this.adapter.outerHeight()
-	    },
-	    'right-in-view': function() {
-	      return this.context.innerWidth() - this.adapter.outerWidth()
-	    }
-	  }
-
-	  window.Waypoint = Waypoint
-	}())
-	;(function() {
-	  'use strict'
-
-	  function requestAnimationFrameShim(callback) {
-	    window.setTimeout(callback, 1000 / 60)
-	  }
-
-	  var keyCounter = 0
-	  var contexts = {}
-	  var Waypoint = window.Waypoint
-	  var oldWindowLoad = window.onload
-
-	  /* http://imakewebthings.com/waypoints/api/context */
-	  function Context(element) {
-	    this.element = element
-	    this.Adapter = Waypoint.Adapter
-	    this.adapter = new this.Adapter(element)
-	    this.key = 'waypoint-context-' + keyCounter
-	    this.didScroll = false
-	    this.didResize = false
-	    this.oldScroll = {
-	      x: this.adapter.scrollLeft(),
-	      y: this.adapter.scrollTop()
-	    }
-	    this.waypoints = {
-	      vertical: {},
-	      horizontal: {}
-	    }
-
-	    element.waypointContextKey = this.key
-	    contexts[element.waypointContextKey] = this
-	    keyCounter += 1
-	    if (!Waypoint.windowContext) {
-	      Waypoint.windowContext = true
-	      Waypoint.windowContext = new Context(window)
-	    }
-
-	    this.createThrottledScrollHandler()
-	    this.createThrottledResizeHandler()
-	  }
-
-	  /* Private */
-	  Context.prototype.add = function(waypoint) {
-	    var axis = waypoint.options.horizontal ? 'horizontal' : 'vertical'
-	    this.waypoints[axis][waypoint.key] = waypoint
-	    this.refresh()
-	  }
-
-	  /* Private */
-	  Context.prototype.checkEmpty = function() {
-	    var horizontalEmpty = this.Adapter.isEmptyObject(this.waypoints.horizontal)
-	    var verticalEmpty = this.Adapter.isEmptyObject(this.waypoints.vertical)
-	    var isWindow = this.element == this.element.window
-	    if (horizontalEmpty && verticalEmpty && !isWindow) {
-	      this.adapter.off('.waypoints')
-	      delete contexts[this.key]
-	    }
-	  }
-
-	  /* Private */
-	  Context.prototype.createThrottledResizeHandler = function() {
-	    var self = this
-
-	    function resizeHandler() {
-	      self.handleResize()
-	      self.didResize = false
-	    }
-
-	    this.adapter.on('resize.waypoints', function() {
-	      if (!self.didResize) {
-	        self.didResize = true
-	        Waypoint.requestAnimationFrame(resizeHandler)
-	      }
-	    })
-	  }
-
-	  /* Private */
-	  Context.prototype.createThrottledScrollHandler = function() {
-	    var self = this
-	    function scrollHandler() {
-	      self.handleScroll()
-	      self.didScroll = false
-	    }
-
-	    this.adapter.on('scroll.waypoints', function() {
-	      if (!self.didScroll || Waypoint.isTouch) {
-	        self.didScroll = true
-	        Waypoint.requestAnimationFrame(scrollHandler)
-	      }
-	    })
-	  }
-
-	  /* Private */
-	  Context.prototype.handleResize = function() {
-	    Waypoint.Context.refreshAll()
-	  }
-
-	  /* Private */
-	  Context.prototype.handleScroll = function() {
-	    var triggeredGroups = {}
-	    var axes = {
-	      horizontal: {
-	        newScroll: this.adapter.scrollLeft(),
-	        oldScroll: this.oldScroll.x,
-	        forward: 'right',
-	        backward: 'left'
-	      },
-	      vertical: {
-	        newScroll: this.adapter.scrollTop(),
-	        oldScroll: this.oldScroll.y,
-	        forward: 'down',
-	        backward: 'up'
-	      }
-	    }
-
-	    for (var axisKey in axes) {
-	      var axis = axes[axisKey]
-	      var isForward = axis.newScroll > axis.oldScroll
-	      var direction = isForward ? axis.forward : axis.backward
-
-	      for (var waypointKey in this.waypoints[axisKey]) {
-	        var waypoint = this.waypoints[axisKey][waypointKey]
-	        if (waypoint.triggerPoint === null) {
-	          continue
-	        }
-	        var wasBeforeTriggerPoint = axis.oldScroll < waypoint.triggerPoint
-	        var nowAfterTriggerPoint = axis.newScroll >= waypoint.triggerPoint
-	        var crossedForward = wasBeforeTriggerPoint && nowAfterTriggerPoint
-	        var crossedBackward = !wasBeforeTriggerPoint && !nowAfterTriggerPoint
-	        if (crossedForward || crossedBackward) {
-	          waypoint.queueTrigger(direction)
-	          triggeredGroups[waypoint.group.id] = waypoint.group
-	        }
-	      }
-	    }
-
-	    for (var groupKey in triggeredGroups) {
-	      triggeredGroups[groupKey].flushTriggers()
-	    }
-
-	    this.oldScroll = {
-	      x: axes.horizontal.newScroll,
-	      y: axes.vertical.newScroll
-	    }
-	  }
-
-	  /* Private */
-	  Context.prototype.innerHeight = function() {
-	    /*eslint-disable eqeqeq */
-	    if (this.element == this.element.window) {
-	      return Waypoint.viewportHeight()
-	    }
-	    /*eslint-enable eqeqeq */
-	    return this.adapter.innerHeight()
-	  }
-
-	  /* Private */
-	  Context.prototype.remove = function(waypoint) {
-	    delete this.waypoints[waypoint.axis][waypoint.key]
-	    this.checkEmpty()
-	  }
-
-	  /* Private */
-	  Context.prototype.innerWidth = function() {
-	    /*eslint-disable eqeqeq */
-	    if (this.element == this.element.window) {
-	      return Waypoint.viewportWidth()
-	    }
-	    /*eslint-enable eqeqeq */
-	    return this.adapter.innerWidth()
-	  }
-
-	  /* Public */
-	  /* http://imakewebthings.com/waypoints/api/context-destroy */
-	  Context.prototype.destroy = function() {
-	    var allWaypoints = []
-	    for (var axis in this.waypoints) {
-	      for (var waypointKey in this.waypoints[axis]) {
-	        allWaypoints.push(this.waypoints[axis][waypointKey])
-	      }
-	    }
-	    for (var i = 0, end = allWaypoints.length; i < end; i++) {
-	      allWaypoints[i].destroy()
-	    }
-	  }
-
-	  /* Public */
-	  /* http://imakewebthings.com/waypoints/api/context-refresh */
-	  Context.prototype.refresh = function() {
-	    /*eslint-disable eqeqeq */
-	    var isWindow = this.element == this.element.window
-	    /*eslint-enable eqeqeq */
-	    var contextOffset = isWindow ? undefined : this.adapter.offset()
-	    var triggeredGroups = {}
-	    var axes
-
-	    this.handleScroll()
-	    axes = {
-	      horizontal: {
-	        contextOffset: isWindow ? 0 : contextOffset.left,
-	        contextScroll: isWindow ? 0 : this.oldScroll.x,
-	        contextDimension: this.innerWidth(),
-	        oldScroll: this.oldScroll.x,
-	        forward: 'right',
-	        backward: 'left',
-	        offsetProp: 'left'
-	      },
-	      vertical: {
-	        contextOffset: isWindow ? 0 : contextOffset.top,
-	        contextScroll: isWindow ? 0 : this.oldScroll.y,
-	        contextDimension: this.innerHeight(),
-	        oldScroll: this.oldScroll.y,
-	        forward: 'down',
-	        backward: 'up',
-	        offsetProp: 'top'
-	      }
-	    }
-
-	    for (var axisKey in axes) {
-	      var axis = axes[axisKey]
-	      for (var waypointKey in this.waypoints[axisKey]) {
-	        var waypoint = this.waypoints[axisKey][waypointKey]
-	        var adjustment = waypoint.options.offset
-	        var oldTriggerPoint = waypoint.triggerPoint
-	        var elementOffset = 0
-	        var freshWaypoint = oldTriggerPoint == null
-	        var contextModifier, wasBeforeScroll, nowAfterScroll
-	        var triggeredBackward, triggeredForward
-
-	        if (waypoint.element !== waypoint.element.window) {
-	          elementOffset = waypoint.adapter.offset()[axis.offsetProp]
-	        }
-
-	        if (typeof adjustment === 'function') {
-	          adjustment = adjustment.apply(waypoint)
-	        }
-	        else if (typeof adjustment === 'string') {
-	          adjustment = parseFloat(adjustment)
-	          if (waypoint.options.offset.indexOf('%') > - 1) {
-	            adjustment = Math.ceil(axis.contextDimension * adjustment / 100)
-	          }
-	        }
-
-	        contextModifier = axis.contextScroll - axis.contextOffset
-	        waypoint.triggerPoint = Math.floor(elementOffset + contextModifier - adjustment)
-	        wasBeforeScroll = oldTriggerPoint < axis.oldScroll
-	        nowAfterScroll = waypoint.triggerPoint >= axis.oldScroll
-	        triggeredBackward = wasBeforeScroll && nowAfterScroll
-	        triggeredForward = !wasBeforeScroll && !nowAfterScroll
-
-	        if (!freshWaypoint && triggeredBackward) {
-	          waypoint.queueTrigger(axis.backward)
-	          triggeredGroups[waypoint.group.id] = waypoint.group
-	        }
-	        else if (!freshWaypoint && triggeredForward) {
-	          waypoint.queueTrigger(axis.forward)
-	          triggeredGroups[waypoint.group.id] = waypoint.group
-	        }
-	        else if (freshWaypoint && axis.oldScroll >= waypoint.triggerPoint) {
-	          waypoint.queueTrigger(axis.forward)
-	          triggeredGroups[waypoint.group.id] = waypoint.group
-	        }
-	      }
-	    }
-
-	    Waypoint.requestAnimationFrame(function() {
-	      for (var groupKey in triggeredGroups) {
-	        triggeredGroups[groupKey].flushTriggers()
-	      }
-	    })
-
-	    return this
-	  }
-
-	  /* Private */
-	  Context.findOrCreateByElement = function(element) {
-	    return Context.findByElement(element) || new Context(element)
-	  }
-
-	  /* Private */
-	  Context.refreshAll = function() {
-	    for (var contextId in contexts) {
-	      contexts[contextId].refresh()
-	    }
-	  }
-
-	  /* Public */
-	  /* http://imakewebthings.com/waypoints/api/context-find-by-element */
-	  Context.findByElement = function(element) {
-	    return contexts[element.waypointContextKey]
-	  }
-
-	  window.onload = function() {
-	    if (oldWindowLoad) {
-	      oldWindowLoad()
-	    }
-	    Context.refreshAll()
-	  }
-
-
-	  Waypoint.requestAnimationFrame = function(callback) {
-	    var requestFn = window.requestAnimationFrame ||
-	      window.mozRequestAnimationFrame ||
-	      window.webkitRequestAnimationFrame ||
-	      requestAnimationFrameShim
-	    requestFn.call(window, callback)
-	  }
-	  Waypoint.Context = Context
-	}())
-	;(function() {
-	  'use strict'
-
-	  function byTriggerPoint(a, b) {
-	    return a.triggerPoint - b.triggerPoint
-	  }
-
-	  function byReverseTriggerPoint(a, b) {
-	    return b.triggerPoint - a.triggerPoint
-	  }
-
-	  var groups = {
-	    vertical: {},
-	    horizontal: {}
-	  }
-	  var Waypoint = window.Waypoint
-
-	  /* http://imakewebthings.com/waypoints/api/group */
-	  function Group(options) {
-	    this.name = options.name
-	    this.axis = options.axis
-	    this.id = this.name + '-' + this.axis
-	    this.waypoints = []
-	    this.clearTriggerQueues()
-	    groups[this.axis][this.name] = this
-	  }
-
-	  /* Private */
-	  Group.prototype.add = function(waypoint) {
-	    this.waypoints.push(waypoint)
-	  }
-
-	  /* Private */
-	  Group.prototype.clearTriggerQueues = function() {
-	    this.triggerQueues = {
-	      up: [],
-	      down: [],
-	      left: [],
-	      right: []
-	    }
-	  }
-
-	  /* Private */
-	  Group.prototype.flushTriggers = function() {
-	    for (var direction in this.triggerQueues) {
-	      var waypoints = this.triggerQueues[direction]
-	      var reverse = direction === 'up' || direction === 'left'
-	      waypoints.sort(reverse ? byReverseTriggerPoint : byTriggerPoint)
-	      for (var i = 0, end = waypoints.length; i < end; i += 1) {
-	        var waypoint = waypoints[i]
-	        if (waypoint.options.continuous || i === waypoints.length - 1) {
-	          waypoint.trigger([direction])
-	        }
-	      }
-	    }
-	    this.clearTriggerQueues()
-	  }
-
-	  /* Private */
-	  Group.prototype.next = function(waypoint) {
-	    this.waypoints.sort(byTriggerPoint)
-	    var index = Waypoint.Adapter.inArray(waypoint, this.waypoints)
-	    var isLast = index === this.waypoints.length - 1
-	    return isLast ? null : this.waypoints[index + 1]
-	  }
-
-	  /* Private */
-	  Group.prototype.previous = function(waypoint) {
-	    this.waypoints.sort(byTriggerPoint)
-	    var index = Waypoint.Adapter.inArray(waypoint, this.waypoints)
-	    return index ? this.waypoints[index - 1] : null
-	  }
-
-	  /* Private */
-	  Group.prototype.queueTrigger = function(waypoint, direction) {
-	    this.triggerQueues[direction].push(waypoint)
-	  }
-
-	  /* Private */
-	  Group.prototype.remove = function(waypoint) {
-	    var index = Waypoint.Adapter.inArray(waypoint, this.waypoints)
-	    if (index > -1) {
-	      this.waypoints.splice(index, 1)
-	    }
-	  }
-
-	  /* Public */
-	  /* http://imakewebthings.com/waypoints/api/first */
-	  Group.prototype.first = function() {
-	    return this.waypoints[0]
-	  }
-
-	  /* Public */
-	  /* http://imakewebthings.com/waypoints/api/last */
-	  Group.prototype.last = function() {
-	    return this.waypoints[this.waypoints.length - 1]
-	  }
-
-	  /* Private */
-	  Group.findOrCreate = function(options) {
-	    return groups[options.axis][options.name] || new Group(options)
-	  }
-
-	  Waypoint.Group = Group
-	}())
-	;(function() {
-	  'use strict'
-
-	  var Waypoint = window.Waypoint
-
-	  function isWindow(element) {
-	    return element === element.window
-	  }
-
-	  function getWindow(element) {
-	    if (isWindow(element)) {
-	      return element
-	    }
-	    return element.defaultView
-	  }
-
-	  function NoFrameworkAdapter(element) {
-	    this.element = element
-	    this.handlers = {}
-	  }
-
-	  NoFrameworkAdapter.prototype.innerHeight = function() {
-	    var isWin = isWindow(this.element)
-	    return isWin ? this.element.innerHeight : this.element.clientHeight
-	  }
-
-	  NoFrameworkAdapter.prototype.innerWidth = function() {
-	    var isWin = isWindow(this.element)
-	    return isWin ? this.element.innerWidth : this.element.clientWidth
-	  }
-
-	  NoFrameworkAdapter.prototype.off = function(event, handler) {
-	    function removeListeners(element, listeners, handler) {
-	      for (var i = 0, end = listeners.length - 1; i < end; i++) {
-	        var listener = listeners[i]
-	        if (!handler || handler === listener) {
-	          element.removeEventListener(listener)
-	        }
-	      }
-	    }
-
-	    var eventParts = event.split('.')
-	    var eventType = eventParts[0]
-	    var namespace = eventParts[1]
-	    var element = this.element
-
-	    if (namespace && this.handlers[namespace] && eventType) {
-	      removeListeners(element, this.handlers[namespace][eventType], handler)
-	      this.handlers[namespace][eventType] = []
-	    }
-	    else if (eventType) {
-	      for (var ns in this.handlers) {
-	        removeListeners(element, this.handlers[ns][eventType] || [], handler)
-	        this.handlers[ns][eventType] = []
-	      }
-	    }
-	    else if (namespace && this.handlers[namespace]) {
-	      for (var type in this.handlers[namespace]) {
-	        removeListeners(element, this.handlers[namespace][type], handler)
-	      }
-	      this.handlers[namespace] = {}
-	    }
-	  }
-
-	  /* Adapted from jQuery 1.x offset() */
-	  NoFrameworkAdapter.prototype.offset = function() {
-	    if (!this.element.ownerDocument) {
-	      return null
-	    }
-
-	    var documentElement = this.element.ownerDocument.documentElement
-	    var win = getWindow(this.element.ownerDocument)
-	    var rect = {
-	      top: 0,
-	      left: 0
-	    }
-
-	    if (this.element.getBoundingClientRect) {
-	      rect = this.element.getBoundingClientRect()
-	    }
-
-	    return {
-	      top: rect.top + win.pageYOffset - documentElement.clientTop,
-	      left: rect.left + win.pageXOffset - documentElement.clientLeft
-	    }
-	  }
-
-	  NoFrameworkAdapter.prototype.on = function(event, handler) {
-	    var eventParts = event.split('.')
-	    var eventType = eventParts[0]
-	    var namespace = eventParts[1] || '__default'
-	    var nsHandlers = this.handlers[namespace] = this.handlers[namespace] || {}
-	    var nsTypeList = nsHandlers[eventType] = nsHandlers[eventType] || []
-
-	    nsTypeList.push(handler)
-	    this.element.addEventListener(eventType, handler)
-	  }
-
-	  NoFrameworkAdapter.prototype.outerHeight = function(includeMargin) {
-	    var height = this.innerHeight()
-	    var computedStyle
-
-	    if (includeMargin && !isWindow(this.element)) {
-	      computedStyle = window.getComputedStyle(this.element)
-	      height += parseInt(computedStyle.marginTop, 10)
-	      height += parseInt(computedStyle.marginBottom, 10)
-	    }
-
-	    return height
-	  }
-
-	  NoFrameworkAdapter.prototype.outerWidth = function(includeMargin) {
-	    var width = this.innerWidth()
-	    var computedStyle
-
-	    if (includeMargin && !isWindow(this.element)) {
-	      computedStyle = window.getComputedStyle(this.element)
-	      width += parseInt(computedStyle.marginLeft, 10)
-	      width += parseInt(computedStyle.marginRight, 10)
-	    }
-
-	    return width
-	  }
-
-	  NoFrameworkAdapter.prototype.scrollLeft = function() {
-	    var win = getWindow(this.element)
-	    return win ? win.pageXOffset : this.element.scrollLeft
-	  }
-
-	  NoFrameworkAdapter.prototype.scrollTop = function() {
-	    var win = getWindow(this.element)
-	    return win ? win.pageYOffset : this.element.scrollTop
-	  }
-
-	  NoFrameworkAdapter.extend = function() {
-	    var args = Array.prototype.slice.call(arguments)
-
-	    function merge(target, obj) {
-	      if (typeof target === 'object' && typeof obj === 'object') {
-	        for (var key in obj) {
-	          if (obj.hasOwnProperty(key)) {
-	            target[key] = obj[key]
-	          }
-	        }
-	      }
-
-	      return target
-	    }
-
-	    for (var i = 1, end = args.length; i < end; i++) {
-	      merge(args[0], args[i])
-	    }
-	    return args[0]
-	  }
-
-	  NoFrameworkAdapter.inArray = function(element, array, i) {
-	    return array == null ? -1 : array.indexOf(element, i)
-	  }
-
-	  NoFrameworkAdapter.isEmptyObject = function(obj) {
-	    /* eslint no-unused-vars: 0 */
-	    for (var name in obj) {
-	      return false
-	    }
-	    return true
-	  }
-
-	  Waypoint.adapters.push({
-	    name: 'noframework',
-	    Adapter: NoFrameworkAdapter
-	  })
-	  Waypoint.Adapter = NoFrameworkAdapter
-	}())
-	;
-
-/***/ },
-/* 2 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _jquery = __webpack_require__(3);
+	var _jquery = __webpack_require__(1);
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
+	var _noframework = __webpack_require__(2);
+
+	var _noframework2 = _interopRequireDefault(_noframework);
+
+	var _Menu = __webpack_require__(3);
+
+	var _Menu2 = _interopRequireDefault(_Menu);
+
+	var _Modal = __webpack_require__(7);
+
+	var _Modal2 = _interopRequireDefault(_Modal);
+
+	var _Accordion = __webpack_require__(8);
+
+	var _Accordion2 = _interopRequireDefault(_Accordion);
+
+	var _ScrollSpy = __webpack_require__(9);
+
+	var _ScrollSpy2 = _interopRequireDefault(_ScrollSpy);
+
+	var _RevealOnScroll = __webpack_require__(11);
+
+	var _RevealOnScroll2 = _interopRequireDefault(_RevealOnScroll);
+
+	var _StickyHeader = __webpack_require__(12);
+
+	var _StickyHeader2 = _interopRequireDefault(_StickyHeader);
+
+	var _FullScreenSection = __webpack_require__(13);
+
+	var _FullScreenSection2 = _interopRequireDefault(_FullScreenSection);
+
+	var _SocialMediaButtons = __webpack_require__(14);
+
+	var _SocialMediaButtons2 = _interopRequireDefault(_SocialMediaButtons);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	var id = document.body.id;
 
-	var MobileMenu = function () {
-	    function MobileMenu() {
-	        _classCallCheck(this, MobileMenu);
+	function init() {
+	    (0, _Menu2.default)();
 
-	        this.icon = (0, _jquery2.default)('.header__menu-icon');
-	        this.content = (0, _jquery2.default)('.header__menu-content');
-	        this.background = (0, _jquery2.default)('.header');
-	        this.navLinks = (0, _jquery2.default)('.primary-nav a');
-	        this.events();
+	    if (id == '_index') {
+	        (0, _StickyHeader2.default)();
+	        (0, _ScrollSpy2.default)();
+	        (0, _SocialMediaButtons2.default)();
+	        (0, _Accordion2.default)('.accordion', false);
+	    } else if (id == '_resume') {
+	        (0, _FullScreenSection2.default)('.resume');
+	        (0, _Accordion2.default)('.accordion');
 	    }
+	}
 
-	    _createClass(MobileMenu, [{
-	        key: 'events',
-	        value: function events() {
-	            this.icon.click(this.toggleMenu.bind(this));
-	            this.navLinks.click(this.closeMenu.bind(this));
-	        }
-	    }, {
-	        key: 'toggleMenu',
-	        value: function toggleMenu() {
-	            this.icon.toggleClass('header__menu-icon--close-x');
-	            this.content.toggleClass('header__menu-content--open');
-	            this.background.toggleClass('header--menu-open');
-	            (0, _jquery2.default)('html').toggleClass('page-lock');
-	        }
-	    }, {
-	        key: 'closeMenu',
-	        value: function closeMenu() {
-	            this.icon.removeClass('header__menu-icon--close-x');
-	            this.content.removeClass('header__menu-content--open');
-	            this.background.removeClass('header--menu-open');
-	            (0, _jquery2.default)('html').removeClass('page-lock');
-	        }
-	    }]);
-
-	    return MobileMenu;
-	}();
-
-	exports.default = MobileMenu;
+	(0, _jquery2.default)(document).ready(init);
 
 /***/ },
-/* 3 */
+/* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -10731,7 +9927,770 @@
 
 
 /***/ },
-/* 4 */
+/* 2 */
+/***/ function(module, exports) {
+
+	/*!
+	Waypoints - 4.0.1
+	Copyright © 2011-2016 Caleb Troughton
+	Licensed under the MIT license.
+	https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
+	*/
+	(function() {
+	  'use strict'
+
+	  var keyCounter = 0
+	  var allWaypoints = {}
+
+	  /* http://imakewebthings.com/waypoints/api/waypoint */
+	  function Waypoint(options) {
+	    if (!options) {
+	      throw new Error('No options passed to Waypoint constructor')
+	    }
+	    if (!options.element) {
+	      throw new Error('No element option passed to Waypoint constructor')
+	    }
+	    if (!options.handler) {
+	      throw new Error('No handler option passed to Waypoint constructor')
+	    }
+
+	    this.key = 'waypoint-' + keyCounter
+	    this.options = Waypoint.Adapter.extend({}, Waypoint.defaults, options)
+	    this.element = this.options.element
+	    this.adapter = new Waypoint.Adapter(this.element)
+	    this.callback = options.handler
+	    this.axis = this.options.horizontal ? 'horizontal' : 'vertical'
+	    this.enabled = this.options.enabled
+	    this.triggerPoint = null
+	    this.group = Waypoint.Group.findOrCreate({
+	      name: this.options.group,
+	      axis: this.axis
+	    })
+	    this.context = Waypoint.Context.findOrCreateByElement(this.options.context)
+
+	    if (Waypoint.offsetAliases[this.options.offset]) {
+	      this.options.offset = Waypoint.offsetAliases[this.options.offset]
+	    }
+	    this.group.add(this)
+	    this.context.add(this)
+	    allWaypoints[this.key] = this
+	    keyCounter += 1
+	  }
+
+	  /* Private */
+	  Waypoint.prototype.queueTrigger = function(direction) {
+	    this.group.queueTrigger(this, direction)
+	  }
+
+	  /* Private */
+	  Waypoint.prototype.trigger = function(args) {
+	    if (!this.enabled) {
+	      return
+	    }
+	    if (this.callback) {
+	      this.callback.apply(this, args)
+	    }
+	  }
+
+	  /* Public */
+	  /* http://imakewebthings.com/waypoints/api/destroy */
+	  Waypoint.prototype.destroy = function() {
+	    this.context.remove(this)
+	    this.group.remove(this)
+	    delete allWaypoints[this.key]
+	  }
+
+	  /* Public */
+	  /* http://imakewebthings.com/waypoints/api/disable */
+	  Waypoint.prototype.disable = function() {
+	    this.enabled = false
+	    return this
+	  }
+
+	  /* Public */
+	  /* http://imakewebthings.com/waypoints/api/enable */
+	  Waypoint.prototype.enable = function() {
+	    this.context.refresh()
+	    this.enabled = true
+	    return this
+	  }
+
+	  /* Public */
+	  /* http://imakewebthings.com/waypoints/api/next */
+	  Waypoint.prototype.next = function() {
+	    return this.group.next(this)
+	  }
+
+	  /* Public */
+	  /* http://imakewebthings.com/waypoints/api/previous */
+	  Waypoint.prototype.previous = function() {
+	    return this.group.previous(this)
+	  }
+
+	  /* Private */
+	  Waypoint.invokeAll = function(method) {
+	    var allWaypointsArray = []
+	    for (var waypointKey in allWaypoints) {
+	      allWaypointsArray.push(allWaypoints[waypointKey])
+	    }
+	    for (var i = 0, end = allWaypointsArray.length; i < end; i++) {
+	      allWaypointsArray[i][method]()
+	    }
+	  }
+
+	  /* Public */
+	  /* http://imakewebthings.com/waypoints/api/destroy-all */
+	  Waypoint.destroyAll = function() {
+	    Waypoint.invokeAll('destroy')
+	  }
+
+	  /* Public */
+	  /* http://imakewebthings.com/waypoints/api/disable-all */
+	  Waypoint.disableAll = function() {
+	    Waypoint.invokeAll('disable')
+	  }
+
+	  /* Public */
+	  /* http://imakewebthings.com/waypoints/api/enable-all */
+	  Waypoint.enableAll = function() {
+	    Waypoint.Context.refreshAll()
+	    for (var waypointKey in allWaypoints) {
+	      allWaypoints[waypointKey].enabled = true
+	    }
+	    return this
+	  }
+
+	  /* Public */
+	  /* http://imakewebthings.com/waypoints/api/refresh-all */
+	  Waypoint.refreshAll = function() {
+	    Waypoint.Context.refreshAll()
+	  }
+
+	  /* Public */
+	  /* http://imakewebthings.com/waypoints/api/viewport-height */
+	  Waypoint.viewportHeight = function() {
+	    return window.innerHeight || document.documentElement.clientHeight
+	  }
+
+	  /* Public */
+	  /* http://imakewebthings.com/waypoints/api/viewport-width */
+	  Waypoint.viewportWidth = function() {
+	    return document.documentElement.clientWidth
+	  }
+
+	  Waypoint.adapters = []
+
+	  Waypoint.defaults = {
+	    context: window,
+	    continuous: true,
+	    enabled: true,
+	    group: 'default',
+	    horizontal: false,
+	    offset: 0
+	  }
+
+	  Waypoint.offsetAliases = {
+	    'bottom-in-view': function() {
+	      return this.context.innerHeight() - this.adapter.outerHeight()
+	    },
+	    'right-in-view': function() {
+	      return this.context.innerWidth() - this.adapter.outerWidth()
+	    }
+	  }
+
+	  window.Waypoint = Waypoint
+	}())
+	;(function() {
+	  'use strict'
+
+	  function requestAnimationFrameShim(callback) {
+	    window.setTimeout(callback, 1000 / 60)
+	  }
+
+	  var keyCounter = 0
+	  var contexts = {}
+	  var Waypoint = window.Waypoint
+	  var oldWindowLoad = window.onload
+
+	  /* http://imakewebthings.com/waypoints/api/context */
+	  function Context(element) {
+	    this.element = element
+	    this.Adapter = Waypoint.Adapter
+	    this.adapter = new this.Adapter(element)
+	    this.key = 'waypoint-context-' + keyCounter
+	    this.didScroll = false
+	    this.didResize = false
+	    this.oldScroll = {
+	      x: this.adapter.scrollLeft(),
+	      y: this.adapter.scrollTop()
+	    }
+	    this.waypoints = {
+	      vertical: {},
+	      horizontal: {}
+	    }
+
+	    element.waypointContextKey = this.key
+	    contexts[element.waypointContextKey] = this
+	    keyCounter += 1
+	    if (!Waypoint.windowContext) {
+	      Waypoint.windowContext = true
+	      Waypoint.windowContext = new Context(window)
+	    }
+
+	    this.createThrottledScrollHandler()
+	    this.createThrottledResizeHandler()
+	  }
+
+	  /* Private */
+	  Context.prototype.add = function(waypoint) {
+	    var axis = waypoint.options.horizontal ? 'horizontal' : 'vertical'
+	    this.waypoints[axis][waypoint.key] = waypoint
+	    this.refresh()
+	  }
+
+	  /* Private */
+	  Context.prototype.checkEmpty = function() {
+	    var horizontalEmpty = this.Adapter.isEmptyObject(this.waypoints.horizontal)
+	    var verticalEmpty = this.Adapter.isEmptyObject(this.waypoints.vertical)
+	    var isWindow = this.element == this.element.window
+	    if (horizontalEmpty && verticalEmpty && !isWindow) {
+	      this.adapter.off('.waypoints')
+	      delete contexts[this.key]
+	    }
+	  }
+
+	  /* Private */
+	  Context.prototype.createThrottledResizeHandler = function() {
+	    var self = this
+
+	    function resizeHandler() {
+	      self.handleResize()
+	      self.didResize = false
+	    }
+
+	    this.adapter.on('resize.waypoints', function() {
+	      if (!self.didResize) {
+	        self.didResize = true
+	        Waypoint.requestAnimationFrame(resizeHandler)
+	      }
+	    })
+	  }
+
+	  /* Private */
+	  Context.prototype.createThrottledScrollHandler = function() {
+	    var self = this
+	    function scrollHandler() {
+	      self.handleScroll()
+	      self.didScroll = false
+	    }
+
+	    this.adapter.on('scroll.waypoints', function() {
+	      if (!self.didScroll || Waypoint.isTouch) {
+	        self.didScroll = true
+	        Waypoint.requestAnimationFrame(scrollHandler)
+	      }
+	    })
+	  }
+
+	  /* Private */
+	  Context.prototype.handleResize = function() {
+	    Waypoint.Context.refreshAll()
+	  }
+
+	  /* Private */
+	  Context.prototype.handleScroll = function() {
+	    var triggeredGroups = {}
+	    var axes = {
+	      horizontal: {
+	        newScroll: this.adapter.scrollLeft(),
+	        oldScroll: this.oldScroll.x,
+	        forward: 'right',
+	        backward: 'left'
+	      },
+	      vertical: {
+	        newScroll: this.adapter.scrollTop(),
+	        oldScroll: this.oldScroll.y,
+	        forward: 'down',
+	        backward: 'up'
+	      }
+	    }
+
+	    for (var axisKey in axes) {
+	      var axis = axes[axisKey]
+	      var isForward = axis.newScroll > axis.oldScroll
+	      var direction = isForward ? axis.forward : axis.backward
+
+	      for (var waypointKey in this.waypoints[axisKey]) {
+	        var waypoint = this.waypoints[axisKey][waypointKey]
+	        if (waypoint.triggerPoint === null) {
+	          continue
+	        }
+	        var wasBeforeTriggerPoint = axis.oldScroll < waypoint.triggerPoint
+	        var nowAfterTriggerPoint = axis.newScroll >= waypoint.triggerPoint
+	        var crossedForward = wasBeforeTriggerPoint && nowAfterTriggerPoint
+	        var crossedBackward = !wasBeforeTriggerPoint && !nowAfterTriggerPoint
+	        if (crossedForward || crossedBackward) {
+	          waypoint.queueTrigger(direction)
+	          triggeredGroups[waypoint.group.id] = waypoint.group
+	        }
+	      }
+	    }
+
+	    for (var groupKey in triggeredGroups) {
+	      triggeredGroups[groupKey].flushTriggers()
+	    }
+
+	    this.oldScroll = {
+	      x: axes.horizontal.newScroll,
+	      y: axes.vertical.newScroll
+	    }
+	  }
+
+	  /* Private */
+	  Context.prototype.innerHeight = function() {
+	    /*eslint-disable eqeqeq */
+	    if (this.element == this.element.window) {
+	      return Waypoint.viewportHeight()
+	    }
+	    /*eslint-enable eqeqeq */
+	    return this.adapter.innerHeight()
+	  }
+
+	  /* Private */
+	  Context.prototype.remove = function(waypoint) {
+	    delete this.waypoints[waypoint.axis][waypoint.key]
+	    this.checkEmpty()
+	  }
+
+	  /* Private */
+	  Context.prototype.innerWidth = function() {
+	    /*eslint-disable eqeqeq */
+	    if (this.element == this.element.window) {
+	      return Waypoint.viewportWidth()
+	    }
+	    /*eslint-enable eqeqeq */
+	    return this.adapter.innerWidth()
+	  }
+
+	  /* Public */
+	  /* http://imakewebthings.com/waypoints/api/context-destroy */
+	  Context.prototype.destroy = function() {
+	    var allWaypoints = []
+	    for (var axis in this.waypoints) {
+	      for (var waypointKey in this.waypoints[axis]) {
+	        allWaypoints.push(this.waypoints[axis][waypointKey])
+	      }
+	    }
+	    for (var i = 0, end = allWaypoints.length; i < end; i++) {
+	      allWaypoints[i].destroy()
+	    }
+	  }
+
+	  /* Public */
+	  /* http://imakewebthings.com/waypoints/api/context-refresh */
+	  Context.prototype.refresh = function() {
+	    /*eslint-disable eqeqeq */
+	    var isWindow = this.element == this.element.window
+	    /*eslint-enable eqeqeq */
+	    var contextOffset = isWindow ? undefined : this.adapter.offset()
+	    var triggeredGroups = {}
+	    var axes
+
+	    this.handleScroll()
+	    axes = {
+	      horizontal: {
+	        contextOffset: isWindow ? 0 : contextOffset.left,
+	        contextScroll: isWindow ? 0 : this.oldScroll.x,
+	        contextDimension: this.innerWidth(),
+	        oldScroll: this.oldScroll.x,
+	        forward: 'right',
+	        backward: 'left',
+	        offsetProp: 'left'
+	      },
+	      vertical: {
+	        contextOffset: isWindow ? 0 : contextOffset.top,
+	        contextScroll: isWindow ? 0 : this.oldScroll.y,
+	        contextDimension: this.innerHeight(),
+	        oldScroll: this.oldScroll.y,
+	        forward: 'down',
+	        backward: 'up',
+	        offsetProp: 'top'
+	      }
+	    }
+
+	    for (var axisKey in axes) {
+	      var axis = axes[axisKey]
+	      for (var waypointKey in this.waypoints[axisKey]) {
+	        var waypoint = this.waypoints[axisKey][waypointKey]
+	        var adjustment = waypoint.options.offset
+	        var oldTriggerPoint = waypoint.triggerPoint
+	        var elementOffset = 0
+	        var freshWaypoint = oldTriggerPoint == null
+	        var contextModifier, wasBeforeScroll, nowAfterScroll
+	        var triggeredBackward, triggeredForward
+
+	        if (waypoint.element !== waypoint.element.window) {
+	          elementOffset = waypoint.adapter.offset()[axis.offsetProp]
+	        }
+
+	        if (typeof adjustment === 'function') {
+	          adjustment = adjustment.apply(waypoint)
+	        }
+	        else if (typeof adjustment === 'string') {
+	          adjustment = parseFloat(adjustment)
+	          if (waypoint.options.offset.indexOf('%') > - 1) {
+	            adjustment = Math.ceil(axis.contextDimension * adjustment / 100)
+	          }
+	        }
+
+	        contextModifier = axis.contextScroll - axis.contextOffset
+	        waypoint.triggerPoint = Math.floor(elementOffset + contextModifier - adjustment)
+	        wasBeforeScroll = oldTriggerPoint < axis.oldScroll
+	        nowAfterScroll = waypoint.triggerPoint >= axis.oldScroll
+	        triggeredBackward = wasBeforeScroll && nowAfterScroll
+	        triggeredForward = !wasBeforeScroll && !nowAfterScroll
+
+	        if (!freshWaypoint && triggeredBackward) {
+	          waypoint.queueTrigger(axis.backward)
+	          triggeredGroups[waypoint.group.id] = waypoint.group
+	        }
+	        else if (!freshWaypoint && triggeredForward) {
+	          waypoint.queueTrigger(axis.forward)
+	          triggeredGroups[waypoint.group.id] = waypoint.group
+	        }
+	        else if (freshWaypoint && axis.oldScroll >= waypoint.triggerPoint) {
+	          waypoint.queueTrigger(axis.forward)
+	          triggeredGroups[waypoint.group.id] = waypoint.group
+	        }
+	      }
+	    }
+
+	    Waypoint.requestAnimationFrame(function() {
+	      for (var groupKey in triggeredGroups) {
+	        triggeredGroups[groupKey].flushTriggers()
+	      }
+	    })
+
+	    return this
+	  }
+
+	  /* Private */
+	  Context.findOrCreateByElement = function(element) {
+	    return Context.findByElement(element) || new Context(element)
+	  }
+
+	  /* Private */
+	  Context.refreshAll = function() {
+	    for (var contextId in contexts) {
+	      contexts[contextId].refresh()
+	    }
+	  }
+
+	  /* Public */
+	  /* http://imakewebthings.com/waypoints/api/context-find-by-element */
+	  Context.findByElement = function(element) {
+	    return contexts[element.waypointContextKey]
+	  }
+
+	  window.onload = function() {
+	    if (oldWindowLoad) {
+	      oldWindowLoad()
+	    }
+	    Context.refreshAll()
+	  }
+
+
+	  Waypoint.requestAnimationFrame = function(callback) {
+	    var requestFn = window.requestAnimationFrame ||
+	      window.mozRequestAnimationFrame ||
+	      window.webkitRequestAnimationFrame ||
+	      requestAnimationFrameShim
+	    requestFn.call(window, callback)
+	  }
+	  Waypoint.Context = Context
+	}())
+	;(function() {
+	  'use strict'
+
+	  function byTriggerPoint(a, b) {
+	    return a.triggerPoint - b.triggerPoint
+	  }
+
+	  function byReverseTriggerPoint(a, b) {
+	    return b.triggerPoint - a.triggerPoint
+	  }
+
+	  var groups = {
+	    vertical: {},
+	    horizontal: {}
+	  }
+	  var Waypoint = window.Waypoint
+
+	  /* http://imakewebthings.com/waypoints/api/group */
+	  function Group(options) {
+	    this.name = options.name
+	    this.axis = options.axis
+	    this.id = this.name + '-' + this.axis
+	    this.waypoints = []
+	    this.clearTriggerQueues()
+	    groups[this.axis][this.name] = this
+	  }
+
+	  /* Private */
+	  Group.prototype.add = function(waypoint) {
+	    this.waypoints.push(waypoint)
+	  }
+
+	  /* Private */
+	  Group.prototype.clearTriggerQueues = function() {
+	    this.triggerQueues = {
+	      up: [],
+	      down: [],
+	      left: [],
+	      right: []
+	    }
+	  }
+
+	  /* Private */
+	  Group.prototype.flushTriggers = function() {
+	    for (var direction in this.triggerQueues) {
+	      var waypoints = this.triggerQueues[direction]
+	      var reverse = direction === 'up' || direction === 'left'
+	      waypoints.sort(reverse ? byReverseTriggerPoint : byTriggerPoint)
+	      for (var i = 0, end = waypoints.length; i < end; i += 1) {
+	        var waypoint = waypoints[i]
+	        if (waypoint.options.continuous || i === waypoints.length - 1) {
+	          waypoint.trigger([direction])
+	        }
+	      }
+	    }
+	    this.clearTriggerQueues()
+	  }
+
+	  /* Private */
+	  Group.prototype.next = function(waypoint) {
+	    this.waypoints.sort(byTriggerPoint)
+	    var index = Waypoint.Adapter.inArray(waypoint, this.waypoints)
+	    var isLast = index === this.waypoints.length - 1
+	    return isLast ? null : this.waypoints[index + 1]
+	  }
+
+	  /* Private */
+	  Group.prototype.previous = function(waypoint) {
+	    this.waypoints.sort(byTriggerPoint)
+	    var index = Waypoint.Adapter.inArray(waypoint, this.waypoints)
+	    return index ? this.waypoints[index - 1] : null
+	  }
+
+	  /* Private */
+	  Group.prototype.queueTrigger = function(waypoint, direction) {
+	    this.triggerQueues[direction].push(waypoint)
+	  }
+
+	  /* Private */
+	  Group.prototype.remove = function(waypoint) {
+	    var index = Waypoint.Adapter.inArray(waypoint, this.waypoints)
+	    if (index > -1) {
+	      this.waypoints.splice(index, 1)
+	    }
+	  }
+
+	  /* Public */
+	  /* http://imakewebthings.com/waypoints/api/first */
+	  Group.prototype.first = function() {
+	    return this.waypoints[0]
+	  }
+
+	  /* Public */
+	  /* http://imakewebthings.com/waypoints/api/last */
+	  Group.prototype.last = function() {
+	    return this.waypoints[this.waypoints.length - 1]
+	  }
+
+	  /* Private */
+	  Group.findOrCreate = function(options) {
+	    return groups[options.axis][options.name] || new Group(options)
+	  }
+
+	  Waypoint.Group = Group
+	}())
+	;(function() {
+	  'use strict'
+
+	  var Waypoint = window.Waypoint
+
+	  function isWindow(element) {
+	    return element === element.window
+	  }
+
+	  function getWindow(element) {
+	    if (isWindow(element)) {
+	      return element
+	    }
+	    return element.defaultView
+	  }
+
+	  function NoFrameworkAdapter(element) {
+	    this.element = element
+	    this.handlers = {}
+	  }
+
+	  NoFrameworkAdapter.prototype.innerHeight = function() {
+	    var isWin = isWindow(this.element)
+	    return isWin ? this.element.innerHeight : this.element.clientHeight
+	  }
+
+	  NoFrameworkAdapter.prototype.innerWidth = function() {
+	    var isWin = isWindow(this.element)
+	    return isWin ? this.element.innerWidth : this.element.clientWidth
+	  }
+
+	  NoFrameworkAdapter.prototype.off = function(event, handler) {
+	    function removeListeners(element, listeners, handler) {
+	      for (var i = 0, end = listeners.length - 1; i < end; i++) {
+	        var listener = listeners[i]
+	        if (!handler || handler === listener) {
+	          element.removeEventListener(listener)
+	        }
+	      }
+	    }
+
+	    var eventParts = event.split('.')
+	    var eventType = eventParts[0]
+	    var namespace = eventParts[1]
+	    var element = this.element
+
+	    if (namespace && this.handlers[namespace] && eventType) {
+	      removeListeners(element, this.handlers[namespace][eventType], handler)
+	      this.handlers[namespace][eventType] = []
+	    }
+	    else if (eventType) {
+	      for (var ns in this.handlers) {
+	        removeListeners(element, this.handlers[ns][eventType] || [], handler)
+	        this.handlers[ns][eventType] = []
+	      }
+	    }
+	    else if (namespace && this.handlers[namespace]) {
+	      for (var type in this.handlers[namespace]) {
+	        removeListeners(element, this.handlers[namespace][type], handler)
+	      }
+	      this.handlers[namespace] = {}
+	    }
+	  }
+
+	  /* Adapted from jQuery 1.x offset() */
+	  NoFrameworkAdapter.prototype.offset = function() {
+	    if (!this.element.ownerDocument) {
+	      return null
+	    }
+
+	    var documentElement = this.element.ownerDocument.documentElement
+	    var win = getWindow(this.element.ownerDocument)
+	    var rect = {
+	      top: 0,
+	      left: 0
+	    }
+
+	    if (this.element.getBoundingClientRect) {
+	      rect = this.element.getBoundingClientRect()
+	    }
+
+	    return {
+	      top: rect.top + win.pageYOffset - documentElement.clientTop,
+	      left: rect.left + win.pageXOffset - documentElement.clientLeft
+	    }
+	  }
+
+	  NoFrameworkAdapter.prototype.on = function(event, handler) {
+	    var eventParts = event.split('.')
+	    var eventType = eventParts[0]
+	    var namespace = eventParts[1] || '__default'
+	    var nsHandlers = this.handlers[namespace] = this.handlers[namespace] || {}
+	    var nsTypeList = nsHandlers[eventType] = nsHandlers[eventType] || []
+
+	    nsTypeList.push(handler)
+	    this.element.addEventListener(eventType, handler)
+	  }
+
+	  NoFrameworkAdapter.prototype.outerHeight = function(includeMargin) {
+	    var height = this.innerHeight()
+	    var computedStyle
+
+	    if (includeMargin && !isWindow(this.element)) {
+	      computedStyle = window.getComputedStyle(this.element)
+	      height += parseInt(computedStyle.marginTop, 10)
+	      height += parseInt(computedStyle.marginBottom, 10)
+	    }
+
+	    return height
+	  }
+
+	  NoFrameworkAdapter.prototype.outerWidth = function(includeMargin) {
+	    var width = this.innerWidth()
+	    var computedStyle
+
+	    if (includeMargin && !isWindow(this.element)) {
+	      computedStyle = window.getComputedStyle(this.element)
+	      width += parseInt(computedStyle.marginLeft, 10)
+	      width += parseInt(computedStyle.marginRight, 10)
+	    }
+
+	    return width
+	  }
+
+	  NoFrameworkAdapter.prototype.scrollLeft = function() {
+	    var win = getWindow(this.element)
+	    return win ? win.pageXOffset : this.element.scrollLeft
+	  }
+
+	  NoFrameworkAdapter.prototype.scrollTop = function() {
+	    var win = getWindow(this.element)
+	    return win ? win.pageYOffset : this.element.scrollTop
+	  }
+
+	  NoFrameworkAdapter.extend = function() {
+	    var args = Array.prototype.slice.call(arguments)
+
+	    function merge(target, obj) {
+	      if (typeof target === 'object' && typeof obj === 'object') {
+	        for (var key in obj) {
+	          if (obj.hasOwnProperty(key)) {
+	            target[key] = obj[key]
+	          }
+	        }
+	      }
+
+	      return target
+	    }
+
+	    for (var i = 1, end = args.length; i < end; i++) {
+	      merge(args[0], args[i])
+	    }
+	    return args[0]
+	  }
+
+	  NoFrameworkAdapter.inArray = function(element, array, i) {
+	    return array == null ? -1 : array.indexOf(element, i)
+	  }
+
+	  NoFrameworkAdapter.isEmptyObject = function(obj) {
+	    /* eslint no-unused-vars: 0 */
+	    for (var name in obj) {
+	      return false
+	    }
+	    return true
+	  }
+
+	  Waypoint.adapters.push({
+	    name: 'noframework',
+	    Adapter: NoFrameworkAdapter
+	  })
+	  Waypoint.Adapter = NoFrameworkAdapter
+	}())
+	;
+
+/***/ },
+/* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10739,130 +10698,183 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
+	exports.default = Menu;
 
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _jquery = __webpack_require__(3);
+	var _jquery = __webpack_require__(1);
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
-	var _noframework = __webpack_require__(1);
+	var _lodash = __webpack_require__(4);
+
+	var _lodash2 = _interopRequireDefault(_lodash);
+
+	var _noframework = __webpack_require__(2);
 
 	var _noframework2 = _interopRequireDefault(_noframework);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	function Menu() {
+	    var icon = (0, _jquery2.default)('.menu-toggle'),
+	        buttons = (0, _jquery2.default)('.mobile-buttons'),
+	        content = (0, _jquery2.default)('.primary-nav'),
+	        interval = 80,
+	        required = 2,
+	        links = content.find('a'),
+	        smButtons = (0, _jquery2.default)('#social-media-buttons');
+	    var prevScroll = 0,
+	        consecutives = 0,
+	        prevDirection = 'down';
 
-	///////////////////////////////////////////////////////////////////////////////
-	var RevealOnScroll = function () {
-	    function RevealOnScroll(selector, waypointOffset) {
-	        _classCallCheck(this, RevealOnScroll);
-
-	        this.toReveal = (0, _jquery2.default)(selector);
-	        this.offset = waypointOffset;
-	        this.hide();
-	        this.createWaypoints();
+	    function toggleMenu() {
+	        (0, _jquery2.default)('html').toggleClass('scroll-lock');
+	        icon.toggleClass('menu-toggle--close');
+	        content.toggleClass('primary-nav--open');
 	    }
 
-	    _createClass(RevealOnScroll, [{
-	        key: 'hide',
-	        value: function hide() {
-	            this.toReveal.addClass('reveal-item');
-	        }
-	    }, {
-	        key: 'createWaypoints',
-	        value: function createWaypoints() {
-	            var instance = this;
-	            this.toReveal.each(function () {
-	                var currentItem = this;
-	                new Waypoint({
-	                    element: currentItem,
-	                    offset: instance.offset,
-	                    handler: function handler() {
-	                        (0, _jquery2.default)(currentItem).addClass('reveal-item--visible');
-	                    }
-	                });
-	            });
-	        }
-	    }]);
+	    function closeMenu() {
+	        var targetClass = 'primary-nav--open',
+	            isAnchor = content.attr('href').charAt('0') == '#';
+	        if (content.hasClass(targetClass) && isAnchor) toggleMenu();
+	    }
 
-	    return RevealOnScroll;
-	}();
+	    function handleScroll(event) {
+	        var scroll = (0, _jquery2.default)(window).scrollTop(),
+	            direction = scroll > prevScroll ? 'down' : 'up';
+	        if (direction == prevDirection) {
+	            consecutives++;
+	        } else consecutives = 0;
+	        if (consecutives == required) {
+	            if (direction === 'up') {
+	                buttons.addClass('visible');
+	            } else {
+	                buttons.removeClass('visible');
+	                smButtons.removeClass('visible');
+	            }
+	        } else prevDirection = direction;
 
-	exports.default = RevealOnScroll;
+	        prevScroll = scroll;
+	    }
+
+	    return function () {
+	        icon.click(toggleMenu);
+	        links.click(closeMenu);
+
+	        (0, _jquery2.default)(window).scroll(_lodash2.default.throttle(handleScroll, interval));
+	    }();
+	}
+
+/***/ },
+/* 4 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(global, module) {"use strict";
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+	/**
+	 * @license
+	 * Lodash (Custom Build) lodash.com/license | Underscore.js 1.8.3 underscorejs.org/LICENSE
+	 * Build: `lodash include="throttle,debounce"`
+	 */
+	;(function () {
+	  function t() {
+	    return d.Date.now();
+	  }function e() {}function n(e, n, r) {
+	    function i(t) {
+	      var n = s,
+	          o = b;return s = b = f, j = t, d = e.apply(o, n);
+	    }function a(t) {
+	      var e = t - g;return t -= j, g === f || e >= n || 0 > e || x && t >= y;
+	    }function c() {
+	      var e = t();if (a(e)) return l(e);var o,
+	          r = setTimeout;o = e - j, e = n - (e - g), o = x ? h(e, y - o) : e, m = r(c, o);
+	    }function l(t) {
+	      return m = f, T && s ? i(t) : (s = b = f, d);
+	    }function p() {
+	      var e = t(),
+	          o = a(e);if (s = arguments, b = this, g = e, o) {
+	        if (m === f) return j = e = g, m = setTimeout(c, n), v ? i(e) : d;if (x) return m = setTimeout(c, n), i(g);
+	      }return m === f && (m = setTimeout(c, n)), d;
+	    }var s,
+	        b,
+	        y,
+	        d,
+	        m,
+	        g,
+	        j = 0,
+	        v = false,
+	        x = false,
+	        T = true;if (typeof e != "function") throw new TypeError("Expected a function");return n = u(n) || 0, o(r) && (v = !!r.leading, y = (x = "maxWait" in r) ? O(u(r.maxWait) || 0, n) : y, T = "trailing" in r ? !!r.trailing : T), p.cancel = function () {
+	      m !== f && clearTimeout(m), j = 0, s = g = b = m = f;
+	    }, p.flush = function () {
+	      return m === f ? d : l(t());
+	    }, p;
+	  }function o(t) {
+	    var e = typeof t === "undefined" ? "undefined" : _typeof(t);return null != t && ("object" == e || "function" == e);
+	  }function r(t) {
+	    return null != t && (typeof t === "undefined" ? "undefined" : _typeof(t)) == "object";
+	  }function i(t) {
+	    var e;if (!(e = (typeof t === "undefined" ? "undefined" : _typeof(t)) == "symbol") && (e = r(t))) {
+	      var n;if (null == t) n = t === f ? "[object Undefined]" : "[object Null]";else if (t = Object(t), x && x in t) {
+	        e = j.call(t, x);var o = t[x];try {
+	          t[x] = f, n = true;
+	        } catch (t) {}var i = v.call(t);n && (e ? t[x] = o : delete t[x]), n = i;
+	      } else n = v.call(t);e = "[object Symbol]" == n;
+	    }return e;
+	  }function u(t) {
+	    if (typeof t == "number") return t;if (i(t)) return a;if (o(t) && (t = typeof t.valueOf == "function" ? t.valueOf() : t, t = o(t) ? t + "" : t), typeof t != "string") return 0 === t ? t : +t;t = t.replace(c, "");var e = p.test(t);return e || s.test(t) ? b(t.slice(2), e ? 2 : 8) : l.test(t) ? a : +t;
+	  }var f,
+	      a = NaN,
+	      c = /^\s+|\s+$/g,
+	      l = /^[-+]0x[0-9a-f]+$/i,
+	      p = /^0b[01]+$/i,
+	      s = /^0o[0-7]+$/i,
+	      b = parseInt,
+	      y = (typeof self === "undefined" ? "undefined" : _typeof(self)) == "object" && self && self.Object === Object && self,
+	      d = (typeof global === "undefined" ? "undefined" : _typeof(global)) == "object" && global && global.Object === Object && global || y || Function("return this")(),
+	      m = (y = ( false ? "undefined" : _typeof(exports)) == "object" && exports && !exports.nodeType && exports) && ( false ? "undefined" : _typeof(module)) == "object" && module && !module.nodeType && module,
+	      g = Object.prototype,
+	      j = g.hasOwnProperty,
+	      v = g.toString,
+	      x = (g = d.Symbol) ? g.toStringTag : f,
+	      O = Math.max,
+	      h = Math.min;
+	  e.debounce = n, e.throttle = function (t, e, r) {
+	    var i = true,
+	        u = true;if (typeof t != "function") throw new TypeError("Expected a function");return o(r) && (i = "leading" in r ? !!r.leading : i, u = "trailing" in r ? !!r.trailing : u), n(t, e, { leading: i, maxWait: e, trailing: u });
+	  }, e.isObject = o, e.isObjectLike = r, e.isSymbol = i, e.now = t, e.toNumber = u, e.VERSION = "4.17.1", "function" == "function" && _typeof(__webpack_require__(6)) == "object" && __webpack_require__(6) ? (d._ = e, !(__WEBPACK_AMD_DEFINE_RESULT__ = function () {
+	    return e;
+	  }.call(exports, __webpack_require__, exports, module), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__))) : m ? ((m.exports = e)._ = e, y._ = e) : d._ = e;
+	}).call(undefined);
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(5)(module)))
 
 /***/ },
 /* 5 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	'use strict';
+	module.exports = function(module) {
+		if(!module.webpackPolyfill) {
+			module.deprecate = function() {};
+			module.paths = [];
+			// module.parent = undefined by default
+			module.children = [];
+			module.webpackPolyfill = 1;
+		}
+		return module;
+	}
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _jquery = __webpack_require__(3);
-
-	var _jquery2 = _interopRequireDefault(_jquery);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var StickyHeader = function () {
-	    function StickyHeader(triggerSelector) {
-	        _classCallCheck(this, StickyHeader);
-
-	        this.header = (0, _jquery2.default)('.header');
-	        this.triggerElement = (0, _jquery2.default)(triggerSelector);
-	        this.setHeaderWaypoint();
-	        this.previousSrollPosition = 0;
-	        this.events();
-	    }
-
-	    _createClass(StickyHeader, [{
-	        key: 'events',
-	        value: function events() {
-	            (0, _jquery2.default)(window).scroll(this.handleScroll.bind(this));
-	        }
-	    }, {
-	        key: 'handleScroll',
-	        value: function handleScroll(event) {
-	            var prev = this.previousSrollPosition,
-	                now = (0, _jquery2.default)(window).scrollTop(),
-	                direction = now > prev && now > 150 ? 'down' : 'up';
-	            if (direction === 'up') {
-	                this.header.addClass('visible');
-	            } else {
-	                this.header.removeClass('visible');
-	            }
-	            this.previousSrollPosition = (0, _jquery2.default)(window).scrollTop();
-	            console.log(direction);
-	            console.log(this.previousScrollPosition);
-	        }
-	    }, {
-	        key: 'setHeaderWaypoint',
-	        value: function setHeaderWaypoint() {
-	            var head = this;
-	            new Waypoint({
-	                element: head.triggerElement[0],
-	                handler: function handler() {
-	                    head.header.toggleClass('header--dark');
-	                }
-	            });
-	        }
-	    }]);
-
-	    return StickyHeader;
-	}();
-
-	exports.default = StickyHeader;
 
 /***/ },
 /* 6 */
+/***/ function(module, exports) {
+
+	/* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {module.exports = __webpack_amd_options__;
+
+	/* WEBPACK VAR INJECTION */}.call(exports, {}))
+
+/***/ },
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10873,7 +10885,7 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	var _jquery = __webpack_require__(3);
+	var _jquery = __webpack_require__(1);
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
@@ -10923,7 +10935,7 @@
 	exports.default = Modal;
 
 /***/ },
-/* 7 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -10931,102 +10943,150 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
+	exports.default = Accordion;
 
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _jquery = __webpack_require__(3);
+	var _jquery = __webpack_require__(1);
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
-	var _jquerySmoothScroll = __webpack_require__(8);
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function Accordion(_selector, _careted) {
+	    var selector = _selector.trim(),
+	        element = (0, _jquery2.default)(selector),
+	        panel = element.find('.accordion-panel'),
+	        triggers = element.find('.accordion-panel__trigger').length != 0 ? element.find('.accordion-panel__trigger') : element.find('.accordion-panel__heading'),
+	        caret = _careted == undefined ? (0, _jquery2.default)(selector + ' .accordion-panel__caret') : false;
+
+	    function setIndexes() {
+	        triggers.each(function (index, item) {
+	            item.setAttribute('data-index', index);
+	        });
+	    }
+
+	    function toggleAccordionPanel(event) {
+	        var trigger = event.target,
+	            thisPanel = panel.eq(+trigger.getAttribute('data-index')),
+	            thisCaret = thisPanel.find('.accordion-panel__caret')[0],
+	            content = thisPanel.find('.accordion-panel__content')[0];
+
+	        content.classList.toggle('accordion-panel__content--open');
+	        if (thisCaret) {
+	            thisCaret.classList.toggle('accordion-panel__caret--open');
+	        }
+
+	        //        const scrollTo = content.classList.contains('accordion-panel__content--open') ? content.offset().top - 50 : thisPanel.offset().top - 150;
+
+	        triggerWaypointRefresh();
+	        //        scrollPage(scrollTo);
+	    }
+
+	    function toggleCaretlessPanel(event) {
+	        var trigger = event.target,
+	            content = panel.eq(+trigger.getAttribute('data-index')).find((0, _jquery2.default)('.accordion-panel__content'))[0];
+
+	        trigger.classList.toggle('open');
+	        content.classList.toggle('accordion-panel__content--open');
+	        var
+	        //            scrollTo = content.classList.contains('accordion-panel__content--open') ? content.offset().top - 50 : element.offset().top - 250,
+	        html = trigger.classList.contains('open') ? '(Show Less)' : '(Show More)';
+
+	        trigger.innerHTML = html;
+	        triggerWaypointRefresh();
+	        //        scrollPage(scrollTo);
+	    }
+
+	    function triggerWaypointRefresh() {
+	        setTimeout(function (done) {
+	            return (0, _jquery2.default)(document).trigger('accordion');
+	        }, 500);
+	    }
+
+	    function scrollPage(scrollTo) {
+	        (0, _jquery2.default)('html, body').animate({
+	            scrollTop: scrollTo
+	        }, 300);
+	    }
+
+	    return function () {
+	        setIndexes();
+	        if (caret) {
+	            triggers.click(toggleAccordionPanel);
+	        } else {
+	            triggers.click(toggleCaretlessPanel);
+	        }
+	    }();
+	}
+
+/***/ },
+/* 9 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.default = ScrollSpy;
+
+	var _jquery = __webpack_require__(1);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
+	var _jquerySmoothScroll = __webpack_require__(10);
 
 	var _jquerySmoothScroll2 = _interopRequireDefault(_jquerySmoothScroll);
 
+	var _noframework = __webpack_require__(2);
+
+	var _noframework2 = _interopRequireDefault(_noframework);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	function ScrollSpy() {
+	    var pageSections = (0, _jquery2.default)('.page-section'),
+	        lazyImages = (0, _jquery2.default)('.lazyload'),
+	        links = (0, _jquery2.default)('.primary-nav a'),
+	        anchors = (0, _jquery2.default)('.anchor');
 
-	var ScrollSpy = function () {
-	    function ScrollSpy() {
-	        _classCallCheck(this, ScrollSpy);
-
-	        this.pageSections = (0, _jquery2.default)('.page-section');
-	        this.navLinks = (0, _jquery2.default)('.primary-nav a');
-	        this.links = (0, _jquery2.default)('.anchor-link');
-	        this.createSectionWaypoints();
-	        this.addSmoothScrolling();
-	        this.lazyImages = (0, _jquery2.default)('.lazyload');
-	        this.refreshWaypoints();
-	        this.events();
+	    function sectionChange(section, direction, targetDirection) {
+	        if (direction == targetDirection) {
+	            var targetLink = '_' + section.id;
+	            links.removeClass('current-link');
+	            document.getElementById(targetLink).classList.add('current-link');
+	        }
 	    }
 
-	    _createClass(ScrollSpy, [{
-	        key: 'events',
-	        value: function events() {
-	            (0, _jquery2.default)(document).on('accordion', this.refreshWaypoints.bind(this));
-	            this.lazyImages.load(function () {
-	                return Waypoint.refreshAll();
-	            });
-	        }
-	    }, {
-	        key: 'addSmoothScrolling',
-	        value: function addSmoothScrolling() {
-	            this.links.smoothScroll();
-	            this.navLinks.smoothScroll();
-	        }
-	    }, {
-	        key: 'refreshWaypoints',
-	        value: function refreshWaypoints() {
-	            Waypoint.refreshAll();
-	        }
-	    }, {
-	        key: 'createSectionWaypoints',
-	        value: function createSectionWaypoints() {
-	            var instance = this,
-	                navLinks = this.navLinks;
-	            // Hacky (if you ask me) fix to remove active class from first header link when page scrolls back to top
+	    return function () {
+	        pageSections.each(function () {
+	            var cs = this;
 	            new Waypoint({
-	                element: this.pageSections[0],
-	                offset: '-150px',
+	                element: cs,
+	                offset: '18%',
 	                handler: function handler(direction) {
-	                    if (direction === 'up') navLinks.removeClass('current-link');
+	                    return sectionChange(cs, direction, 'down');
 	                }
 	            });
-	            this.pageSections.each(function () {
-	                var currentPageSection = this,
-	                    currentLink = this.getAttribute('data-link');
-
-	                new Waypoint({
-	                    element: currentPageSection,
-	                    offset: '18%',
-	                    handler: function handler(direction) {
-	                        if (direction === 'down') {
-	                            navLinks.removeClass('current-link');
-	                            (0, _jquery2.default)(currentLink).addClass('current-link');
-	                        }
-	                    }
-	                });
-	                new Waypoint({
-	                    element: currentPageSection,
-	                    offset: '-40%',
-	                    handler: function handler(direction) {
-	                        if (direction === 'up') {
-	                            navLinks.removeClass('current-link');
-	                            (0, _jquery2.default)(currentLink).addClass('current-link');
-	                        }
-	                    }
-	                });
+	            new Waypoint({
+	                element: cs,
+	                offset: '-40%',
+	                handler: function handler(direction) {
+	                    return sectionChange(cs, direction, 'up');
+	                }
 	            });
-	        }
-	    }]);
+	        });
 
-	    return ScrollSpy;
-	}();
+	        links.smoothScroll();
+	        anchors.smoothScroll();
 
-	exports.default = ScrollSpy;
+	        lazyImages.load(function () {
+	            return Waypoint.refreshAll();
+	        });
+	    }();
+	}
 
 /***/ },
-/* 8 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -11039,7 +11099,7 @@
 	(function(factory) {
 	  if (true) {
 	    // AMD. Register as an anonymous module.
-	    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(3)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	  } else if (typeof module === 'object' && module.exports) {
 	    // CommonJS
 	    factory(require('jquery'));
@@ -11351,7 +11411,7 @@
 
 
 /***/ },
-/* 9 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11359,45 +11419,48 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
+	exports.default = RevealOnScroll;
 
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _jquery = __webpack_require__(3);
+	var _jquery = __webpack_require__(1);
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
+	var _noframework = __webpack_require__(2);
+
+	var _noframework2 = _interopRequireDefault(_noframework);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	function RevealOnScroll(selector, waypointOffset, doesZoom) {
+	    var toReveal = (0, _jquery2.default)(selector.trim()),
+	        offset = waypointOffset,
+	        zooms = doesZoom == undefined ? true : doesZoom;
 
-	var FullScreenSection = function () {
-	    function FullScreenSection(selector) {
-	        _classCallCheck(this, FullScreenSection);
-
-	        this.section = (0, _jquery2.default)(selector);
-	        this.fixHeight();
-	        this.events();
-	    }
-
-	    _createClass(FullScreenSection, [{
-	        key: 'events',
-	        value: function events() {
-	            (0, _jquery2.default)(window).resize(this.fixHeight.bind(this));
+	    return function () {
+	        if (zooms) {
+	            toReveal.addClass('reveal-item');
+	        } else {
+	            toReveal.addClass('reveal-item--no-zoom');
 	        }
-	    }, {
-	        key: 'fixHeight',
-	        value: function fixHeight() {
-	            this.section.css('height', window.innerHeight);
-	        }
-	    }]);
-
-	    return FullScreenSection;
-	}();
-
-	exports.default = FullScreenSection;
+	        toReveal.each(function () {
+	            var currentItem = this;
+	            new Waypoint({
+	                element: currentItem,
+	                offset: offset,
+	                handler: function handler() {
+	                    if (zooms) {
+	                        (0, _jquery2.default)(currentItem).addClass('reveal-item--visible');
+	                    } else {
+	                        (0, _jquery2.default)(currentItem).addClass('reveal-item--no-zoom--visible');
+	                    }
+	                }
+	            });
+	        });
+	    }();
+	}
 
 /***/ },
-/* 10 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11405,59 +11468,117 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
+	exports.default = StickyHeader;
 
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	var _jquery = __webpack_require__(1);
 
-	var _jquery = __webpack_require__(3);
+	var _jquery2 = _interopRequireDefault(_jquery);
+
+	var _lodash = __webpack_require__(4);
+
+	var _lodash2 = _interopRequireDefault(_lodash);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	//import waypoints from '../../../../node_modules/waypoints/lib/noframework.waypoints';
+
+	function StickyHeader() {
+	    var nav = document.getElementById('primary-nav'),
+	        trigger = nav,
+	        interval = 200,
+	        requiredConsecutives = 3,
+	        smButtons = (0, _jquery2.default)('#social-media-buttons');
+	    var prevScroll = 0,
+	        consecutives = 2,
+	        prevDirection = 'down';
+
+	    function handleScroll(event) {
+	        var scroll = (0, _jquery2.default)(window).scrollTop(),
+	            direction = scroll > prevScroll ? 'down' : 'up';
+	        if (direction == prevDirection) {
+	            consecutives++;
+	        } else consecutives = 0;
+	        if (consecutives == requiredConsecutives || direction == 'up' && scroll < 50) {
+	            if (direction === 'up') {
+	                nav.classList.add('visible');
+	            } else {
+	                nav.classList.remove('visible');
+	                smButtons.removeClass('visible');
+	            }
+	        } else prevDirection = direction;
+
+	        prevScroll = scroll;
+	    }
+
+	    function init() {
+	        document.body.classList.add('sticky-top');
+	        nav.classList.add('primary-nav--fixed', 'visible');
+	    }
+
+	    return function () {
+	        init();
+	        (0, _jquery2.default)(window).scroll(_lodash2.default.throttle(handleScroll, interval));
+	    }();
+	}
+
+/***/ },
+/* 13 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.default = FullScreenSection;
+
+	var _jquery = __webpack_require__(1);
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	function FullScreenSection(selector) {
+	    var section = (0, _jquery2.default)(selector.trim());
 
-	var AccordionPanel = function () {
-	    function AccordionPanel(accordionName, initiallyOpen, trigger) {
-	        _classCallCheck(this, AccordionPanel);
+	    function fixHeight() {
+	        section.css('min-height', window.innerHeight);
+	    }
+	    return function () {
+	        fixHeight();
+	        (0, _jquery2.default)(window).resize(fixHeight);
+	    }();
+	}
 
-	        this.element = (0, _jquery2.default)(accordionName);
-	        this.caret = (0, _jquery2.default)(accordionName + ' .accordion-panel__caret');
-	        this.body = (0, _jquery2.default)(accordionName + ' .accordion-panel__content');
-	        this.trigger = trigger ? (0, _jquery2.default)(trigger) : (0, _jquery2.default)(accordionName + ' .accordion-panel__heading');
-	        this.setDefaultState(initiallyOpen);
-	        this.events();
+/***/ },
+/* 14 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.default = SocialMediaButtons;
+
+	var _jquery = __webpack_require__(1);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function SocialMediaButtons() {
+	    var smButtons = (0, _jquery2.default)('#social-media-buttons'),
+	        smToggles = (0, _jquery2.default)('.social-media-toggle');
+
+	    function toggleSocialMediaButtons() {
+	        smButtons.toggleClass('visible');
 	    }
 
-	    _createClass(AccordionPanel, [{
-	        key: 'events',
-	        value: function events() {
-	            this.trigger.click(this.toggleAccordionPanel.bind(this));
-	        }
-	    }, {
-	        key: 'setDefaultState',
-	        value: function setDefaultState(isInitiallyOpen) {
-	            if (isInitiallyOpen) this.toggleAccordionPanel();
-	        }
-	    }, {
-	        key: 'toggleAccordionPanel',
-	        value: function toggleAccordionPanel() {
-	            if (this.caret.length !== 0) this.caret.toggleClass('accordion-panel__caret--open');
-	            this.trigger.toggleClass('open');
-	            this.body.toggleClass('accordion-panel__content--open');
-	            var scrollTo = this.body.hasClass('accordion-panel__content--open') ? this.body.offset().top - 50 : this.element.offset().top - 250;
-	            setTimeout(function () {
-	                (0, _jquery2.default)(document).trigger('accordion');
-	            }, 500);
-	            (0, _jquery2.default)('html, body').animate({
-	                scrollTop: scrollTo
-	            }, 300);
-	        }
-	    }]);
-
-	    return AccordionPanel;
-	}();
-
-	exports.default = AccordionPanel;
+	    return function () {
+	        smToggles.click(toggleSocialMediaButtons);
+	    }();
+	}
 
 /***/ }
 /******/ ]);

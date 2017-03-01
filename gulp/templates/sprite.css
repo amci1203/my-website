@@ -3,15 +3,20 @@
 {{#shapes}}
     {{#first}}
     .icon {
-        background-image: url('../../assets/img/sprites/{{{sprite}}}');
+        background-image : url('../../assets/img/sprites/{{{sprite}}}');
+        text-indent      : 9999px;
+        display          : block;
     }
+    /*
     .no-svg .icon {
-        background-image: url('../../assets/img/sprites/{{#changeSVG2PNG}}{{{sprite}}}{{/changeSVG2PNG}}');
+        background-image : url('../../assets/img/sprites/{{#changeSVG2PNG}}{{{sprite}}}{{/changeSVG2PNG}}');
+        display          : block
     }
+    */
     {{/first}}
     .icon--{{base}} {
-        width: {{width.outer}}px;
-        height: {{height.outer}}px;
-        background-position: {{position.relative.xy}};
+        width               : {{width.outer}}px;
+        height              : {{height.outer}}px;
+        background-position : {{position.relative.xy}};
     }
 {{/shapes}}

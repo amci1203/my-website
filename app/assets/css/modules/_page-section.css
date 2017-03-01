@@ -9,9 +9,8 @@
         color: #333;
     }
     &--blue {
-        font-size: 105%;
         background-color: $bahamaBlue;
-        color: #FFF;
+        color: #222;
     }
     &--testimonials {
         background-color: #E0E6EF;

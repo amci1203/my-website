@@ -1,34 +1,69 @@
 import $ from 'jquery';
 
-export default class AccordionPanel {
-    constructor (accordionName, initiallyOpen, trigger) {
-        this.element = $(accordionName);
-        this.caret = $(accordionName + ' .accordion-panel__caret');
-        this.body = $(accordionName + ' .accordion-panel__content');
-        this.trigger = trigger ? $(trigger) : $(accordionName + ' .accordion-panel__heading');
-        this.setDefaultState(initiallyOpen);
-        this.events()
+export default function Accordion (_selector, _careted) {
+    const
+        selector = _selector.trim(),
+        element  = $(selector),
+        panel    = element.find('.accordion-panel'),
+        triggers = element.find('.accordion-panel__trigger').length != 0 ? element.find('.accordion-panel__trigger') : element.find('.accordion-panel__heading'),
+        caret    = _careted == undefined ? $(`${selector} .accordion-panel__caret`) : false;
+
+    function setIndexes () {
+        triggers.each((index, item) => {
+            item.setAttribute('data-index', index);
+        })
     }
 
-    events () {
-        this.trigger.click(this.toggleAccordionPanel.bind(this))
+    function toggleAccordionPanel (event) {
+        let trigger   = event.target,
+            thisPanel = panel.eq(+trigger.getAttribute('data-index')),
+            thisCaret = thisPanel.find('.accordion-panel__caret')[0],
+            content   = thisPanel.find('.accordion-panel__content')[0];
+
+        content.classList.toggle('accordion-panel__content--open');
+        if (thisCaret) {
+            thisCaret.classList.toggle('accordion-panel__caret--open');
+        }
+
+//        const scrollTo = content.classList.contains('accordion-panel__content--open') ? content.offset().top - 50 : thisPanel.offset().top - 150;
+
+        triggerWaypointRefresh()
+//        scrollPage(scrollTo);
     }
 
-    setDefaultState (isInitiallyOpen) {
-        if (isInitiallyOpen) this.toggleAccordionPanel();
+    function toggleCaretlessPanel (event) {
+        let trigger = event.target,
+            content = panel.eq(+trigger.getAttribute('data-index')).find($('.accordion-panel__content'))[0];
+
+
+        trigger.classList.toggle('open');
+        content.classList.toggle('accordion-panel__content--open');
+        const
+//            scrollTo = content.classList.contains('accordion-panel__content--open') ? content.offset().top - 50 : element.offset().top - 250,
+            html     = trigger.classList.contains('open') ? '(Show Less)' : '(Show More)';
+
+        trigger.innerHTML = html;
+        triggerWaypointRefresh();
+//        scrollPage(scrollTo);
     }
 
-    toggleAccordionPanel () {
-        if (this.caret.length !== 0) this.caret.toggleClass('accordion-panel__caret--open');
-        this.trigger.toggleClass('open');
-        this.body.toggleClass('accordion-panel__content--open');
-        let scrollTo = this.body.hasClass('accordion-panel__content--open') ? 
-            this.body.offset().top - 50 : this.element.offset().top - 250
-        setTimeout(() => {
-            $(document).trigger('accordion');
-        }, 500);
+    function triggerWaypointRefresh () {
+        setTimeout(done => $(document).trigger('accordion'), 500);
+    }
+
+    function scrollPage (scrollTo) {
         $('html, body').animate({
             scrollTop: scrollTo
         }, 300);
     }
+
+    return (function () {
+        setIndexes();
+        if (caret) {
+            triggers.click(toggleAccordionPanel);
+        } else {
+            triggers.click(toggleCaretlessPanel);
+        }
+    })()
 }
+

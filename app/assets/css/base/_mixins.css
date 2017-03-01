@@ -1,5 +1,10 @@
 @define-mixin atSmall {
-    @media (min-width: 480px) {
+  @media (min-width: 480px) {
+    @mixin-content;
+  }
+}
+@define-mixin isSmall {
+    @media (max-width: 480px) {
         @mixin-content;
     }
 }
@@ -8,12 +13,21 @@
         @mixin-content;
     }
 }
+@define-mixin smThanMedium {
+    @media (max-width: 768px) {
+        @mixin-content;
+    }
+}
 @define-mixin atLarge {
     @media (min-width: 991px) {
         @mixin-content;
     }
 }
-
+@define-mixin smThanLarge {
+    @media (max-width: 991px) {
+        @mixin-content;
+    }
+}
 @define-mixin clearfix {
     &::after {
         content: '';
@@ -36,7 +50,43 @@
     }
 }
 
+@define-mixin vCenter {
+    position  : absolute;
+    top       : 50%;
+    transform : translateY(-50%)
+}
+@define-mixin vFCenter {
+    position  : fixed;
+    top       : 50%;
+    transform : translateY(-50%)
+}
+
+@define-mixin hCenter {
+    position  : absolute;
+    left      : 50%;
+    transform : translateX(-50%)
+}
+@define-mixin hFCenter {
+    position  : fixed;
+    left      : 50%;
+    transform : translateX(-50%)
+}
+
+@define-mixin deadCenter {
+    position  : absolute;
+    top       : 50%;
+    left      : 50%;
+    transform : translate(-50%, -50%);
+}
+@define-mixin deadFCenter {
+    position  : fixed;
+    top       : 50%;
+    left      : 50%;
+    transform : translate(-50%, -50%);
+}
+
 @define-mixin centerBlock {
-    margin-left: auto;
-    margin-right: auto;
+    display: block;
+    margin-left  : auto;
+    margin-right : auto;
 }

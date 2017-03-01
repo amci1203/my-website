@@ -15,7 +15,7 @@
         height: 90px;
         @mixin atSmall {
             width: 72px;
-            margin: 0 5px;
+            margin: 5px;
         }
         .icon {
             display: block;
@@ -23,14 +23,8 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            max-width: 80px;
-            max-height: 80px;
+            max-width: 50px;
+            max-height: 50px;
         }
     }
-}
-
-svg { display: none }
-
-svg symbol g, path {
-    fill: #FFF !important;
 }

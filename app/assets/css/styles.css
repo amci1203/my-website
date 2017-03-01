@@ -5,9 +5,10 @@
     @import 'base/_mixins';
     @import 'base/_global';
 /* ASSURED SINGLE USE */
-    @import 'modules/_header';
     @import 'modules/_landing';
     @import 'modules/_primary-nav';
+    @import 'modules/_mobile-buttons';
+    @import 'modules/_social-media-buttons';
     @import 'modules/_footer';
     @import 'modules/_resume';
 /* POTENTIAL REUSABLE */
@@ -18,7 +19,9 @@
     @import 'modules/_btn';
     @import 'modules/_feature-item';
     @import 'modules/_generic-content-container';
-    /*@import 'modules/_icon';*/
+    @import 'modules/_text';
+    @import 'modules/_tooltip';
+    @import 'modules/_icon';
     @import 'modules/_page-section';
     @import 'modules/_pull';
     @import 'modules/_row';

@@ -1,16 +1,4 @@
-#landing {
-    background-attachment: fixed !important;
-    background-repeat: no-repeat !important;
-    background-size: cover !important;
-    border-bottom: 6px solid #CCC;
-    background: url('assets/img/landing_bg/xsmall.png');
-    @mixin atSmall {
-        background: url('assets/img/landing_bg/small.png');
-    }
-    @mixin atMedium {
-        background: url('assets/img/landing_bg/medium.png');
-    }
-
+.landing {
     .wrapper {
         width: 100%;
         position: absolute;
@@ -18,7 +6,6 @@
         left: 50%;
         transform: translate(-50%, -50%);
     }
-    .img-container {}
     img {
         display: block;
         @mixin centerBlock;
