@@ -48,9 +48,9 @@ a {
     visibility: hidden;
 }
 
-.page-lock { overflow-y: hidden !important }
+.scroll-lock { overflow-y: hidden !important }
 
-.page-lock .page-shadow {
+.scroll-lock .page-shadow {
     position: fixed;
     display: block;
     z-index: 200;
