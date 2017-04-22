@@ -1,5 +1,10 @@
+#_resume {
+    background     : url(assets/img/landing-bg.jpg);
+    background-attachment: fixed;
+    background-repeat: repeat;
+}
 .resume {
-    margin         : 50px auto;
+    padding-top    : 50px;
     padding-bottom : 150px;
     @media only print {
         margin    : 0 auto;
@@ -18,10 +23,14 @@
     }
 
     &__portrait {
-        display: none;
-        @mixin smThanMedium {
-            @media not print {
-                display: none;
+        @media not print {
+            @mixin smThanMedium {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                height: 150px;
+                width: 150px;
+                border-radius: 9999px;
             }
         }
         @mixin atMedium {
@@ -66,8 +75,10 @@
                 text-align    : right;
             }
             @media only print {
+                text-align: right;
                 position: absolute;
                 bottom: 0;
+                right: 15px;
             }
         }
     }

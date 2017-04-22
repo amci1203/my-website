@@ -58,31 +58,35 @@
 
 	var _Menu2 = _interopRequireDefault(_Menu);
 
-	var _Modal = __webpack_require__(7);
+	var _Injector = __webpack_require__(7);
+
+	var _Injector2 = _interopRequireDefault(_Injector);
+
+	var _Modal = __webpack_require__(8);
 
 	var _Modal2 = _interopRequireDefault(_Modal);
 
-	var _Accordion = __webpack_require__(8);
+	var _Accordion = __webpack_require__(9);
 
 	var _Accordion2 = _interopRequireDefault(_Accordion);
 
-	var _ScrollSpy = __webpack_require__(9);
+	var _ScrollSpy = __webpack_require__(10);
 
 	var _ScrollSpy2 = _interopRequireDefault(_ScrollSpy);
 
-	var _RevealOnScroll = __webpack_require__(11);
+	var _RevealOnScroll = __webpack_require__(12);
 
 	var _RevealOnScroll2 = _interopRequireDefault(_RevealOnScroll);
 
-	var _StickyHeader = __webpack_require__(12);
+	var _StickyHeader = __webpack_require__(13);
 
 	var _StickyHeader2 = _interopRequireDefault(_StickyHeader);
 
-	var _FullScreenSection = __webpack_require__(13);
+	var _FullScreenSection = __webpack_require__(14);
 
 	var _FullScreenSection2 = _interopRequireDefault(_FullScreenSection);
 
-	var _SocialMediaButtons = __webpack_require__(14);
+	var _SocialMediaButtons = __webpack_require__(15);
 
 	var _SocialMediaButtons2 = _interopRequireDefault(_SocialMediaButtons);
 
@@ -98,13 +102,14 @@
 	        (0, _ScrollSpy2.default)();
 	        (0, _SocialMediaButtons2.default)();
 	        (0, _Accordion2.default)('.accordion', false);
+	        (0, _FullScreenSection2.default)('.landing, #contacts');
 	    } else if (id == '_resume') {
 	        (0, _FullScreenSection2.default)('.resume');
 	        (0, _Accordion2.default)('.accordion');
 	    }
 	}
 
-	(0, _jquery2.default)(document).ready(init);
+	(0, _jquery2.default)(document).ready(_Injector2.default.bind(null, init));
 
 /***/ },
 /* 1 */
@@ -10882,6 +10887,85 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
+	exports.default = Injector;
+
+	var _jquery = __webpack_require__(1);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+	function Injector(callback) {
+	    function findView(elm) {
+	        var path = elm.getAttribute('data-view'),
+	            nest = elm.getAttribute('data-root'),
+	            child = path.split('/'),
+	            root = nest ? nest.split('/') : ['views'];
+
+	        if (path.charAt(0) == '/') {
+	            var abs = path.substr(-5) == '.html' ? path : path + '.html';
+	            return abs;
+	        };
+
+	        var directoriesUp = child.filter(function (str) {
+	            return str == '..';
+	        }).length,
+	            inViewsFolder = root.length - directoriesUp > 0;
+
+	        if (!inViewsFolder && childPath[0] != '') {
+	            console.error('All views/partials should be in the "views" folder. Use an absolute path to use files above "views"');
+	            return false;
+	        } else {
+	            var realRoot = directoriesUp == 0 ? root : root.slice(0, directoriesUp * -1),
+	                realChild = child.filter(function (str) {
+	                return str != '..';
+	            }),
+	                view = [].concat(_toConsumableArray(realRoot), _toConsumableArray(realChild)).join('/'),
+	                rel = view.substr(-5) == '.html' ? view : view + '.html';
+
+	            return rel;
+	        }
+	    }
+
+	    function fetchPartials() {
+	        var partials = (0, _jquery2.default)('._partial'),
+	            hasPartials = partials.length;
+
+	        if (hasPartials) {
+	            var i = void 0;
+	            for (i = 0; i < hasPartials; i++) {
+	                var partial = partials.get(i),
+	                    view = findView(partial),
+	                    isLast = i == hasPartials - 1;
+	                get(partial, view, isLast);
+	            }
+	        } else setTimeout(callback, 200);
+	    }
+
+	    function get(elm, path, isLast) {
+	        _jquery2.default.get(path).done(function (data) {
+	            (0, _jquery2.default)(elm).html(data);
+	            (0, _jquery2.default)(elm).find('._partial').attr('data-root', path.split('/').slice(0, -1).join('/'));
+	            (0, _jquery2.default)(elm).children().unwrap();
+
+	            if (isLast) fetchPartials();
+	        }).fail(function (err) {});
+	    }
+
+	    return fetchPartials();
+	}
+
+/***/ },
+/* 8 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -10935,7 +11019,7 @@
 	exports.default = Modal;
 
 /***/ },
-/* 8 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11019,7 +11103,7 @@
 	}
 
 /***/ },
-/* 9 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11033,7 +11117,7 @@
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
-	var _jquerySmoothScroll = __webpack_require__(10);
+	var _jquerySmoothScroll = __webpack_require__(11);
 
 	var _jquerySmoothScroll2 = _interopRequireDefault(_jquerySmoothScroll);
 
@@ -11086,7 +11170,7 @@
 	}
 
 /***/ },
-/* 10 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -11411,7 +11495,7 @@
 
 
 /***/ },
-/* 11 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11460,7 +11544,7 @@
 	}
 
 /***/ },
-/* 12 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11517,12 +11601,12 @@
 
 	    return function () {
 	        init();
-	        (0, _jquery2.default)(window).scroll(_lodash2.default.throttle(handleScroll, interval));
+	        //        $(window).scroll(_.throttle(handleScroll, interval))
 	    }();
 	}
 
 /***/ },
-/* 13 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -11551,7 +11635,7 @@
 	}
 
 /***/ },
-/* 14 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

@@ -24,7 +24,7 @@
     }
     .center {
         @mixin deadCenter;
-        button { width: $mob-navH !important }
+        button { width: calc($mob-navH + 25px) !important }
     }
 
     button:not(.menu-toggle) {

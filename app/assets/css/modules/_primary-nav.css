@@ -103,10 +103,15 @@
         right: 15px;
         bottom: calc(($mob-navH / 1.6) * -1);
         &__button {
-            margin  : 0 3px;
-            z-index : $share-buttonsZ;
-            float   : right;
-            border  : 3px solid #111;
+            z-index: 9;
+            float: right;
+            padding: 10px;
+            margin: 0 10px;
+            background-color: #464646;
+            border: 2px solid #111;
+            border-radius: 22.5px;
+            height: 45px;
+            width: 45px;
         }
     }
 }

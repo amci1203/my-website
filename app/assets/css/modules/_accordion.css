@@ -1,6 +1,11 @@
 .accordion {
     overflow: hidden;
 
+    &__info {
+        margin-bottom: 0;
+        @media print { display: none }
+    }
+
     .accordion-panel {
         position: relative;
         transition: all 0.3s ease-out;
@@ -21,14 +26,15 @@
 
         &__caret {
             @media only print { display: none }
+            @mixin smThanMedium { display: none }
+            top: 35px;
+            right: 25px;
             position: absolute;
             z-index: 10;
-            top: 0;
-            right: 25px;
             width: 0;
             height: 0;
             border-style: solid;
-            border-width: 0 10px 17.3px 10px;
+            border-width: 0 7px 14px 7px;
             border-color: transparent transparent #3d3d3d transparent;
             text-align: center;
             font-weight: 700;
@@ -53,6 +59,13 @@
             transition: all .6s;
             line-height: 1.35;
             
+            ul {
+                @mixin smThanMedium {
+                    padding: 0;
+                    li { list-style-type: none }
+                }
+            }
+
             &--open {
                 max-height: 1500px;
                 padding: 0 10px 20px 10px;

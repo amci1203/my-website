@@ -2,6 +2,7 @@ import $         from 'jquery';
 import waypoints from '../../../node_modules/waypoints/lib/noframework.waypoints';
 
 import Menu               from './modules/Menu';
+import Injector           from './modules/Injector';
 import Modal              from './modules/Modal';
 import Accordion          from './modules/Accordion';
 import ScrollSpy          from './modules/ScrollSpy';
@@ -20,6 +21,7 @@ function init () {
         ScrollSpy();
         SocialMediaButtons();
         Accordion('.accordion', false);
+        FullScreenSection('.landing, #contacts');
     }
     else if (id == '_resume') {
         FullScreenSection('.resume');
@@ -27,4 +29,4 @@ function init () {
     }
 }
 
-$(document).ready(init)
+$(document).ready(Injector.bind(null, init))

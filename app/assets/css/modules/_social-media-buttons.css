@@ -17,7 +17,7 @@
 
     &.visible {
         @mixin smThanMedium { margin-bottom : 0 }
-        @mixin atMedium     { margin-top    : 0 }
+        @mixin atMedium     { margin-top    : 20px }
         opacity: 1;
     }
 

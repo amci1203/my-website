@@ -7,10 +7,10 @@
     }
     &__icon {
         @mixin clickable;
-        position : relative;
+        position: relative;
         background-color: $bahamaBlue;
         display: inline-block;
-        margin: 0 5px 5px 5px;
+        margin: 0 5px 5px;
         width: 90px !important;
         height: 90px;
         @mixin atSmall {
@@ -22,7 +22,7 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%);
+            transform: translate(-50%,-50%);
             max-width: 50px;
             max-height: 50px;
         }
