@@ -4,7 +4,7 @@ module.exports = {
         vendor: './app/assets/js/vendor.js',
     },
     output: {
-        path: './app/temp/scripts',
+        path: './public/scripts',
         filename: '[name].js',
     },
     module: {
