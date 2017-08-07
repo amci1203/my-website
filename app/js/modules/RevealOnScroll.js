@@ -1,5 +1,5 @@
 import $         from 'jquery';
-import waypoints from '../../../../node_modules/waypoints/lib/noframework.waypoints';
+import waypoints from '../../../node_modules/waypoints/lib/noframework.waypoints';
 
 export default function RevealOnScroll (selector, waypointOffset, doesZoom) {
     const toReveal = $(selector.trim()),

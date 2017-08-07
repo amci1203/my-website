@@ -1,7 +1,9 @@
 module.exports = {
     entry: {
-        app: './app/assets/js/app.js',
-        vendor: './app/assets/js/vendor.js',
+        app: './app/js/app.js',
+        fcc: './app/js/fcc.js',
+
+        vendor: './app/js/vendor.js',
     },
     output: {
         path: './public/scripts',
@@ -12,7 +14,8 @@ module.exports = {
             {
                 loader: 'babel',
                 query: {
-                    presets: ['es2015']
+                    presets: ['es2015', 'es2016'],
+                    plugins: ['lodash']
                 },
                 test: /\.js$/,
                 exclude: /node_modules/

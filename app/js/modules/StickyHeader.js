@@ -1,8 +1,6 @@
 import $ from 'jquery';
 import _ from '../vendor/lodash.min';
 
-//import waypoints from '../../../../node_modules/waypoints/lib/noframework.waypoints';
-
 export default function StickyHeader () {
     const
         nav                  = document.getElementById('primary-nav'),

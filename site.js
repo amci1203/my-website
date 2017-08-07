@@ -6,13 +6,14 @@ const
     { join } = require('path'),
     // CONFIGURATION
     PORT = process.env.PORT || 3000,
-    PROJECTS_FOLDER = join(__dirname, 'public', 'fcc'),
     // APP
     app = express();
 
 // MIDDLEWARES
 app.use( express.static(join(__dirname, 'public')));
-app.use('/', require('./routes')(express.Router()));
+app.use('/fcc', require('./routes')(express.Router()));
+
+app.get('/', (req, res) => res.send('index.html'));
 
 
 

@@ -1,12 +1,13 @@
 import $         from 'jquery';
 import smooth    from 'jquery-smooth-scroll';
-import waypoints from '../../../../node_modules/waypoints/lib/noframework.waypoints';
+import waypoints from '../../../node_modules/waypoints/lib/noframework.waypoints';
 
 export default function ScrollSpy () {
-    const pageSections = $('.page-section'),
-          lazyImages   = $('.lazyload'),
-          links        = $('.primary-nav a'),
-          anchors      = $('.anchor');
+    const 
+        pageSections = $('.page-section'),
+        lazyImages   = $('.lazyload'),
+        links        = $('.primary-nav a'),
+        anchors      = $('.anchor');
 
 
     function sectionChange (section, direction, targetDirection) {
@@ -17,24 +18,24 @@ export default function ScrollSpy () {
         }
     }
 
-    return (() => {
-        pageSections.each(function () {
-            let cs = this;
-            new Waypoint({
-                element : cs,
-                offset  : '18%',
-                handler : direction => sectionChange(cs, direction, 'down')
-            })
-            new Waypoint({
-                element : cs,
-                offset  : '-40%',
-                handler : direction => sectionChange(cs, direction, 'up')
-            })
+    pageSections.each(function () {
+        let cs = this;
+        new Waypoint({
+            element : cs,
+            offset  : '18%',
+            handler : direction => sectionChange(cs, direction, 'down')
         })
+        new Waypoint({
+            element : cs,
+            offset  : '-40%',
+            handler : direction => sectionChange(cs, direction, 'up')
+        })
+    })
 
-        links.smoothScroll();
-        anchors.smoothScroll();
+    links.smoothScroll();
+    anchors.smoothScroll();
 
-        lazyImages.load(() => Waypoint.refreshAll());
-    })()
+    lazyImages.load(() => Waypoint.refreshAll());
+
+    return;
 }

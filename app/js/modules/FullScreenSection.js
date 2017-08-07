@@ -1,7 +1,8 @@
 import $ from 'jquery';
+import { debounce } from 'lodash'
 
 export default function FullScreenSection (selector) {
-    const section = $(selector.trim());
+    const section = $(selector);
 
     function fixHeight () {
         section.css('min-height', window.innerHeight);

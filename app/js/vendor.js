@@ -1,3 +1,3 @@
 import 'lazysizes';
 import 'picturefill';
-import '../../temp/scripts/modernizr';
+import '../../public/scripts/modernizr';
