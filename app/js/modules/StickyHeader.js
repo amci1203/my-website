@@ -38,6 +38,6 @@ export default function StickyHeader () {
 
     return (function () {
         init();
-//        $(window).scroll(_.throttle(handleScroll, interval))
+        $(window).scroll(_.throttle(handleScroll, interval))
     })()
 }

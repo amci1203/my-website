@@ -11269,7 +11269,7 @@
 
 	    return function () {
 	        init();
-	        //        $(window).scroll(_.throttle(handleScroll, interval))
+	        (0, _jquery2.default)(window).scroll(_lodash2.default.throttle(handleScroll, interval));
 	    }();
 	}
 

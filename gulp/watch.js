@@ -6,7 +6,7 @@ const
 gulp.task('default', () => gulp.start('watch'));
 
 gulp.task('cssInject', ['css'], () => gulp
-    .src('./app/styles.css')
+    .src('./public/styles.css')
     .pipe(browser.stream())
 );
 
@@ -27,5 +27,5 @@ gulp.task('watch', ['css', 'scripts'], () => {
     });
     watch('./app/css/**/*.css', () => gulp.start('cssInject'));
     watch('./app/js/**/*.js', () => gulp.start('scriptsRefresh'));
-    watch('./public/*.html', browser.reload);
+    watch('./public/**/*.html', browser.reload);
 });

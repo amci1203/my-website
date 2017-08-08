@@ -14,39 +14,57 @@ const
 
     PROJECTS_FOLDER = join(__dirname, 'public', 'fcc'),
 
-    exists = path => new Promise((resolve, reject) => {
+    exists = path => new Promise(resolve =>
         fs.exists(path, res => resolve(res))
-    }),
+    ),
 
     readFile = path => new Promise((resolve, reject) => {
         fs.readFile(path, 'utf8', (err, res) => {
             if (err) {
-                console.error('--------\t ->' + err.toString());
+                console.error('--->\t' + err.toString());
                 reject(err);
             }
             resolve(res);
         })
     });
 
-async function getAllProjectInfo (req, res) {
-    fs.readdir(PROJECTS_FOLDER, (err, folders) => folders.map(dir => {
+function getAllProjectInfo (req, res) {
+    fs.readdir(PROJECTS_FOLDER, (err, folders) => {
         const
-            name        = dir,
-            thumbPath   = join(PROJECTS_FOLDER, dir, 'thumbnail.png'),
-            descPath    = join(PROJECTS_FOLDER, dir, 'description.txt');
-        let
-            description, thumbnail;
+            payload = [],
+            len = folders.length;
+        let completed = 0;
 
-        exists(thumbPath).then(thumb => {
-            thumbnail = thumb ? `/fcc/${dir}/thumbnail.png` : null;
-            exists(descPath).then(desc => {
-                description = desc ? readFile(descPath).then(res => res) : null;
+        folders.map(dir => {
+            const
+                name        = dir,
+                thumbPath   = join(PROJECTS_FOLDER, dir, 'thumbnail.png'),
+                descPath    = join(PROJECTS_FOLDER, dir, 'description.txt');
+            let
+                description = null, thumbnail = null;
 
-                res.json({ name, thumbnail, description });
+            const pushAndSendIfDone = obj => {
+                payload.push(obj);
+                if (completed == len) res.json(payload);
+            };
+
+            exists(thumbPath).then(thumb => {
+                if (thumb) thumbnail = `/fcc/${dir}/thumbnail.png`;
+                exists(descPath).then(desc => {
+                    completed++;
+
+                    if (desc) {
+                        readFile(descPath).then(res => {
+                            description = res;
+                            pushAndSendIfDone({name, thumbnail, description});
+                            
+                        })
+                    }
+                    else pushAndSendIfDone({name, thumbnail, description});
+                })
             })
         })
-
-    }));
+    });
 }
 
 function getProject ({ params }, res) {

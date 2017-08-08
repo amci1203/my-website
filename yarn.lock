@@ -2168,7 +2168,7 @@ gulp-uglify@^2.0.0:
     uglify-save-license "^0.4.1"
     vinyl-sourcemaps-apply "^0.2.0"
 
-gulp-usemin@^0.3.25:
+gulp-usemin@^0.3.28:
   version "0.3.28"
   resolved "https://registry.yarnpkg.com/gulp-usemin/-/gulp-usemin-0.3.28.tgz#78f5886189720c48da7a0ffde65f0928fb54fcd1"
   dependencies:

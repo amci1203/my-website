@@ -1,22 +1,65 @@
+#projects {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+
+    &.blue .thumbnail {
+        background: color($mainBlue l(+ 10)) !important;
+    }
+}
+
 .thumbnail {
-    display: block;
-    padding: 15px;
-    margin-bottom: 25px;
-    background-color: #FFF;
-    border: 1px solid rgb(215, 215, 215);
-    box-shadow: 2px 3px 1px #333;
-    color: #111;
-    &__photo {
-        @util center-block;
-        border: 2px solid #CCC;
-        box-shadow: 1px 1px 1px #333;
-        width: 100%;
+    $thumb-bg: color($body-bg b(+ 5));
+
+    margin: 1rem 0;
+    padding: 5px;
+    background: $thumb-bg;
+    border-radius: 0.35rem;
+    box-shadow: 0 2px 3px 2px color(black a(0.5));
+
+    flex-basis: 100%;
+
+    @mixin atMedium {
+        margin: 1rem 1%;
+        flex-basis: 48%;
     }
-    &__heading {
+
+    @mixin atLarge {
+        flex-basis: 31%;
+    }
+
+    &__image {
+
+        display: flex;
+        margin: auto;
+        height: 250px;
+        padding-bottom: 0.5rem;
+        border-bottom: 3px solid color($thumb-bg b(+ 30));
+
+        img {
+            display: block;
+            margin: auto;
+            max-width: 100%;
+            max-height: 100%;
+            border: 1px solid #EEE;
+        }
+    }
+
+    &__title {
+        font-weight: 100;
         text-align: center;
-        text-decoration: underline;
+        padding: 0 0.5rem;
     }
+
     &__description {
-        
+        padding: 0 0.95rem;
+        padding-bottom: 1rem;
+        text-align: justify;
+
+        &.none {
+            text-align: center;
+            font-weight: 600;
+        }
     }
+
 }

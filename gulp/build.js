@@ -26,7 +26,7 @@ gulp.task('copyGeneralFiles', ['cleanDist'], () => {
 gulp.task('useminTrigger', ['cleanDist'], () => gulp.start('optimizeStaticFiles'));
 
 gulp.task('optimizeStaticFiles', ['css', 'scripts'], () => {
-    return gulp.src(['./app/*.html'])
+    return gulp.src(['./public/*.html'])
         .pipe(usemin({
             css : [ rev, nano ],
             js  : [ rev, uglify ]

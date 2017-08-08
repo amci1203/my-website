@@ -58,33 +58,49 @@
         &--bordered {
             border           : 1px solid #111;
             background-color : #FFF;
-            color            : $mainBlue;
+            color            : $darkest-gray;
             &:hover {
                 background-color : #DDD;
                 color            : #111;
             }
         }
         background-color : #FFF;
-        color            : $mainBlue;
+        color            : $$darkest-gray;
         &:hover {
             background-color : #DDD;
-            color            : $mainBlue;
+            color            : $$darkest-gray;
+        }
+    }
+    &--light-gray {
+        &--bordered {
+            border           : 1px solid #DDD;
+            background-color : #FFF;
+            color            : $darkest-gray;
+            &:hover {
+                background-color : #CCC;
+                color            : #111;
+            }
+        }
+        background-color : #DDD;
+        color            : #111 !important;
+        &:hover {
+            background-color : #B7B7B7;
         }
     }
     &--blue {
         &--bordered {
             border           : 1px solid $mainBlue;
-            background-color : color($mainBlue l(- 35));
+            background-color : color($mainBlue l(- 15));
             color            : #FFF;
             &:hover {
                 background-color : $mainBlue;
                 color            : #FFF;
             }
         }
-        background-color : color($mainBlue l(- 35));
+        background-color : color($mainBlue l(- 15));
         color            : #FFF;
         &:hover {
-            background-color : $mainBlue;
+            background-color : color($mainBlue l(- 25));
             color            : #FFF;
         }
     }
