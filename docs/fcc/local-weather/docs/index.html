@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html class='page-lock loading'>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Weather Viewer</title>
+    <meta name="theme-color" content="#777777" />
+    <link rel="stylesheet" href="styles-2e6413dbd1.css"/>
+</head>
+<body>
+
+    <h1 class="section-title">Local Weather</h1>
+    <main class="wrapper generic-content">
+        <div id='info' class='hidden'>
+
+            <h2 id='city' class="section-title sub-heading"></h2>
+            <p id='temperature'><span id='value'></span>&deg;<span id='units'></span></p>
+            <p id="description"></p>
+
+            <div id='icons' class="icons">
+              <div class="icon sun-shower">
+                <div class="cloud"></div>
+                <div class="sun">
+                  <div class="rays"></div>
+                </div>
+                <div class="rain"></div>
+              </div>
+              <div class="icon thunderstorm">
+                <div class="cloud"></div>
+                <div class="lightning">
+                  <div class="bolt"></div>
+                  <div class="bolt"></div>
+                </div>
+              </div>
+              <div class="icon cloudy clouds">
+                <div class="cloud"></div>
+                <div class="cloud"></div>
+              </div>
+              <div class="icon flurries snow">
+                <div class="cloud"></div>
+                <div class="snow">
+                  <div class="flake"></div>
+                  <div class="flake"></div>
+                </div>
+              </div>
+              <div class="icon sunny clear">
+                <div class="sun">
+                  <div class="rays"></div>
+                </div>
+              </div>
+              <div class="icon rainy rain">
+                <div class="cloud"></div>
+                <div class="rain"></div>
+              </div>
+            </div>
+
+        </div>
+    </main>
+
+    <div id="loading-shadow" class='page-shadow'>
+        <div class="loading-circle">
+            <img src="assets/img/loading.svg" alt="" />
+        </div>
+    </div>
+
+    <p id="kudos">Icon styling and animation "borrowed" from <a href="https://codepen.io/freeCodeCamp/pen/bELRjV?editors=0010" target="_blank">here</a></p>
+    <script src="app-8d9c5ca46f.js"></script>
+</body>
+</html>

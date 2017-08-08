@@ -1,0 +1,206 @@
+/*
+@use postcss-nested;
+@use postcss-simple-vars;
+@use postcss-mixins;
+@use postcss-color-function;
+*/
+
+$breakpoint: 800px;
+
+$background: #EEE;
+$color: #333;
+$btn-color: #1AE;
+
+@define-mixin atMedium {
+    @media (min-width: $breakpoint) {
+        @mixin-content;
+    }
+}
+
+@define-mixin isSmall {
+    @media (max-width: $breakpoint) {
+        @mixin-content;
+    }
+}
+
+* { box-sizing: border-box }
+
+body {
+    margin: 0;
+    padding: 0;
+    background: $background;
+    color: $color;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+}
+
+.wrapper {
+    max-width: 1236px;
+    padding: 0 25px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.recipe {
+    position: relative;
+    transition: all 0.3s ease;
+    background: color($background b(+ 10));
+    padding: 1rem 1.315rem;
+    margin: 1rem 0;
+    border-radius: 12px;
+
+    &__name {
+        margin: 0.1rem 0;
+    }
+
+    &__trigger {
+        position: absolute;
+        display: block;
+        overflow: hidden;
+        width: 100%;
+        height: 3.5rem;
+        top: 0;
+        left: 0;
+        margin: 0;
+        padding: 10px;
+        &:hover { cursor:pointer }
+    }
+
+    &__details {
+        transition: all 0.5s;
+        max-height: 0;
+        overflow: hidden;
+        &.active {
+            max-height: 800px;
+        }
+    }
+
+    &__ingredients {
+
+    }
+}
+
+.title {
+    text-align: center;
+    font-weight: 100;
+    font-size: 3.35rem;
+    margin-top: 1rem;
+    margin-bottom: 1.6rem;
+    @mixin atMedium { font-size: 4.35rem }
+
+    &.subtitle {
+        font-size: 1.45rem;
+        @mixin atMedium { font-size: 1.85rem }
+    }
+}
+
+.btn {
+    display: inline-block;
+    padding: 0.35rem 0.65rem;
+    margin: 1rem 0.8rem;
+    font-size: 1.35rem;
+    background: $btn-color;
+    color: color($background l(+ 10));
+    border: none;
+    border-radius: 5px;
+
+    &.center {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    &.danger { background: #A13 }
+
+    &.wide { width: 80% }
+    &.full-width { width: 100% }
+}
+
+textarea, input {
+    width: 100%;
+    font-size: 1rem;
+    padding: 25px 15px;
+    border-radius: 15px;
+    border: 1px solid #CCC;
+}
+
+input {
+    padding: 5px 20px;
+    margin-bottom: 25px;
+}
+
+.label {
+    margin-bottom: 2px;
+    margin-top: 0.6rem;
+    padding-left: 1rem;
+}
+
+.modal {
+    transition: all 0.3s ease-out;
+
+    &--open {
+        opacity: 1;
+        visibility: visible;
+        z-index: 9000;
+        transform: scale(1)
+    }
+
+    opacity: 0;
+    visibility: hidden;
+    z-index: 0;
+    transform: scale(1.2);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background-color: color(rgb(223, 223, 223) a(85%));
+    &--dark { background-color: color(rgb(43, 43, 43) a(85%)) }
+
+    &__header {
+        text-align: center;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #BBB;
+        span {
+            display: inline-block;
+            margin-top: 15px;
+        }
+    }
+
+    &__close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 1.5rem;
+        transform-origin: top right;
+        transform: scaleX(1.2);
+        cursor: pointer;
+        text-shadow: 1px 1px 2px color(black a(0.5));
+    }
+
+    &__body {
+        &--opaque {
+            background-color: #FFF;
+            border: 1px solid #CCC;
+            border-radius: 20px;
+            box-shadow: 0 2px 1px 1px rgba(3, 3, 3, 0.5);
+        }
+        &--scrollable {
+            max-height: calc(100vh);
+            overflow-y: auto;
+        }
+        @mixin isSmall {
+            padding: 25px 10px;
+            width: 90%;
+        }
+        padding: 55px 30px;
+        font-size: 1.2rem;
+        position: absolute;
+        width: 40rem;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        overflow-y: auto;
+    }
+}

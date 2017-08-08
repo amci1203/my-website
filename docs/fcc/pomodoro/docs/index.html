@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pomodoro Timer</title>
+    <meta name="theme-color" content="#500bce" />
+    <link rel="stylesheet" href="styles-19516919fe.css"/>
+</head>
+<body>
+
+    <main id="pomodoro">
+        <section id="timer-container">
+            <p id='timer'><span id='timer-minutes'></span>:<span id='timer-seconds'></span></p>
+            <button id="toggle-play" class='play'>
+                <span class="pause-bar-seperator"></span>
+            </button>
+        </section>
+        <section id="incrementers">
+            <div id='inc:session' class="inc-group">
+                <p>SESSION</p>
+                <button class="increment increment-down"></button>
+                <span class='timer-length' id="session-length"></span>
+                <button class="increment increment-up"></button>
+            </div>
+            <div id='inc:break' class="inc-group">
+                <p>BREAK</p>
+                <button class="increment increment-down"></button>
+                <span class='timer-length' id="break-length"></span>
+                <button class="increment increment-up"></button>
+            </div>
+        </section>
+
+        <button id='stop' class='hidden' >STOP</button>
+    </main>
+
+    <audio id='alarm'><source src='smoke-alarm.mp3' type='audio/mpeg'/></audio>
+    <script src="app-f9da34eccf.js"></script>
+</body>
+</html>

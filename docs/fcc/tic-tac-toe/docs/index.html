@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tic-Tac-Toe</title>
+    <meta name="theme-color" content="#215C21" />
+    <link rel="stylesheet" href="styles-59c6806683.css"/>
+</head>
+<body>
+
+    <main class="wrapper">
+
+        <section id="player-select" class='active wrapper'>
+
+            <h1 class="title">TIC-TAC-TOE</h1>
+
+            <p>Will you play with a friend or against the CPU?</p>
+            <ul>
+                <li class="player-option">HUMAN</li>
+                <li class="player-option">CPU</li>
+            </ul>
+            <br />
+            <p>What will you play as?</p>
+            <ul>
+                <li class="letter-option">X</li>
+                <li class="letter-option">O</li>
+            </ul>
+
+            <buttton class='btn hidden' id="play">PLAY</buttton>
+        </section>
+
+        <section id="board" class='wrapper'>
+
+            <p id='turn'>
+                <span id='your-wins'>0</span>
+                <span id='you' class='bold'>&nbsp;&#8226; P1</span>
+                <span id="pointer"></span>
+                <span id='opponent'></span>
+                <span id='opponent-wins'>0</span>
+            </p>
+            <p id="who">
+                <span id='who-you'></span>
+                <span id='who-opponent'></span>
+            </p>
+            <button class='btn' id="stop">STOP</button>
+
+        </section>
+
+        <section id='victory' class='modal'>
+
+            <p id="victory-text"></p>
+            <button class='btn' id="replay">REPLAY</button>
+
+        </section>
+
+    </main>
+
+    <script src="app-aab0fd8c7e.js"></script>
+</body>
+</html>

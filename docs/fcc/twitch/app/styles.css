@@ -1,0 +1,58 @@
+* { box-sizing: border-box }
+
+html { overflow-x: hidden !important }
+
+body {
+    background  : rgb(99, 65, 162);
+    font-family : 'Helvettica', 'Arial', sans-serif;
+    font-size   : 16px;
+    color       : rgb(240, 240, 240);
+}
+
+.title {
+    text-align  : center;
+    font-size   : 2.65rem;
+    font-weight : 100;
+}
+
+.btn {
+    display: inline-block;
+    background: #FFF;
+    border: none;
+    text-align: center;
+    font-size: 18px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    
+    text-decoration: none
+}
+
+.btn:active, .btn:hover, .btn:visited { text-decoration: none; color: #333 }
+
+.btn:hover { cursor: pointer }
+
+#users {
+    max-width : 960px;
+    margin    : 20px auto;
+    padding   : 0 20px;
+}
+
+#users article, #users a { position: relative; display: block; margin: 2rem 0; padding: 1.35rem 1.35rem 0.5rem 1.35rem; text-decoration: none !important; color: rgb(240, 240, 240); background: rgb(90, 64, 138); box-shadow: 0 2px 1px 1px rgba(40, 40, 40, 0.3); }
+
+#users article p, #users a p { text-align: center }
+
+#users article .subtitle, #users a .subtitle { font-weight: 400; font-size: 1.45rem; text-align: center; margin-bottom: 3px; border-bottom: 1px solid #DDD }
+
+#users article img, #users article img.logo, #users a img, #users a img.logo { display: block; margin: 0 auto; width: 100px; height: 100px; border-radius: 50%; border: 3px solid #FFF; box-shadow: 0 3px 1px 2px rgba(20, 20, 20, 0.3); }
+
+@media (min-width: 768px) {
+
+ #users article img, #users article img.logo, #users a img, #users a img.logo { width: 120px; height: 120px; position: absolute; top: 50%; -webkit-transform: translateY(-50%); transform: translateY(-50%) }
+
+ #users article p, #users a p { text-align: left }
+
+ #users article > *:not(img), #users a > *:not(img) { margin-left: 160px } }
+
+@media (min-width: 768px) {
+
+ #users article .subtitle, #users a .subtitle { text-align: left; font-size: 2.15rem } }

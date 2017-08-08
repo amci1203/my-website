@@ -1,0 +1,279 @@
+$body-bg: #013311;
+$body-fg: #FFF;
+
+$sidebarW: 300px;
+$wrapperP: 25px;
+
+$btn-bg: color($body-bg b(+ 5%));
+
+@define-mixin atMedium {
+    @media (min-width: 800px) { @mixin-content }
+}
+
+
+/*********************************************************************/
+
+* { box-sizing: border-box }
+
+body {
+    background: $body-bg;
+    font-family: 'Helvettica', 'Arial', sans-serif;
+    text-align: center;
+    color: $body-fg;
+}
+
+.hidden { display: none !important }
+
+.bold { font-weight: 800 }
+
+.wrapper {
+
+    /*position: relative*/
+    max-width     : 600px;
+    margin        : 0 auto;
+    padding-left  : $wrapperP;
+    padding-right : $wrapperP;
+}
+
+.title {
+    text-align  : center;
+    font-size   : 2.65rem;
+    font-weight : 100;
+}
+
+.btn {
+    display: inline-block;
+    background: $btn-bg;
+    color: $body-fg;
+    border: none;
+    text-align: center;
+    font-size: 2.15rem;
+    padding: 10px 15px;
+    margin: 80px 0;
+
+    text-decoration: none;
+    &:active, &:hover, &:visited {
+        text-decoration: none;
+        background: $body-fg;
+        color: $btn-bg;
+    }
+
+    &:hover { cursor: pointer }
+}
+
+#play, #stop {
+
+    @media (max-width: 768px) {
+
+        position: absolute;
+        bottom: 0px;
+        left: 0;
+        width: 100%;
+        margin: 0;
+
+    }
+
+}
+
+#player-select, #board {
+
+    transition: 0.3s all ease;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0; left: 0; bottom: 0; right: 0;
+    opacity: 0;
+    transform: scale(0.5);
+    z-index: -100;
+
+    &.active {
+        opacity: 1;
+        transform: scale(1);
+        z-index: 100;
+    }
+}
+
+#board {
+
+    #turn {
+
+        position  : relative;
+        margin    : 0 auto;
+        height    : 2rem;
+        max-width : 350px;
+        font-size : 1.4rem;
+        margin-top: 20px;
+
+        @mixin atMedium {
+            max-width: 600px;
+            font-size: 2.1rem;
+        }
+
+        #you, #your-wins, #opponent, #opponent-wins, #pointer { position: absolute; top: 0 }
+
+        #you {
+            left: 1.2rem;
+            &r-wins { left: 0 }
+        }
+
+        #opponent {
+            right: 1.2rem;
+            &-wins { right: 0 }
+        }
+
+        #pointer {
+            transition: 0.35s all ease-out;
+            display: block;
+            margin: 0;
+            padding: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 0.8rem 1.8rem 0.8rem 0;
+            border-color: transparent $body-fg transparent;
+
+            &.right {
+                transform: translateX(-50%) rotate(180deg);
+            }
+        }
+
+    }
+
+    #who {
+
+        position  : relative;
+        margin    : 0 auto;
+        height    : 3rem;
+        max-width : 250px;
+        font-size : 1.4rem;
+
+        @mixin atMedium {
+            max-width: 4fnvvfrhfhrhggh00px;
+            font-size: 2.1rem;
+        }
+
+        &-you, &-opponent { position: absolute; top: 0 }
+        &-you { left: 0 }
+        &-opponent { right: 0 }
+
+    }
+
+    table {
+
+        position: relative;
+        /*top: 80px;*/
+
+        border-collapse: collapse;
+        margin      : 0 auto;
+        font-family : monospace;
+
+        td {
+
+            font-size  : 70px;
+            height : 100px;
+            width  : 100px;
+
+            @mixin atMedium {
+                font-size  : 100px;
+                width  : 140px;
+                height : 140px;
+            }
+
+            &.winning-line { color: #EFFF22 }
+
+        }
+
+        tr:nth-child(even) td {
+            border-top: 1px solid $body-fg;
+            border-bottom: 1px solid $body-fg;
+        }
+
+        td:nth-child(even) {
+            border-left: 1px solid $body-fg;
+            border-right: 1px solid $body-fg;
+        }
+
+    }
+
+    #stop {
+        @mixin atMedium {
+            position: absolute;
+            left: 50%;
+            bottom: 25px;
+            margin: 0;
+            transform: translateX(-50%);
+        }
+    }
+}
+
+#player-select {
+
+    font-size: 18px;
+
+    ul {
+        margin: 0;
+        padding: 0;
+        padding-bottom: 20px;
+    }
+
+    li {
+        float: left;
+        display: inline-block;
+        width: 50%;
+        padding: 15px 0;
+        border: 1px solid $btn-bg;
+
+        &:first-child { border-radius: 50px 0 0 50px }
+        &:last-child  { border-radius: 0 50px 50px 0 }
+
+        &:hover { background: color($body-bg l(+ 5%)) }
+        &.selected {
+            font-weight: 600;
+            background: $body-fg;
+            color: $btn-bg
+        }
+    }
+
+    p {
+        font-size   : 1.65rem;
+        font-weight : 100;
+        clear       : both;
+    }
+
+}
+
+.modal {
+
+    position : fixed;
+    width    : 100%;
+    height   : 100%;
+    opacity  : 0;
+    z-index  : -1000;
+    top    : 0;
+    left   : 0;
+    bottom : 0;
+    right  : 0;
+    background : color(black a(0.8));
+
+    &--open {
+        opacity : 1;
+        z-index: 1000;
+    }
+
+    p {
+        font-size: 2.25rem;
+    }
+
+    .btn {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: 0 auto;
+        transform: translate(-50%, -50%) scale(1.215);
+        background: $body-fg;
+        color: #222;
+    }
+
+}
