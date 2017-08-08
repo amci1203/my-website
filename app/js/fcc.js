@@ -8,7 +8,7 @@ const
 
     init = () => {
 
-        fetch('projects')
+        fetch('fcc/projects')
             .then(res => res.json())
             .then(res => makeProjectThumbnails(res));
 

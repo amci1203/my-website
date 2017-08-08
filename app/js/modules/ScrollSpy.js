@@ -1,6 +1,6 @@
-import $         from 'jquery';
-import smooth    from 'jquery-smooth-scroll';
-import waypoints from '../../../node_modules/waypoints/lib/noframework.waypoints';
+import $            from 'jquery';
+// import smoothScroll from 'jquery-smooth-scroll';
+import waypoints    from '../../../node_modules/waypoints/lib/noframework.waypoints';
 
 export default function ScrollSpy () {
     const 
@@ -32,10 +32,9 @@ export default function ScrollSpy () {
         })
     })
 
-    links.smoothScroll();
-    anchors.smoothScroll();
+    // links.smoothScroll();
+    // anchors.smoothScroll();
 
     lazyImages.load(() => Waypoint.refreshAll());
 
-    return;
 }

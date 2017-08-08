@@ -7,7 +7,7 @@ gulp.task('default', () => gulp.start('watch'));
 
 gulp.task('cssInject', ['css'], () => gulp
     .src('./app/styles.css')
-    .pipe(browserSync.stream())
+    .pipe(browser.stream())
 );
 
 gulp.task('scriptsRefresh', ['scripts'], browser.reload);
@@ -19,7 +19,7 @@ gulp.task('distView', () => browser.init({
     }
 }));
 
-gulp.task('watch', () => {
+gulp.task('watch', ['css', 'scripts'], () => {
     browser.init({
         notify: false,
         port: 8888,

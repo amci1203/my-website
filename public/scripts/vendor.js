@@ -47,15 +47,15 @@
 
 	'use strict';
 
+	__webpack_require__(15);
+
+	__webpack_require__(16);
+
 	__webpack_require__(17);
-
-	__webpack_require__(18);
-
-	__webpack_require__(19);
 
 /***/ }),
 
-/***/ 17:
+/***/ 15:
 /***/ (function(module, exports) {
 
 	(function(window, factory) {
@@ -745,7 +745,7 @@
 
 /***/ }),
 
-/***/ 18:
+/***/ 16:
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/*! picturefill - v3.0.2 - 2016-02-12
@@ -2296,7 +2296,7 @@
 
 /***/ }),
 
-/***/ 19:
+/***/ 17:
 /***/ (function(module, exports) {
 
 	'use strict';

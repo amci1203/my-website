@@ -25,7 +25,7 @@ export default function Menu () {
 
     function closeMenu () {
         const targetClass = 'primary-nav--open',
-              isAnchor    = content.attr('href').charAt('0') == '#';
+              isAnchor    = $(this).attr('href').charAt('0') == '#';
         if (content.hasClass(targetClass) && isAnchor) toggleMenu();
     }
 

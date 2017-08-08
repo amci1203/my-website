@@ -74,14 +74,14 @@
     &--blue {
         &--bordered {
             border           : 1px solid $mainBlue;
-            background-color : color($mainBlue l(35%));
+            background-color : color($mainBlue l(- 35));
             color            : #FFF;
             &:hover {
                 background-color : $mainBlue;
                 color            : #FFF;
             }
         }
-        background-color : color($mainBlue l(35%));
+        background-color : color($mainBlue l(- 35));
         color            : #FFF;
         &:hover {
             background-color : $mainBlue;
@@ -109,10 +109,11 @@
     }
     &--center {
         display      : block;
-        margin       : 10px;
-        margin-right : auto;
-        margin-left  :  auto;
-        width        : 100%;
-        @mixin atMedium { width: auto }
+        margin       : 10px auto;
+        @mixin isSmall { width: 100% }
+        @mixin atMedium {
+            padding-left: 3rem;
+            padding-right: 3rem;
+        }
     }
 }

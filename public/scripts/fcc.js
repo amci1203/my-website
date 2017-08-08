@@ -47,13 +47,13 @@
 
 	'use strict';
 
-	__webpack_require__(17);
+	__webpack_require__(15);
 
 	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } } // VENDOR DEPENDENCIES
 
 	var init = function init() {
 
-	    fetch('projects').then(function (res) {
+	    fetch('fcc/projects').then(function (res) {
 	        return res.json();
 	    }).then(function (res) {
 	        return makeProjectThumbnails(res);
@@ -129,7 +129,7 @@
 
 /***/ }),
 
-/***/ 17:
+/***/ 15:
 /***/ (function(module, exports) {
 
 	(function(window, factory) {
