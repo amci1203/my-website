@@ -1,6 +1,6 @@
+import axios from 'axios';
 import makeProjectThumbnails from './modules/ProjectThumbnails';
 
-fetch('/fcc/projects')
-    .then(res => res.json())
-    .then(res => makeProjectThumbnails(res))
+axios.get('/fcc/projects')
+    .then(res => makeProjectThumbnails(res.data))
     .catch(err => console.error(err.toString()));
