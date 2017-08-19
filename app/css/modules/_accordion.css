@@ -10,6 +10,11 @@
         position: relative;
         transition: all 0.3s ease-out;
 
+        @media only print {
+            margin: 1rem 0;
+            padding: 0;
+        }
+
         &__heading {
             position: relative;
             z-index: 15;
@@ -18,6 +23,9 @@
             border-bottom: 1px solid #111;
             transition: all .6s;
             cursor: pointer;
+            @media only print {
+                margin-top: 1px !important;
+            }
         }
         &__always-shown {
             position: relative;
@@ -77,10 +85,11 @@
 
             @media only print {
                 position: relative;
-                max-height: 2000px;
+                padding: 0 5px 0 5px;
+                max-height: 1500px;
                 z-index: 10;
                 opacity: 1;
-                line-height: normal;
+                line-height: 1.35;
             }
 
             &__heading {

@@ -20,6 +20,10 @@
 
     &__title {
         text-align: center;
+        font-weight: 100;
+        font-size: 2.45rem;
+        margin-top: 2px;
+        margin-bottom: 1rem;
     }
 
     &__portrait {

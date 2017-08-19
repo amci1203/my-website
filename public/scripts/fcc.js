@@ -53,13 +53,13 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	(function () {
-	    return fetch('fcc/projects').then(function (res) {
-	        return res.json();
-	    }).then(function (res) {
-	        return (0, _ProjectThumbnails2.default)(res);
-	    });
-	})();
+	fetch('/fcc/projects').then(function (res) {
+	    return res.json();
+	}).then(function (res) {
+	    return (0, _ProjectThumbnails2.default)(res);
+	}).catch(function (err) {
+	    return console.error(err.toString());
+	});
 
 /***/ }),
 

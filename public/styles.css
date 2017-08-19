@@ -846,6 +846,10 @@
 }
     .resume__title {
         text-align: center;
+        font-weight: 100;
+        font-size: 2.45rem;
+        margin-top: 2px;
+        margin-bottom: 1rem;
 }
     @media not print and (max-width: 768px) {
   .resume__portrait {
@@ -2209,6 +2213,12 @@
         -webkit-transition: all 0.3s ease-out;
         transition: all 0.3s ease-out;
 }
+    @media only print {
+  .accordion .accordion-panel {
+    margin: 1rem 0;
+    padding: 0;
+  }
+}
     .accordion .accordion-panel__heading {
             position: relative;
             z-index: 15;
@@ -2218,11 +2228,16 @@
             -webkit-transition: all .6s;
             transition: all .6s;
             cursor: pointer;
-        }
+}
+    @media only print {
+  .accordion .accordion-panel__heading {
+    margin-top: 1px !important;
+  }
+}
     .accordion .accordion-panel__always-shown {
             position: relative;
             z-index: 15;
-        }
+}
     @media only print {
   .accordion .accordion-panel__caret {
     display: none;
@@ -2287,10 +2302,11 @@
     @media only print {
   .accordion .accordion-panel__content {
     position: relative;
-    max-height: 2000px;
+    padding: 0 5px 0 5px;
+    max-height: 1500px;
     z-index: 10;
     opacity: 1;
-    line-height: normal;
+    line-height: 1.35;
   }
 }
     .accordion .accordion-panel__content__heading {
