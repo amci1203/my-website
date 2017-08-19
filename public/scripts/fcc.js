@@ -1828,7 +1828,7 @@
 	        }).join(' ');
 	    };
 
-	    return appendTo(createElement('article', 'thumbnail'), appendTo(createElement('a', 'thumbnail__image', null, { href: '/' + name }), createElement('img', 'lazyload', null, { 'data-src': thumbnail })), createElement('h1', 'thumbnail__title', format(name)), createElement('p', description ? 'thumbnail__description' : 'thumbnail__description none', description || '(No Description)'));
+	    return appendTo(createElement('article', 'thumbnail'), appendTo(createElement('a', 'thumbnail__image', null, { href: '/fcc/' + name }), createElement('img', 'lazyload', null, { 'data-src': thumbnail })), createElement('h1', 'thumbnail__title', format(name)), createElement('p', description ? 'thumbnail__description' : 'thumbnail__description none', description || '(No Description)'));
 	},
 	    createElement = function createElement(tag) {
 	    var classes = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;

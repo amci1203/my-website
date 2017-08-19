@@ -68,7 +68,7 @@ function getAllProjectInfo (req, res) {
 }
 
 function getProject ({ params }, res) {
-    res.redirect(`fcc/${params.project}/docs/index.html`);
+    res.redirect(`/fcc/${params.project}/docs/index.html`);
 }
 
 function getProjectSource (req, res) {}

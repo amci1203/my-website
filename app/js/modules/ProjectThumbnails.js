@@ -23,7 +23,7 @@ const
         ;
 
         return appendTo(createElement('article', 'thumbnail'),
-            appendTo(createElement('a', 'thumbnail__image', null, { href: `/${name}` }),
+            appendTo(createElement('a', 'thumbnail__image', null, { href: `/fcc/${name}` }),
                 createElement(
                     'img',
                     'lazyload',
