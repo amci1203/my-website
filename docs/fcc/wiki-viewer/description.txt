@@ -1,1 +1,0 @@
-Uses Wikipedia's public API and JSONP to fetch search results for a given query. Done solely with standard HTML, plain JavaScript, and post-css.
